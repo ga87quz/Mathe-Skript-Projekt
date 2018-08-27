@@ -1,0 +1,335 @@
+
+%%%%  ! T  E X root=hm2ln.tex
+% !TEX root=MA9603.WZW.tex
+% !TeX program = pdflatex
+% !TEX spellcheck = de_DE
+
+%===============================================================================
+\section{Taylorentwicklung und Hauptachsentransformation}
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Hauptachsentransformation durchf\"uhren k\"onnen
+\item Quadriken klassifizieren k\"onnen
+\item Wdh: Taylor-Entwicklung
+\item Wdh: Orthogonsle Matrizen
+\end{itemize}}
+%===============================================================================
+
+
+In dieser Lehreinheit werden wir einige n\"utzliche 
+Konzepte wiederholen und (leicht) vertiefen.
+
+
+\subsection{Wdh: Taylor-Entwicklung bis zur quadratischen Ordnung}
+%===============================================================================
+
+Wir beschr\"anken uns zun\"achst auf die Entwicklung einer Funktion
+$g:\R^2\rightarrow\R$. Die lineare Approximation kennen wir schon, 
+$$g(x+h) = g(x)+(\nabla g(x))^T h +\mbox{Fehler}.$$
+Wir m\"ochten diese Entwicklung bis zu quadratischen Termen 
+weiter treiben. Dazu definieren wir die Funktion
+$$ f:\R\rightarrow\R,\quad t\mapsto g(x+t\, h).$$
+Dann ist $f(1)=g(x+h)$. Da $f$ eine Funktion ist, die von $\R$ nach
+$\R$ geht, wissen wir sofort, dass
+$$f(t) = f(0)
++\frac d{dt} f(t)\bigg|_{t=0}\,\, t
++\frac 1 2 \,\,\frac d{dt} f(t)\bigg|_{t=0}\,\, t^2+\ldots
+$$
+Nun m\"ussen wir diese Ableitungen ausrechnen, was aber wegen der 
+{\bf Kettenregel}
+$$ \frac d {dt} u(v_1(t), v_2(t)) = u_x(v_1(t), v_2(t))\, v_1'(t)
+                 +u_y(v_1(t), v_2(t))\,v_2'(t)$$
+ kein Problem ist:
+\begin{eqnarray*}
+\frac d {dt} f(t) &=& \frac d{dt} g(x_1+t\, h_1,x_2+th_2) 
+= (\nabla g(x+t\,h))^Th\\
+&=& 
+g_{x_1}(x_1+t\, h_1,x_2+th_2) h_1 
++
+g_{x_2}(x_1+t\, h_1,x_2+th_2) h_2\\
+\frac {d^2} {dt^2} f(t) &=& \frac d{dt} \left(\frac d {dt} f(t)\right)
+= 
+ \frac d{dt} \left(
+ g_{x_1}(x_1+t\, h_1,x_2+th_2) h_1 
++
+g_{x_2}(x_1+t\, h_1,x_2+th_2) h_2
+ \right)\\
+ &=&  
+ g_{x_1\,x_1}(x_1+t\, h_1,x_2+th_2) h_1^2 
+ + 
+ g_{x_2\,x_1}(x_1+t\, h_1,x_2+th_2) h_1\, h_2\\
+ && 
+ g_{x_1\,x_2}(x_1+t\, h_1,x_2+th_2) h_1\, h_2
+ + 
+ g_{x_2\,x_2}(x_1+t\, h_1,x_2+th_2) h_2^2
+\end{eqnarray*}
+Der letzte Ausdruck legt nahe, die Hesse-Matrix zu definieren.
+\begin{defi}\index{Hesse-Matrix}
+F\"ur $g:\R^2\rightarrow\R$ definiere die Hesse-Matrix $H\in\R^{2\times 2}$,
+$$H = \left(\begin{array}{cc}
+g_{x_1\,x_1} & g_{x_2\,x_1}\\
+g_{x_1\,x_2} & g_{x_2\,x_2}
+\end{array}\right).
+$$
+F\"ur $g:\R^n\rightarrow \R$ definieren wir analog
+$$H = \left(\begin{array}{ccc}
+g_{x_1\,x_1} & \ldots &g_{x_n\,x_1}\\
+ & \vdots & \\
+g_{x_1\,x_n} & \ldots & g_{x_n\,x_n}
+\end{array}\right)\,\,\,\in\,\,\,\R^{n\times n}.
+$$
+\end{defi}
+Damit finden wir die kompakte Schreibweise
+$$ f'(0) = (\nabla g(x))^T\,h,\qquad f''(0) = h^THh,$$
+und 
+$$ f(t) = f(0)+ f'(0)\, t+\frac 1 2 f''(0)\, t^2
+= g(x)+t\,(\nabla g(x))^T h+\frac 1 2\,t^2\, h^T H h+\ldots.$$
+Mit $g(x+h)=f(1)$ finden wir die gesuchten Terme zweiter Ordnung.
+
+\fpbox{
+Sei $g:\R^n\rightarrow \R$ eine zwei mal differenzierbare Funktion. 
+Dann ist die Taylor-Approximation bis zur quadratischen Ordnung 
+gegeben durch 
+$$ g(x+h) \approx g(x) + (\nabla g(x))^T h+\frac 1 2 h^T H h$$
+wobei $H$ die Hesse-Matrix am Punkt $x$ ist. Den Term 
+$$ h^T H h $$
+nennen wir eine quadratische Form\index{quadratische Form}, der Ausdruck 
+$$g(x) + (\nabla g(x))^T h+\frac 1 2 h^T H h$$
+nennen wir Quadrik\index{Quadrik}.
+}
+
+Die n\"achste Frage lautet, nat\"urlich: Wie sieht eine Quadrik aus?
+Dazu beachten wir, dass $H$ immer (wie im Beispiel auch) eine 
+Symmetrische Matrix ist:
+\begin{satz} F\"ur eine Hesse-Matrix gilt immer $H^T=H$, d.h.\
+$$ \partial_{x_i}\partial_{x_j}g(x) 
+= 
+\partial_{x_j}\partial_{x_i}g(x).
+$$
+\end{satz}
+
+
+
+%==============================================================================
+\begin{auf}\chc\label{block1A1}
+\input{../../Aufgabensammlung/hmQuadrik1.tex}
+\end{auf}
+%==============================================================================
+
+
+
+%===============================================================================
+
+\subsection{Wdh: Orthogonale Matrizen}$\quad$\par
+Bevor wir uns orthogonale Matrizen ansehen, erinnern wir uns an die Formel
+$$ (Ax)^T = x^T A^T.$$
+Da $x y= <x,y>$ das Euklidsche Skalarprodukt ist, wissen wir, dass
+man eine Matrix in einem Skalarprodukt von einem Vektor auf den anderen
+schieben kann, in dem man die Matrix transponiert,
+$$< Ax,y> = <x, A^Ty>.$$
+weiter erinnern wir uns, dass eine ONB $\{b_1,\ldots, b_n\}$ 
+eine Menge aus $n$ Vektoren ist, f\"ur die 
+$$ <b_i,b_j>=0\quad\mbox{ f\"ur } i\not = j, \qquad <b_i,b_i>=1$$
+gilt.
+
+Wir ben"otigen sp"ater noch den folgenden Satz, den wir aber nicht beweisen.
+\begin{satz}\label{symmEV}
+Sei $A\in\R^{n\times n}$ eine symmetrische Matrix, d.h.\ $A^T=A$. Dann besitzt
+$A$ eine Eigenbasis, die ein ONB bildet, und die Eigenwerte von $A$ sind alle reell.
+\end{satz}
+%===============================================================================
+
+
+Wie "ublich, ist die  \emph{Einheitsmatrix} $I$ definiert als 
+$$ I = \left(\begin{array}{cccc}
+1 & 0& \cdots & 0\\
+0 & 1& \cdots & 0\\
+               &             & \vdots &                \\
+0 & 0 & \cdots & 1\\  
+\end{array}\right).
+$$
+Die Einheitsmatrix ist die Darstellung der Identit"atsabbildung auf $\R^n$.
+
+\begin{sdefi} 
+Matrizen $U\in \R^{n\times n}$ mit 
+$ U^T U = I$
+hei"sen \emph{orthogonale Matrizen}.
+\end{sdefi}
+%===============================================================================
+
+
+\begin{slemma} Eine orthogonale Matrix $U\in\R^{n\times n}$\\
+(a) ist invertierbar mit $U^{-1}=U^T$,\\
+(b) besitzt orthonormale Spaltenvektoren\\
+(c) besitzt orthonormale Zeilenvektoren\\
+(d) $<Ux, Uy> = <x,y>$\\
+(e) bildet eine ONB auf eine ONB ab\\
+(f) l"asst die Norm eines Vektors invariant\\
+(g) l"asst Winkel (Erinnerung: $\cos(\alpha) = <x,y>/(\|x\|\,\|y\|)$) zwischen Vektoren invariant
+\end{slemma}
+{\bf Beweis: } Sei $U$ eine orthogonale Matrix. \par 
+(a) Da $U^T U = I$ haben wir sofort $U^{-1} = U^T$.\par
+(b,c) Da $(U^TU)^T = I^T = I$, und $(U^TU)^T = U^TU$, so haben wir $U^TU=I$. 
+Seien $a_1,...,a_n$ die Spaltenvektoren von $U$,  $U=(a_1,...,a_n)$. Dann ist 
+$ \delta_{i,j} = ((I))_{i,j} = ((U^TU))_{i,j} = a_i^T a_j = <a_i, a_j>.$
+Also formt $\{a_i\}_{i=1,...n}$ eine ONB des $\R^n$. (c): analog.\par
+(d) Zun"achst ist $ <Ux,Uy> = <x, U^TUy> = <x,y>$.\par
+(e) Seien $\tilde b_i = U b_i$, $i=1,...,n$ die transformierten Basisvektoren. 
+Dann ist $ <\tilde b_i, \tilde b_j>  = <b_i, b_j> = \delta_{i,j}.$ Damit ist
+ $\{\tilde b_i\}$ eine ONB.\par
+(f) Weiter folgt $\|Ux\|^2 = <Ux, Ux> =   <x,x> = \|x\|^2$.\par
+(g) Zuletzt folgt, dass die Invarianz des Skalarprodukts die Invarianz von Winkel 
+impliziert.
+\par\qed
+\begin{sbem}
+Orthonormale Matrizen lassen also die Lage der Vektoren zueinander invariant; letztlich entsprechen diese Matrizen den geometrischen Operationen: Spiegelung und Drehung; auch die Permutation von Koordinaten wird durch orthogonale Matrizen beschrieben.
+\end{sbem}
+%===============================================================================
+
+\begin{auf}\cha\label{block1A6b}
+\input{../../Aufgabensammlung/hm734.tex}
+\end{auf}
+%===============================================================================
+
+
+\subsection{Quadratische Form und Hauptachsentransformation}
+
+Sei nun $b$ ein Vektor, $H$ die Hesse-Matrix einer Funktion. 
+Wir m\"ochten die Quadrik 
+$$ k(h) := b^T h + \frac 1 2 h^T H h$$
+besser verstehen, insbesondere sind wir an Klassifikationen 
+verschiedener F"alle interessiert. \\
+F"ur die Hesse-Matrix $H$, haben wir immer $H^T=H$.\\
+\fpbox{ Wir nutzen die speziellen Eigenschaften symmetrischer Matrizen:\\
+$\bullet$ alle Eigenwerte $\lambda_1,\ldots,\lambda_n$ sind reell\\
+$\bullet$ wir finden ONB aus Eigenvektoren $y_1,\ldots,y_n$\\
+$\bullet$ die Transformationsmatrix $T=(y_1,\ldots,y_n)$ ist orthogonal.
+}
+\par\medskip
+Also $T^{-1} H T=D$, wobei $D$ die Diagonalmatrix mit den Eintr\"agen 
+$\lambda_1,\ldots,\lambda_n$ ist. F\"ur unsere quadratische Form 
+haben wir also (beachte: $T^{-1} = T^T$)
+$$ h^T H h = h^T T T^T H T T^T h = (T^{T} h)^{T} D (T^{T}h)
+= \sum_{i=1}^n \lambda_i(Th)_i^2$$
+Daher, 
+$$ k(h) = (T^Tb)^TT^{-1}h + \frac 1 2 (T^{T} h)^{T} D (T^{T}h) 
+= \sum_{i=1}^n \bigg(\tilde b_i\, (T^{T}h)_i + \frac 1  2 \lambda_i(T^{T}h)_i^2\bigg),$$
+wobei $\tilde b_i=(T^Tb)_i$. Wenn wir direkt $\tilde k(y) = k(T^{-1} h)$ 
+definieren (transformation des Koordinatensystems), haben wir 
+$$ \tilde k(y) = \sum_{i=1}^n \bigg(\tilde b_i\, y_i + \lambda_i(y_i)^2\bigg).$$
+\par\medskip
+
+Nun betrachten wir Level-Mengen, d.h.\ die Mengen
+$$ \{ h\in\R^n\,|\, k(h)=c\}$$
+f\"ur verschiedene Werte von $c\in\R$. Wir starten in zwei Dimensionen, $n=2$. 
+
+\subsubsection{Klassifikation in zwei Dimensionen}
+
+Generischer Fall: $\lambda_1,\lambda_2\not = 0$.\par\medskip
+\index{Ellipse}\index{Hyperbel}
+Fall 1: $\lambda_1,\lambda_2>0$ (or $\lambda_1,\lambda_2<0$).\\
+Da 
+$$ax+bx^2 
+= b(x^2+2 \frac a{2b}x + \left(\frac a{2b}\right)^2- \left(\frac a{2b}\right)^2)
+= b\,(x+x_0)^2 - \left(\frac a{2b}\right)^2$$
+f\"ur $x_0 = \left(\frac a{2b}\right)$, k\"onnen wir $k(h)$ schreiben als 
+$$ \tilde k(y) = A +\frac 1 2 \lambda_1 (y_1^0+y_1)^2 + \frac 1  2\lambda_2 (y_2^0+y_2)^2$$
+wobei $y_1^0$, $y_2^0$ Konstanten sind. 
+Daher sind die Level-Mengen {\bf Ellipsen}, deren Achsen 
+im transformierten Koordinatensystem gerade die Koordinatenachsen sind. 
+\par\medskip
+Fall 2:  $\lambda_1>0>\lambda_2$\\
+Wie oben k"onnen wir $k(h)$ schreiben als 
+$$ \tilde k(y) = A +\frac 1 2 \lambda_1 (y_1^0+y_1)^2 + \frac 1 2 \lambda_2 (y_2^0+y_2)^2
+= A + \frac 1 2 |\lambda_1| (y_1^0+y_1)^2 - \frac 1 2 |\lambda_2| (y_2^0+y_2)^2.
+$$
+Damit sind die Level-Mengen im transformierten Koordinaten-System 
+{\bf Hyperbeln}.
+
+%===============================================================================
+
+\begin{auf}\cha\label{block1A6b}
+\input{../../Aufgabensammlung/hmIIhyperbel1.tex}
+\end{auf}
+%===============================================================================
+
+
+
+\subsubsection{Klassifikation in drei Dimensionen}
+Hier haben wir drei Eigenwerte, und doch nur zwei F"alle 
+f"ur $\lambda_i\not = 0$:\\
+a) $\lambda_1$,$\lambda_2$,$\lambda_3>0$\\
+b) $\lambda_1$,$\lambda_2>0$,\quad $\lambda_3<0$\\
+Zus"atzlich sehen wir uns noch an, was wir erhalten, wenn ein Eigenwert gleich Null ist. \par\medskip{}
+\index{Ellipsoid}\index{Hyperboloid}
+Wir wissen wie oben, dass wir $H$ durch eine lineare Transformation des Koordinatensystems
+diagonalisieren k"onnen, sodass wir $k(h)$ wieder in die Form
+$$\tilde k(y) = A + \frac 1 2 \sum_{i=1}^3\lambda_i (y_i^0+y_i)^2$$
+transformieren k"onnen (alle Eigenwerte ungleich Null), bzw. in die Form 
+$$\tilde k(y) = A + \frac 1 2 \sum_{i=1}^2\lambda_i (y_i^0+y_i)^2 + \tilde b_{3}y_{3}$$
+falls $\lambda_{3}$ als einziger Eigenwert gleich null ist.
+\par\medskip
+ 
+Fall 1: $\lambda_1$,$\lambda_2$,$\lambda_3>0$\\
+Dann finden wir ein {\bf Ellipsoid}.\par\medskip
+\begin{center}
+	\includegraphics[width=6cm]{../figures/Ellipsoide}
+\end{center}
+{\tiny Ellipsoid. Graphik entnommen: \url{https://de.wikipedia.org/wiki/Ellipsoid}}\par\medskip
+
+
+Fall 2: $\lambda_1$,$\lambda_2>0$, $\lambda_3<0$\\
+Dann finden wir ein {\bf Hyperboloid}. Das Hyperboloid kann ein- oder zweischalig sein, 
+je nach rechter Seite der Gleichung f"ur die Level-Menge $\tilde k(y)=c$, 
+$$ \tilde k(y) = A + \frac 1 2 |\lambda_1| (y_1^0+y_1)^2+\frac 1 2  |\lambda_2| (y_2^0+y_2)^2 - \frac 1 2 |\lambda_3| (y_3^0+y_3)^2 = c. $$
+ F"ur $c>0$ ist es einschalig, f"ur $c<0$ zweischalig (das ist aber f"ur uns nicht so wichtig).\par\medskip
+\begin{center}
+	\includegraphics[width=4cm]{../figures/330px-Hyperboloid1}
+	\includegraphics[width=4cm]{../figures/330px-Hyperboloid2}
+\end{center}
+{\tiny  Ein/Zweischaliges Hyperboloid. Graphik entnommen: \url{https://de.wikipedia.org/wiki/Hyperboloid}}\par\medskip
+
+
+
+Fall 3:  $\lambda_1$,$\lambda_2>0$, $\lambda_3=0$, $\tilde b_{3}\not = 0$\\
+Hier kann man unsere Gleichung $\tilde k(y)=c$ schreiben als 
+$$ \tilde k(y) = A + \frac 1 2 |\lambda_1| (y_1^0+y_1)^2+ \frac 1 2 |\lambda_2| (y_2^0+y_2)^2  = c-\tilde b_{3} y_{3}. $$
+D.h., wir haben in der $y_{1}$, $y_{2}$-Ebene ein Ellipsoid, dessen Radius sich durch den Wert der
+Koordinate $y_3$ ver"andert. Wir erhalten ein {\bf ellipisches Paraboloid}. \par\medskip
+\begin{center}
+	\includegraphics[width=6cm]{../figures/Paraboloid}
+\end{center}
+{\tiny Elliptisches Paraboloid. Graphik entnommen: \url{https://de.wikipedia.org/wiki/Paraboloid}}\par\medskip
+\index{elliptisches Paraboloid}\index{hyperbolisches paraboloid}
+Fall 4:  $\lambda_1>0>\lambda_2$, $\lambda_3=0$, $\tilde b_{3}\not = 0$\\
+Hier kann man unsere Gleichung $\tilde k(y)=c$ schreiben als 
+$$ \tilde k(y) = A +\frac 1 2  |\lambda_1| (y_1^0+y_1)^2- \frac 1 2 |\lambda_2| (y_2^0+y_2)^2  = c-\tilde b_{3} y_{3}. $$
+D.h., wir haben in der $y_{1}$, $y_{2}$-Ebene ein Hyperboloid, dessen Radius sich durch den Wert der
+Koordinate $y_3$ ver"andert. Wir erhalten ein {\bf hyperbolisches Paraboloid}. \par\medskip
+
+\begin{center}
+	\includegraphics[width=6cm]{../figures/Hyperbol_Paraboloid}
+\end{center}
+{\tiny Hyperbolisches Parabolpoid. Graphik entnommen: \url{https://de.wikipedia.org/wiki/Paraboloid}}\par\medskip
+
+
+
+%===============================================================================
+
+\begin{auf}\cha\label{block1A6b}
+\input{../../Aufgabensammlung/hmIIQuadrikKlassi1.tex}
+\end{auf}
+%===============================================================================
+
+
+
+
+
+
+
+
+
+
+
+

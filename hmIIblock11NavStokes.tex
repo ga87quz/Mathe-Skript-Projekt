@@ -1,0 +1,427 @@
+ 
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+%===============================================================================
+\section{Die Navier-Stokes-Gleichungen - partielle Differentialgleichungen
+der Str"omungsmechanik}
+%===============================================================================
+
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Herleitung der Navier-Stokes-Gleichung erkennen
+\item Laminarer Fluss in einer R"ohre berechnen k"onnen
+\end{itemize}}
+
+Die Navier-Stokes-Gleichungen sind f"ur die Fluidmechanik was das Newtonsche
+Grundgesetz  (Kraft gleich Masse mal Beschleunigung) f"ur die klassische 
+Mechanik ist. Tats"achlich beruhen die Navier-Stokes-Gleichungen im Wesentlichen 
+genau auf diesem Gesetz, das f"ur Fl"ussigkeiten entsprechend adaptiert wird. 
+Entwickelt wurden die Gleichungen von 
+Claude Lewis M.\ H.\ Navier (1785-1836) und Sir Georg Gabriel Stokes 
+(1819-1903). Zus"atzlich zum Grundgesetz der Mechanik muss vor allem noch der
+Masse-Erhalt formuliert werden. Wir betrachten den wichtigsten Spezialfall: die 
+inkompressiblen Fl"ussigkeiten. 
+%===============================================================================
+\subsection{Eulersche und Lagrangesche Koordinaten}
+%===============================================================================
+In diesem und den folgenden 
+Paragraphen entwickeln wir einige Grundlagen, die wir f"ur die 
+ Navier-Stokes-Gleichungen ben"otigen. Die Erste betrifft zwei verschiedene 
+Bezugssysteme: wir k"onnen in ein festes Koordinatensystem gehen (Eulersche 
+ Koordinaten), oder aber ein Koordinatensystem w"ahlen, das mit dem Fluss 
+ mitbewegt wird (Lagrangsche Koordinaten). 
+%===============================================================================
+Nehmen wir einen kleinen, dreidimensionalen Kasten. 
+
+In der \underline{Euler-Koordinaten} sitzt dieser Kasten
+an einem festen Punkt im Raum. Sein Inhalt "andert sich durch die hineinflie"sende 
+und die hinausflie"sende Fl"ussigkeit. Zus"atzlich m"ogen im Kasten noch physikalische 
+oder chemische Vorg"ange die Fl"ussigkeit "andern
+(``intrinsische "Anderungen'').
+
+In den \underline{Lagrange-Koordinaten} wird der Kasten mit der Fl"ussigkeit mitbewegt.
+ D.h., es wird keine Fl"ussigkeit hineinflie"sen oder  hinausflie"sen, 
+sondern wir haben ausschlie"slich die intrinsischen "Anderungen 
+zu betrachten. 
+%===============================================================================
+ \index{Lagrange--Koordinaten}  \index{Euler--Koordinaten Koordinaten} 
+Wir "ubersetzen die Idee in Mathematik. 
+
+\fpbox{
+Nehmen wir an, dass wir 
+das Geschwindigkeitsfeld $u(x,t)$ schon kennen (es ist eigentlich das Ziel,
+genau dieses Geschwindigkeitsfeld zu berechnen). Wir wissen also, dass ein
+Partikel am Ort $x\in\R^3$ zur Zeit $t$ sich in Richtung $u(x,t)\in\R^3$ 
+bewegt. Nehmen wir weiter an, dass sich dieses Partikel zur Zeit $t=0$ am Ort $X_0\in\R^3$ 
+ befand. Dann wissen wir, dass die Trajektorie (Bahn) des Partikels gegeben 
+ist durch die Differentialgleichung
+$$ \dot x = u(x,t),\qquad x(0) = X_0.$$
+Sei nun 
+$$ \Phi(t;X_0) = x(t)$$
+der Ort eines Partikels zur Zeit $t$, welches sich zur Zeit $t=0$ am Ort $X_0$ 
+befand. Dann wissen wir (s.o.), dass
+ $$\frac d {dt} \Phi(t;X_0) = u(\Phi(t;X_0), t).$$
+Damit k"onne wir also einen Ort im dreidimensionalen Raum zur Zeit $t$ dadurch 
+kennzeichnen, dass wir ihn direkt angeben (Euler'sches Bild, $(x,t)$) 
+oder aber sagen, wo der Ort zur Zeit $t=0$ war (Lagrange'sches Bild, 
+$(X_0, t)$). Die beiden Bilder h"angen zusammen durch die Funktion $\Phi(t;X_0)$, 
+$$ (x,t) = (\Phi(t;X_0),t).$$}
+\par\medskip
+Der n"achste Schritt besteht darin, eine Funktion in Euler- bzw. Lagrange-Koordinaten 
+auszudr"ucken. \par\medskip
+%===============================================================================
+\fpbox{
+Nun betrachten wir eine Funktion $f$ von Ort und Zeit (z.B. die Partikeldichte), 
+d.h. $f:\R^3\times \R_+\rightarrow\R$, $(x,t)\mapsto f(x,t)$. Hier geben wir
+Euler-Koordinaten an, d.h.\ wir fixieren einen Punkt in einem absoluten 
+Koordinatensystem $(x,t)$ und geben daf"ur den Wert der Funktion an.\\
+Wir k"onnen auch Lagrange-Koordinaten nutzen. In diesem Fall haben wir eine
+andere Darstellung der  (gleichen(!)) Funktion;  als Argument nutzen wir nun den 
+Ort $X_0$ zur Zeit $t=0$ und die Zeit $t$, $\tilde f:\R^3\times \R_+\rightarrow\R$, 
+$(X_0,t)\mapsto \tilde f(X_0,t)$. 
+
+Die Beziehung zwischen diesen beiden Darstellungen der Funktion lautet
+$$ \tilde f(X_0,t) = f(\Phi(X_0,t), t).$$
+Wichtig wird nun die Beziehung der zeitlichen Ableitung der Funktion in den 
+beiden Bildern:
+\parbox{\textwidth}{
+$$ \frac {d}{dt}\tilde f(X_0, t) = \frac {d}{dt} f(\Phi(t;X_0), t) = \frac{\partial}{\partial t}f(\Phi(t; X_0),t) + \nabla\bigg( f(\Phi(t;X_0),t) \, u(\Phi(t,X_0), t)\bigg).$$
+}
+}
+%===============================================================================
+\subsection{Erhaltung der Masse} 
+{\bf Massenerhalt in Euler-Koordinaten.} Betrachte ein Gebiet $V$ im 
+dreidimensionalem Raum mit glatten Rand $\partial V$. 
+Sei  $\rho(x,t)$ die Massendichte der Fl"ussigkeit am Ort $x$ und Zeit $t$
+Wir werden uns auf inkompressible Fl"ussigkeiten beschr"anken, da ist $\rho(x,t)$ 
+konstant; aber lassen wir diese Vereinfachung zun"achst mal au"ser Acht, und sehen, 
+welche Gleichung uns der Massenerhalt im Allgemeinen f"ur $\rho(x,t)$ liefert.  
+Die Masse, die im Volumen $V$ enthalten ist, betr"agt
+$$ m(t) = \int_V \rho(x,t)\, dt.$$
+Da wir Massenerhalt haben, kann sich die Masse in $V$ nur durch den Fluss von
+Partikeln durch die Oberfl"ache  $\partial V$ des Volumens "andern. 
+Die Massendichte bewegt sich nun entlang des Geschwindigkeitsfeld $u(x,t)$, 
+d.h. der Massenfluss ist gegeben durch 
+$$ \mbox{Fluss} = j(x,t) = \rho(x,t)\,u(x,t). $$
+Sei $n(x,t)$ die "au"sere Normale in $x\in\partial V$. dann folgt also 
+mit Hilfe des Gau"sschen Satzes
+\begin{eqnarray*}
+\frac{d}{dt} m(t) = \int_V\frac{\partial}{\partial t}\rho(x,t)\, dx = - \int_{\partial V} \rho(x,t) u(x,t)\,n(x,t) do 
+= -\int_V\nabla\,j(x,t)\, dx
+= -\int_V\nabla(\rho u)\, dx.
+\end{eqnarray*}
+Da das Volumen $V$ beliebig gew"ahlt war, m"ussen schon die Integranten gleich sein, 
+und wir erhalten die Gleichung f"ur den Massenerhalt im Euler-Koordinaten (vergleiche auch mit dem ersten Fickschen Gesetz
+ auf Seite~\pageref{fickschesXXGesetz})\\
+\fpbox{
+$$ \frac{\partial}{\partial t}\rho(x,t)  + \nabla(\rho(x,t) u(x,t)) = 0. $$
+}
+
+%===============================================================================
+{\bf Massenerhalt in Lagrange-Koordinaten.} Um die Lagrange-Form des Massenerhalts 
+herzuleiten, sei zun"achst bemerkt, dass 
+wir in die Euler-Form $x=\Phi(X,t)$ setzen d"urfen. Also:
+$$
+ \frac{\partial}{\partial t}\rho(\Phi(X,t),t)  
++ \nabla(\rho(\Phi(X,t),t) u(\Phi(X,t),t),t) = 0. 
+$$
+Definieren wir $\tilde\rho(\Phi(X,t),t)$ 
+als Massendichte in Lagrange-Koordinaten, so 
+finden wir (siehe oben) 
+\begin{eqnarray*}
+d/dt\,\ \tilde \rho(X,t) & = & \frac{\partial}{\partial t}\rho(\Phi(t;X_0),t)+
+\nabla \rho(\Phi(t;X_0),t) \, u(\Phi(t,X_0), t).
+\end{eqnarray*}
+Die rechte Seite ist Null (siehe die Gleichung zuvor), sodass wir die
+Langrange-Form des Massenerhalts erhalten\par
+\fpbox{
+$$ \frac d {dt}\tilde\rho(X,t) = 0.$$
+}
+Das ist auch klar, so, da -- wenn keine Partikel erzeugt oder vernichtet werden 
+sich nicht "andert -- die Partikeldichte am mitbewegten Punkt konstant bleiben muss.
+%===============================================================================
+\begin{sbem} Zusammenfassend haben wir die Euer-Form des Massenerhalts
+$$ \frac{\partial}{\partial t}\rho(x,t)  + \nabla(\rho(x,t) u(x,t)) = 0. $$
+und die Lagrange-Form des Massenerhalts
+$$ \frac d {dt}\tilde\rho(X,t) = 0.$$
+Eine inkompressible Fl"ussigkeit hat eine konstante Dichte, 
+d.h.\ $\rho_t=0$ und 
+$\nabla(\rho(x,t) u(x,t)) = \rho\nabla u(x,t)$. Aus der Eulerschen Form folgt 
+dann, dass Massenerhalt "aquivalent mit
+$$ \nabla u(x,t) = 0.$$
+ist.
+\end{sbem}
+%===============================================================================
+\subsection{Newtons Grundgleichung f"ur Str"omungsmechanik} 
+
+Wieder betrachten wieder ein kleines Volumen $V$. Verschiedene Kr"afte
+wirken auf die Masse im Volumens. Einige wirken auf die Masse durch die
+Oberfl"ache (wie den Druck), andere wirken auf jedes Partikel in dem Volumen
+(wie Gravitation oder elekromagnetische Kr"afte). Nach dem Grundgesetz der 
+Mechanik balancieren sich diese Kr"afte mit der Massentr"agheit, d.h.\ 
+beschleunigen die Masse. Das wiederum bedeutet eine "Anderung des 
+Geschwindigkeitsfelds. In einer eher physikalisch als 
+mathematisch inspirierten Schreibweise finden wir
+
+$$ dF = dm \, \frac {du}{dt} = \rho\, dV\, \frac {du}{dt} \qquad \Rightarrow\qquad 
+\frac{dF}{dV} = \rho  \frac {du}{dt}
+$$
+und mit $du/dt = \partial u/\partial t + (u\cdot \nabla) u$ erhalten wir
+$$
+\frac{dF}{dV} = \rho  \left(\frac{\partial u}{\partial t} + (u\cdot \nabla) u\right). 
+$$
+Sei $f = \partial F/\partial m$ die spezifischen Kr"afte (Kraft pro Masseneinheit). 
+Dann, 
+$$ \frac{dF}{dV} = f \frac{dm}{dV} = f \rho =  \rho 
+  \left(\frac{\partial u}{\partial t} + (u\cdot \nabla) u\right). 
+\qquad\Rightarrow\qquad
+ \frac{\partial u}{\partial t} + (u\cdot \nabla) u = f.
+ $$
+Der Vektor $f$ summiert die intrinsischen als auch die extrinsischen Kr"afte.
+Um die Gleichung zu vervollst"andigen, betrachten wir die wichtigsten Kr"afte.
+
+{\bf (a)  Druck.} \index{Druck} 
+$p(x,t)$ bezeichne der Druck. D.h., die Kraft, die auf das Volumen 
+von Au"sen aufgrund der Fl"ussigkeit in den Nachbarvolumina wirkt. 
+Diese Kraft ist gegeben durch ($n$ ist wieder die "au"sere Normale auf $\partial V$)
+$$ \mbox{Kraft durch Druck auf }V =  \int_{\partial V} p \, n\, do = \int_V \nabla p\, dx
+.$$
+Die spezifische Kraft (Kraft pro Massedichte) lautet daher 
+ $(\nabla p)/\rho$. Wenn dies die einzige zu ber"ucksichtigende Kraft ist, so 
+ erhalten wir die sogenannten \underline{inkompressiblen Eulergleichungen} 
+\index{Euler Gleichungen, inkompressiblen}\index{inkompressiblen Euler Gleichungen}\\
+\fpbox{
+$$  \frac{\partial u }{\partial t} + (u\,\cdot\,\nabla)\, u = \frac 1 \rho \nabla p,\qquad \nabla u = 0.$$
+}\par\medskip
+%===============================================================================
+{\bf (b) Viskosit"at.} 
+Die Molek"ule der Fl"ussigkeit folgen nicht wirklich genau dem Geschwindigkeitsfeld, 
+sondern diese Bewegung wird "uberlagert durch eine
+W"armebewegung (Brownsche Bewegung). Dieser Effekt ``transportiert'' 
+oder ``verschmiert'' Geschwindigkeit.. Molek"ule, die von benachbarten Trajektorien 
+stammen, vermischen sich. Dieses ``Vermischen'' wird gut durch 
+Terme der W"armeleitungsgleichung. Die spezifische Kraft, die durch die Viskosit"at 
+ausge"ubt wird, ist gegeben durch
+$$ f = \nu \Delta u.$$
+Alles in allem erhalten wir die Navier-Stokes Gleichung \\
+\fpbox{
+$$  \frac{\partial u }{\partial t} + (u\,\cdot\,\nabla)\, u+\nu\Delta u - \frac 1 \rho \nabla p = f,$$
+}
+wobei $f$ weitere Kr"afte (falls vorhanden) repr"asentiert. Diese 
+Kr"afte k"onnen z.B. durch Gravitation oder Elektromagnetismus 
+bewirkt werden. 
+
+Zusammen mit der Gleichung
+$$ \nabla u=0$$
+f"ur den Massenerhalt inkompressibler Fl"ussigkeit bilden diese beiden Gleichungen 
+die Grundgleichungen der Str"omungsmechanik.
+
+%===============================================================================
+\fpbox{{\bf Bemerkung.} Man kann die Navier-Stokes-Gleichungen auch "uber die 
+Botzmann-Gleichungen herleiten. das ist insofern interessant, als hier
+mikroskopische Eigenschaften (Bewegung einzelner Molek"ule) zu einer 
+Markoskopischen Beschreibung wird 8navier-Stokes-Gleichung). Eine Andeutung des
+Weges ist im Appendix~\ref{boltzxx} gegeben.}
+%===============================================================================
+\subsection{Einfaches Beispiel: Station"arer, laminarer Fluss durch eine  R"ohre}\index{Laminarer Fluss}
+Wir\footnote{Dieser Abschnitt kann in der Vorlesung vermutlich nur verk"urzt besprochen werden} betrachten ein rundes Rohr in dem eine Fl"ussigkeit langsam flie"st. 
+Diese Fl"ussigkeit sei inkompressibel. Wir verlangen, dass die Geschwindigkeit
+am Rand der R"ohre Null ist (``no slip Randbedingungen''). \par
+
+Wir sehen uns die einfachste L"osung
+der Navier-Stokes Gleichung an; es gibt auch noch komplexere L"osungen -- 
+insbesondere turbulente Fl"usse sind nicht mehr analytisch zu handhaben. 
+In diesem Fall ist man auf numerische Verfahren angewiesen. Im Fall von langsamen 
+Str"omungen findet man allerdings laminare Fl"usse. 
+
+\noindent{\bf Schritt 1: Geometrie und Konsequenz der Symmetrie.} Die R"ohre sei gegeben 
+durch
+$$\Omega = \{(x,y,z)\,|\, x^2+y^2\leq R\},$$
+d.h.\ das Rohr hat Radius $R$ und l"auft in Richtung der $z$-Achse. 
+Wir sind an einem station"aren Fluss interessiert, d.h.\ einen zeitlich konstanten 
+Fluss. Alle Gr"o"sen (Druck wie Geschwindigkeit) h"angen nicht von der Zeit ab. \\
+Wir erwarten, dass der Fluss sich entlang der Symmetrie-Achse der R"ohre bewegt. 
+Also,
+$$ u(x,y,z) = 
+\left(\begin{array}{c}
+u_1(x,y,z)\\u_2(x,y,z)\\u_3(x,y,z)\\
+\end{array}\right)
+= 
+\left(\begin{array}{c}
+0\\0\\u_3(x,y,z)\\
+\end{array}\right).
+$$
+Weiter erwarten wir (immer noch aus Symmetriegr"unden), dass die Geschwindigkeit 
+unabh"angig von $z$ ist, und nur vom Abstand zum Mittelpunkt
+der R"ohre abh"angt, d.h.
+$$ u_3(x,y,z) = u_3(r),\qquad r^2 = x^2+y^2.$$
+Insbesondere folgern wir 
+ $$(u_3)_z=0.$$
+Der Druck hingegen wird nur von $z$ abh"angen,
+$$ p(x,y,z) = p(z).$$
+\fpbox{
+Bemerkungen: Diese Annahmen sind von der Physik (Symmetrie der Situation) her 
+plausibel. Letztlich kommt die Berechtigung der Annahmen aber daher, dass
+wir gleich eine L"osung der Navier-Stokes-Gleichungen finden werden, die 
+diese Annahmen erf"ullen. Daher gibt es eine Str"omung, die diese Eigenschaften 
+tats"achlich besitzt. }
+
+\noindent{\bf Schritt 2: Navier-Stokes Gleichung.} Mit diesen Annahmen geht die 
+Navier-Stokes-Gleichung (die ja eigentlich 
+einen Vektor beschriebt, d.h.\ drei Gleichungen sind)
+$$ \frac{\partial u }{\partial t} + (u\,\cdot\,\nabla)\, u+\nu\Delta u - \frac 1 \rho \nabla p = f=0
+$$
+"uber in eine Gleichung f"ur die Geschwindigkeitskomponente $u_3$,
+$$ 
+u_3(u_3)_z + \nu \Delta u_3 -  \frac 1 \rho p_z(z) =
+ \nu \Delta u_3(r) -  \frac 1 \rho p_z(z) 
+=0.
+$$
+Das hei"st also,
+$$ \Delta u_3(r) = \frac 1{\nu\rho} p_z(z).$$
+Das Produkt $\nu\rho$ ist konstant, da wir nur inkompressible Fl"ussigkeiten 
+betrachten. Da die linke Seite nur von $r = \sqrt{x^2+y^2}$, die rechte Seite 
+nur von $z$ abh"angt, kann diese Gleichung nur erf"ullt sein, wenn beide Seiten 
+konstant sind:
+\begin{eqnarray*}
+\Delta u_3(r)  & = & c\\
+p_z(z) & = & \nu\rho c.
+\end{eqnarray*}
+\noindent{\bf Schritt 3: Druck.} Die Gleichung f"ur den Druck ist recht einfach: da die 
+Ableitung nach $z$ konstant ist, muss der Druck eine lineare Funktion von $z$ 
+sein. Integration ergibt
+$$ p(z) = p(z_0) + (z-z_0) \nu\rho c.$$
+Oder, wenn wir den Druck an zwei Punkten $z_0$ und $z_1$ kennen ($p(z_0)$ und 
+$p(z_1)$), muss gelten
+$$ p(z) = p(z_0) + \frac{p(z_1)-p(z_0)}{z_1-z_0} (z-z_0).$$
+Daraus k"onnen wir die Konstante $c$ bestimmen, 
+$$ c =  \frac{p(z_1)-p(z_0)}{\nu\rho(z_1-z_0)}.$$
+{\bf Schritt 4: Geschwindigkeit.} Die Geschwindigkeit 
+ist schwerer zu erhalten. 
+Dazu ben"otigen wir zun"achst die Darstellung des Laplace-Operators $\Delta$ auf 
+eine radialsymmetrische Funktion.
+%===============================================================================
+\fpbox{{\bf Exkurs: Wirkung des Laplace auf eine radialsymmetrische 
+Funktion in zwei Dimensionen.} Zun"achst sei bemerkt, dass
+$$\frac{\partial}{\partial x}r 
+= \frac{\partial}{\partial x} \sqrt{x^2+y^2}
+= \frac{x}{ \sqrt{x^2+y^2}} = \frac x r,\qquad
+\frac{\partial}{\partial y}r = \frac y r,
+$$
+und die zweiten Ableitungen sind gegeben durch
+$$ \frac{\partial^2}{\partial x^2}r 
+= \frac{\partial}{\partial x}\left(\frac{\partial}{\partial x}r \right)
+= \frac{\partial}{\partial x}   \frac x r = \frac 1 r - \frac {x}{r^2}
+\frac{\partial}{\partial x}r  = \frac 1 r - \frac {x^2}{r^3},\qquad
+\frac{\partial^2}{\partial y^2}r = \frac 1 r - \frac {y^2}{r^3}
+.$$
+
+Sei $f(r) = f(\sqrt{x^2+y^2})$, so folgt
+\begin{eqnarray*}
+\frac{\partial}{\partial x} f(r)
+& = & 
+f'(\sqrt{x^2+y^2}) \frac{\partial}{\partial x}r  = 
+f'(r)  \frac x r.\\
+\frac{\partial^2}{\partial x^2} f(r)
+& = & 
+ \frac{\partial}{\partial x}\left(\frac{\partial}{\partial x} f(\sqrt{x^2+y^2}) \right)
+=  \frac{\partial}{\partial x}\left(f'(r)  \frac x r\right)
+=  f''(r)  \frac {x^2}{ r^2} + f'(r)\left(\frac 1 r - \frac {x^2}{r^3}\right)\\
+\frac{\partial^2}{\partial y^2} f(r)
+& = & 
+ f''(r)  \frac {y^2}{ r^2} + f'(r)\left(\frac 1 r - \frac {y^2}{r^3}\right)
+\end{eqnarray*}
+und daher
+\begin{eqnarray*}
+\Delta f(r) & = &
+ f''(r)  \frac {x^2}{ r^2} + f'(r)\left(\frac 1 r - \frac {x^2}{r^3}\right)
++ 
+ f''(r)  \frac {y^2}{ r^2} + f'(r)\left(\frac 1 r - \frac {y^2}{r^3}\right)\\
+&=& f''(r) \underbrace{\frac {x^2+y^2}{r^2}}_{=1} 
++ f'(r)
+\left(\frac 2 r - \underbrace{\frac {x^2+y^2}{r^3}}_{=1/r}\right)
+= f'(r) \,\,\frac 1 r +  f''(r)  
+=  \frac 1 r \frac d {dr}\left(r \frac {d f(r)}{dr}\right)
+\end{eqnarray*}
+}
+\par\medskip
+Nutzen wir diese kompakte Darstellung des Laplace-Operators, so lautet unsere 
+Gleichung f"ur $u_3$
+$$ \Delta u_3(\sqrt{x^2+y^2}) = (\partial_x^2+\partial_y^2) u_3(\sqrt{x^2+y^2}) 
+= \frac 1 r \frac d {dr}\left(r \frac {d u_3(r)}{dr}\right) = c.$$
+Also haben wir wieder eine gew"ohnliche Differentialgleichung gefunden.
+Die k"onnen wir l"osen:
+\begin{eqnarray*}
+\frac 1 r \frac d {dr}\left(r \frac {d u_3(r)}{dr}\right) & = & c\\
+\Rightarrow\quad
+\frac d {dr}\left(r \frac {d u_3(r)}{dr}\right) & = & cr\\
+\Rightarrow\quad
+r \frac {d u_3(r)}{dr} & = &\frac 1 2 cr^2+A\\
+\Rightarrow\quad
+\frac {d u_3(r)}{dr} & = & \frac 1 2cr+\frac A r\\
+\Rightarrow\quad
+u_3(r) & = & \frac 1 4 cr^2+\ln(r) A  + B\\
+\end{eqnarray*}
+Eine nat"urliche Bedingung ist nun, dass die Geschwindigkeiten endlich bleiben sollten. 
+Der Logarithmus hat aber eine Singularit"at bei $r=0$. Daher m"ussen
+wir $A=0$ w"ahlen. Das Geschwindigkeitsprofil lautet also
+$$u_3(r) = \frac 1 4 cr^2+ B.$$
+Nun m"ussen wir noch $B$ w"ahlen. Wir haben no-slip-Randbedingungen, d.h. die 
+Geschwindigkeit an der Wand des Rohres muss Null sein. Der Radius des Rohres ist $R$, also $u_3(R)=0$:
+$$ u_3(r) = \frac {-1} 4 c(r^2-R^2-r^2) = 
+ \frac{p(z_1)-p(z_0)}{2 \nu\rho(z_1-z_0)}\,\, (-R^2+r^2)
+ =
+ \frac{p(z_0)-p(z_1)}{2 \nu\rho(z_1-z_0)}\,\, (R^2-r^2)
+$$
+Wenn die R"ohre die L"ange $L$ besitzt, der Druck an eine Ende $p_0$ und am andere 
+Ende $p_1$ ist, so folgt  das Ergebnis
+$$ u_3(r) = 
+ \frac{p_0-p_1}{2 \nu\rho L}\,\, (R^2-r^2).
+$$
+
+Bemerkung: Unsere L"osung erf"ullt auch $\nabla u=0$, d.h. den Massenerhalt. 
+
+Nun fragen wir, wieviel Fl"ussigkeit pro Zeiteinheit durch das Rohr transportiert 
+wird. Wir integrieren den Fluss entlang der $z$-Achse
+$$ u_3(r) \rho$$
+Dazu bemerken wir, dass (siehe auch Beispiel~\ref{volIntegralBsp}), dass
+das Integral einer radialsymmetrischen Funktion "uber einen Kreis 
+in ein eindimensionales Integral verwandelt werden kann, 
+$$ \int_{x^2+y^2<R} f(r) dxdy = \sum \int_0^R f(r) (2\pi r)\, dr.$$
+Nutzen wir diese Formel, so finden wir
+
+\begin{eqnarray*}
+Q & = & \int_0^R \rho\,\,(2\pi r)u_3(r)\, dr\\
+& = & \rho\,\,\int_0^R 2\pi r \frac{p_0-p_1}{4\nu\rho L}\,\, (R^2-r^2)\, dr\\
+ & = & \rho\,\, \frac{\pi(p_0-p_1)}{2\nu\rho L} \int_0^R  r \, (R^2-r^2)\, dr\\
+  & = &  \rho\,\,\frac{\pi(p_0-p_1)}{2\nu\rho L} \left(R^2 R^2/2-R^4/4\right)\\
+    & = & \rho\,\, \frac{\pi(p_0-p_1)}{2\nu\rho L} \left(R^4/4\right)\\
+        & = &  \frac{\rho\,\,\pi(p_0-p_1) R^4}{8\nu\rho L}
+\end{eqnarray*}
+\index{Poiseulliesche Gesetz}
+%===============================================================================
+\fpbox{Dies ist ein in der Str"omungsmechanik ber"uhmtes Gesetz, das 
+Poiseulliesche Gesetz.
+das besagt, dass der
+Fluss durch ein Rohr proportional ist zur
+\begin{enumerate}[(1)]
+  \item vierten Potenz des Radius,
+  \item Druckdifferenz an den beiden Enden,
+  \item Inversen der L"ange.
+\end{enumerate}}
+\par\medskip
+%===============================================================================
+Insbesondere muss eine auch nur kleine Verringerung des Radius mit einer enormen 
+Steigerung des Drucks bezahlt werden, will man den gleichen 
+Durchfluss erhalten.
+%===============================================================================
+
+\begin{auf}\chd\label{block11A1}
+\input{../../Aufgabensammlung/hm710.tex}
+\end{auf}

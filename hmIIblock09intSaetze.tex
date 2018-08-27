@@ -1,0 +1,425 @@
+
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+%=============================================================================== 
+\section{Kurvenintegrale, Integralsatz von Gau"s und Erhaltung von Masse}
+%=============================================================================== 
+
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Definition des Kurvenintegrals verstehen
+\item Kurvenintegrale berechnen k"onnen
+\item Gau"sscher Integralsatz kennen und anwenden k"onnen
+\item Erstes Ficksches Gesetz kennen und interpretieren k"onnen
+\end{itemize}}
+  
+%=============================================================================== 
+\subsection{Kurven und ihre L"ange im $\R^n$}
+\label{kurvexxx}
+%=============================================================================== 
+{\it Kurve und Tangentialvektor (Geschwindigkeitsvektor)}\par
+
+Eine \emph{Kurve} im $\R^n$ k"onnen wir uns letztlich als eine (krumme) Linie im 
+$\R^n$ vorstellen. 
+
+\begin{sdefi} 
+Eine Kurve eine Abbildung eines Intervalls $I=[a,b]\subseteq \R$ nach $\R^n$,
+$$ K: I\rightarrow \R^n.$$
+\end{sdefi}
+{\bf Interpretation.} Wenn das Argument $t$ das Intervall $I$ durchl"auft, 
+durchl"auft entsprechend $K(t)\in\R^n$ die Kurve.  Die Kurve kann als Beschreibung der Bewegung eines
+Punktes im $n$-dimensionalen Raum interpretiert werden. Man kann sich eine Kurve 
+gut vorstellen, als den Weg, den ein Auto in einem bestimmten Zeitintervall 
+zur"uckgelegt hat. Das Auto startet zur Zeit $t_1$ und beendet den Weg zur Zeit 
+$t_2$, d.h. ist im Zeitintervall $I=[t_1, t_2]$ unterwegs. Zu jedem Zeitpunkt $t\in I$
+gibt $K(t)$ den Ort des Autos an.
+
+Das Argument $t\in I$ spielt also die Rolle der Zeit, und unser Punkt befindet 
+sich zur Zeit $t\in I$ am Ort $K(t)\in\R^n$. Dann kann man
+den \emph{Geschwindigkeitsvektor} (der wird auch \emph{Tangentialvektor} genannt) 
+berechnen; dieser ist gerade die Ableitung ("Anderung des Ortes pro Zeit)
+$$ v(t) = \dot K(t).$$
+Damit haben an jedem Punkt $t\in I$ einen  Vektor $v(t)$ ausgezeichnet (solange $v\not = 0$).
+
+%=============================================================================== 
+\begin{sbem} Man kann einen Weg mit dem Auto zweimal abfahren, aber mit v"ollig verschiedenen Geschwindigkeiten.
+Das hei"st, man kann eine Kurve umparametrisieren. Wenn man eine (monoton wachsende) Abbildung 
+vom Interval $I_1$ in das Intervall $I_2$ definiert, $f:I_1\rightarrow I_2$, so wird
+$$ K_1: I_1 \rightarrow \R^n,\qquad t\mapsto K_1(t)$$
+und
+$$ K_2: I_2 \rightarrow \R^n,\qquad t\mapsto K_1(f(t))$$
+die gleichen Punkte ``abfahren'', aber i.d.R.\ mit unterschiedlicher Geschwindigkeit. 
+Also sind $K_1$ und $K_2$ zwei verschiedene Kurven, aber manche Aspekte sollten gleich bleiben. 
+Z.B.\ h"angt die L"ange des Weges (der Kurve) nicht von der Geschwindigkeit (der Parametrisierung) 
+ab.
+\end{sbem}
+%===============================================================================
+\subsubsection{L"ange einer Kurve}
+\index{Kurve!L"ange}
+Im Allgemeinen gilt, dass bei gegebener Geschwindigkeit (oder besser, Betrag der Geschwindigkeit) 
+$\|v(t)\|$ die in der Zeit von $t_1$ bis zu der Zeit $t_2$ zur"uckgelegt wird, genau
+$$ \int _{t_1}^{t_2}\|v(t)\|\, dt$$
+ist. Daher ist die L"ange der Kurve $K(t)$ gegeben durch
+$ L(K) = \int _{a}^{b}\|v(t)\|\, dt = \int_a^b \|\dot K(t)\|\, dt$. Dies ist eine Definition.
+
+\begin{sdefi} Gegeben eine differenzierbare Kurve $ K: I\rightarrow \R^n.$ Die L"ange dieser Kurve ist gegeben durch 
+$$ L(K) = \int _{a}^{b}\|v(t)\|\, dt = \int_a^b \|\dot K(t)\|\, dt$$
+\end{sdefi}
+
+%===============================================================================
+\begin{sbem}
+Eigentlich haben wir hier das Pferd von hinten aufgez"aumt: Warum ist die Strecke,
+die man zur"ucklegt, wenn man mit Geschwindigkeitsvektor $v(t)$ f"uhrt, gleich
+$\int_{t_1}^{t_2}\|v(t)\|\, dt$? Nun, weil die Kurve $K(t)$ mit $\dot K(t)=v(t)$ gerade 
+die in der Definition gegebene L"ange besitzt (Geschwindigkeit = L"ange/Zeit). 
+Die heuristische Begr"undung, die wir oben angef"uhrt haben, ist also plausibel, bei"st sich aber
+in den Schwanz. Wir ben"otigen ein besseres Argument. 
+\end{sbem}
+%===============================================================================
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=10cm]{../figures/kurvenlaenge.pdf} 
+   \caption{Approximation einer Kurve mittels Polygonzug, um dessen L"ange zu approximieren.}
+   \label{fig:kl}
+\end{figure}
+%===============================================================================
+\fpbox{
+{\it Definition der Kurvenl"ange, die Zweite.} 
+Nun wollen wir nochmal uns der Kurvenl"ange zu n"ahern. Diesmal direkt.
+Sei wieder $K:I=[a,b]\rightarrow\R^n$ eine Kurve. 
+Wir diskretisieren die Kurve, und approximieren sie durch einen Polygonzug (st"uckweise gerade Strecken; siehe Abb.~\ref{fig:kl}). Wir betrachten
+also die Zeitpunkte $t_i = a+h\,i$, $i=0,1,2,..$ und $h=(b-a)/n$ (f"ur $n\in\N$, gro"s). Die L"ange der Kurve sollte dann in
+etwa der L"ange des Polygonzugs entsprechen.  
+Die L"ange eines St"uckchens ist $ \|K(t_{i+1})-K(t_i)\|$, d.h.
+$$ L \approx \sum_{i=0}^{n-1}\|K(t_{i+1})-K(t_i)\|.$$ 
+Nun machen wir es uns
+zu Nutze, dass wir von $t_i$ nach $t_{i+1}$ nur ein kleines St"uckchen weit springen, und deshalb praktisch
+linear rechnen k"onnen,
+$$ K(t_i+h) = K(t_i) + h K'(t_i) + \mbox{Kleiner Fehler} = K(t_i)+h \, v(t_i)+\mbox{kleiner Fehler}.$$
+Daher folgt, dass 
+$$ L 
+\approx  \sum_{i=0}^{n-1}\|K(t_{i+1})-K(t_i)\|
+ \approx \sum_{i=0}^{n-1}\|v(t_i) h\|
+= \sum_{i=0}^{n-1}\|v(t_i)\| h
+\rightarrow \int_a^b \|v(t)\|\, dt.
+$$ 
+Wir finden wieder die gleiche Definition der L"ange.
+}
+%===============================================================================
+\begin{bspX}
+Betrachte die Kurve
+$$ K: I=[0,2\pi]\rightarrow\R^3,\qquad t\mapsto 
+\left(\begin{array}{c} \sin(t)\\ \cos(t)\\ t\end{array}\right).$$
+Dann ist 
+$$ v(t) = \left(\begin{array}{c} \cos(t)\\ -\sin(t)\\ 1\end{array}\right)
+\qquad\mbox{{\rm und}}\qquad
+\|v(t)\| = \sqrt{1+\sin^2(t)+\cos^2(t)} = \sqrt{2}.$$
+Also folgt, dass
+$$ L = \int_0^{2\pi}\|v(t)\|\, dt = 2^{3/2}\pi.$$
+\end{bspX}
+%===============================================================================
+\begin{auf}\chb\label{block9A1}
+\input{../../Aufgabensammlung/hm721.tex}
+\end{auf}
+%===============================================================================
+\subsubsection{Kurvenintegral "uber eine skalare Funktion}
+\index{Kurvenintegral} \index{Kurvenintegral!skalare Funktion}
+%===============================================================================
+Neben einer Kurve $K:I=[a,b]\rightarrow\R^n$ betrachten wir nun gleichzeitig 
+noch eine Funktion $g:\R^n\rightarrow \R$. 
+
+Anschaulich: man stelle sich vor, dass wir die Kurve aus einem Material herstellen, 
+dessen Dichte variiert, d. h. die Funktion $g$ ist das Gewicht pro L"angeneinheit an einem 
+Punkt der Kurve. Ziel ist nun, die Gesamtmasse der Kurve zu berechnen, d.h. diese Dichte
+aufzuintegrieren. Das Kurvenintegral $ \int_{K} g(K) dK$ ist also das Integral 
+dieser Funktion "uber der Kurve $K(t)$. Um dieses Integral zu definieren sehen wir uns eine spezielle
+Parametrisierung an: Nehmen wir an, dass $\|\dot K(t)\|=\|v(t)\|\equiv 1$, d.h.\ nehmen wir an, dass wir die Kurve mit konstanter Geschwindigkeit, 
+n"amlich eine L"angeneinheit pro Zeiteinheit, durchlaufen. Wenn wir $f:I\rightarrow\R$, $t\mapsto g(K(t))$, so ist es klar, wie man die Funktion $f$ 
+"uber $I$ integriert. Wir erhalten also in diesem Spezialfall das Kurvenintegral: 
+\begin{sdefi} Sei $ K: I\rightarrow \R^n$ eine differenzierbare Kurve, $g:\R^n\rightarrow \R$, und $\|\dot K(t)\|=1$. Dann ist das Kurvenintegral gegeben durch
+$$ \int_{K} g(K) dK = \int_a^b f(t)\, dt = \int_a^bg(K(t))\, dt
+$$
+\end{sdefi}
+Nun m"ussen wir noch verstehe, was passiert, wenn eine Parametrisierung 
+$\|\dot K(\tau)\|=1$ nicht erf"ullt. Das Gewicht der Kurve im obigen Beispiel 
+darf nat"urlich (wie die L"ange der Kurve) nicht von der Parametrisierung abh"angen.
+Die richtige Art, das Integral Geschwindigkeitsunabh"angig zu machen, haben wir 
+bei der L"angenberechnung gesehen: wir m"ussen den Intendant mit dem Betrag der 
+Geschwindigkeit multiplizieren.
+\begin{sdefi} Sei $ K: I\rightarrow \R^n$ eine differenzierbare Kurve, und  $g:\R^n\rightarrow \R$. Dann ist das Kurvenintegral 
+von $g$ "uber $K$ definiert als 
+$$ \int_{K} g(K) dK  = \int_a^bg(K(t))\,\|\dot v(t)\|\, dt
+$$
+\end{sdefi}
+%===============================================================================
+\begin{bspX}
+Betrachte die Kurven
+$$ K_1: I_1=[0,2\pi]\rightarrow\R^3,\qquad t\mapsto 
+\left(\begin{array}{c} \sin(t)\\ \cos(t)\\ t\end{array}\right)
+$$
+und deren Umparametrisierung
+$$ K_2: I_2=[0,\pi]\rightarrow\R^3,\qquad t\mapsto 
+\left(\begin{array}{c} \sin(2t)\\ \cos(2t)\\ 2t\end{array}\right)
+$$
+Weiter, definiere die Funktion $g:\R^3\rightarrow \R$, $(x,y,z)^T\mapsto z^2$.
+Dann ist 
+$$ v_1(t) = \left(\begin{array}{c} \cos(t)\\ -\sin(t)\\ 1\end{array}\right)
+\qquad\mbox{\rm und}\qquad
+\|v_1(t)\| = \sqrt{1^2+\sin^2(t)+\cos^2(t)} = \sqrt{2}$$
+bzw.\
+$$ v_2(t) = \left(\begin{array}{c} 2\cos(2t)\\ -2\sin(2t)\\ 2\end{array}\right)
+\qquad\mbox{{\rm und}}\qquad
+\|v_2(t)\| = \sqrt{2^2 +4\sin^2(2t)+4\cos^2(2t)} = \sqrt{8} = 2\sqrt{2}.
+$$
+Damit erhalten wir die Kurvenintegrale
+\begin{eqnarray*}
+\int_{K_1}g(K) dK & = & \int_0^{2\pi} t^2 \sqrt{2}\, dt = \frac {\sqrt{2}}3 (2\pi)^3\\
+\int_{K_2}g(K) dK & = & \int_0^{\pi} (2t)^2 \,2\,\sqrt{2}\, dt = \frac {\sqrt{2}\, \cdot\,2\,\cdot\, 2^2}3 (\pi)^3 = \int_{K_1}g(K) dK. 
+\end{eqnarray*}
+Der Wert des Integrals ist also tats"achlich f"ur die beiden Parametrisierungen gleich.
+\end{bspX}
+%===============================================================================
+\subsubsection{Fluss "uber eine Kurve}
+Eine der Hauptanwendungen in diesem Skript ist die Berechnung von
+ Massen"anderungen in einem Gebiet durch einen Fluss von Partikeln. Wir haben
+eine Dichte $u$ von Partikeln gegeben (man stelle sich Sandk"orner auf einem
+Tablett vor), die sich mit Geschwindigkeit $v_D$ bewegen (das Tablett wird 
+verschoben). Man hat eine Kurve gegeben (man spannt einen faden "uber das 
+ Tablett), und fragt sich, wie viel Masse pro Zeiteinheit "uber die Kurve 
+flie"st 
+(wie viele Sandk"orner pro Zeiteinheit laufen unter dem Faden durch, siehe
+Abb.~\ref{fig:flss}).
+%===============================================================================
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=14cm]{../figures/fluss.pdf} 
+   \caption{Wie viele Sandk"orner rutschen unter dem Faden durch, wenn man das Tablett mit dem Sand bewegt? Die grau markierte Fl"ache (d.h.\ die Menge der Sandk"orner), die in dem gegebenen Zeitintervall 
+unter dem Faden durchtaucht,  h"angt nur von 
+der Geschwindigkeitskomponente normal zur Kurve $K$ ab.}
+   \label{fig:flss}
+\end{figure}
+%===============================================================================
+
+\par\medskip
+Wir starten mit dem einfachsten Fall: die Massendichte $u$ ist konstant (in Raum und Zeit), die Geschwindigkeit mit der sich die Partikel bewegen ist konstant, und die Kurve ist gegeben durch die Strecke
+$$ K:[0,s_0]\rightarrow\R^2,\quad s\mapsto 
+\left(\begin{array}{c}a\\b
+\end{array}\right)s,\qquad a,b\geq 0,\quad \sqrt{a^2+b^2}=1.$$
+Wir haben die Geschwindigkeit der Kurve hier also schon auf eins normiert. 
+Wie gro"s ist der Massenfluss? Wenn wir das Tablett entlang der Kurve verschieben (d.h. $v_D$ in parallel zur Tangente $(a,b)^T$ steht), so wechselt
+kein Sandkorn die Seite der Kurve. Die Bewegung in tangentialer Richtung ist 
+also uninteressant, interessant ist allein die Bewegung in Richtung der normalen der Kurve. Sei
+$$ n = \left(\begin{array}{c}-b\\a
+\end{array}\right)$$
+die Normale.
+{\it Achtung:} wir k"onnen zwei normale angeben, das gew"ahlte $n$, 
+wie auch $-n$ stehen senkrecht auf dem Tangentenvektor. Das hat eine Bedeutung: Alle Teilchen (Sandk"orner), die in Richtung von $n$ die Seite 
+der Kurve wechseln werden positiv gez"ahlt, alle Sandk"orner, die in Richtung $-n$ wechseln, negativ. Wir bilanzieren nur den Netto-Massenfluss, d.h.\ wir
+fragen, wie viele Sandk"orner nach einem kurzen Zeitintervall mehr auf der
+Seite der Kurve sind, in die $n$ zeigt.\par
+Da die Geschwindigkeit in Richtung $n$ gerade durch die Projektion von $v_D$
+auf $n$, d.h. dem Skalarprodukt $v_D n = V_D^Tn = <v_D,n>$ gegeben ist, 
+so finden wir pro Zeiteinheit an einem Punkt der Kurve den Massenfluss 
+\begin{eqnarray*}
+ &&\mbox{Massenfluss an einem Punkt der Kurve}\\
+& =& \mbox{Massendichte x Geschwindigkeit in Normalenrichtung} = u v_D\, n.
+\end{eqnarray*}
+\fpbox{{\bf Fluss:}\ 
+Wir bezeichnen als Fluss (oder Massenfluss) $J$ das Produkt von Massendichte 
+und Geschwindigkeit; wenn Dichte $u(x,t)$ von Ort und zeit abh"angt, und Geschwindigkeit $v(x,t)$ von Ort und Zeit, so definieren wir
+$$ J(x,t) = u(x,t) v(x,t).$$
+Da $v(x,t)$ ein (Geschwindigkeits-)Vektor ist, so ist auch $J(x,t)$ ein Vektor.
+}
+\par\medskip
+Kehren wir zu unserm einfachen Fall ($u$ und $v_D$ konstant) zur"uck, so 
+ist $j= u v_D$ ebenfalls konstant, und der Massenfluss "uber die Kurve an einem Punkt ist gerade $j\, n$. Um den Massenfluss "uber die gesamte Kurve
+ zu erhalten, m"ussen wir "uber die Kurve Integrieren,
+$$ \mbox{Massenfluss "uber K} = \int_K n^T\,J\,\,dK.$$
+
+\fpbox{{\bf Massen"anderung in einem Gebiet} Sei $\Omega\subset\R^2$ ein Gebiet. 
+Die Kurve, die das Gebiet umrandet, nennen wir $\partial\Omega$. 
+Wir geben eine Dichte $u(x,t)$ und ein Geschwindigkeitsfeld $u(x,t)$
+vor. Es soll keine Masse erzeugt oder vernichtet werden, die Partikel sollen 
+ sich nur bewegen.\par
+Die Masse $m(t)$ im Gebiet ist gegeben durch $m(t)=\int_{\Omega} u(x,t)$. 
+Wie "andert sich die Masse im Gebiet? Da weder Teilchen erzeugt noch vernichtet
+werden, kann sich die Masse nur dadurch ver"andern, dass Teilchen  "uber den
+ Rand des Gebietes flie"sen. Sei $n$ die "au"sere Normale auf die Kurve
+ $\partial\Omega$ (also die Normale, die aus dem Gebiet heraus zeigt), so 
+bedeutet ein positiver Nettofluss, dass Masse aus dem Gebiet heraus flie"st,  
+d.h.\ $m'(t)<0$ ist. Wir erhalten
+$$ \frac d {dt} m(t) = \int_{\partial \Omega}  n^T\,J\,\,do$$
+Bemerkung: Eigentlich m"ussten wir $\int_{K}  n^T\,J\,\,dK$ f"ur die Kurve $K=\partial\Omega$ schreiben, um die gleiche Notation wie oben zu nutzen.
+Man findet in der Literatur aber eher diese Schreibweise ($\partial\Omega$ statt
+$K$ und $do$ statt $dK$).
+}\par\medskip
+
+\fpbox{{\bf Massen"anderung in einem dreidimensionalen Gebiet.} 
+Man kann die Formel f"ur die Massen"anderung sofort auf drei Dimensionen verallgemeinern.
+Sei $\Omega\subset\R^3$ ein Gebiet, $\partial\Omega$ die Oberfl"ache des Gebietes, $n$ die "au"sere Normale auf diese Oberfl"ache, $u(x,t)$ Materiedichte,
+und $J(x,t)$ der Massenfluss. Dann finden wir wie oben
+$$ 
+m(t) = \int_{\Omega} u(x,t)\, dx,\quad
+\frac d {dt} m(t) = \int_{\partial \Omega}  n^T\,J\,\,do.$$
+Hier ist das Integral "uber $\partial \Omega$ ein Integral "uber eine Oberfl"ache, 
+wie auf Seite~\pageref{oberlaecheIntegral} eingef"uhrt.
+}
+
+%===============================================================================
+\subsubsection{Kurvenintegral "uber eine vektorwertige Funktion}
+\index{Kurvenintegral!vektorwertige Funktion}
+Nun wollen wir uns eine spezielle Situation ansehen: die Funktion $g$ sei nun nicht skalar, 
+sondern ordnet jedem Punkt im Raum einen Vektor zu (ein sogenanntes Vektorfeld), $g:\R^n\rightarrow\R^n$. 
+\begin{sdefi} Sei $ K: I\rightarrow \R^n$ eine differenzierbare Kurve, und $\|\dot K(t)\|=1$. 
+Sei weiter $g:\R^n\rightarrow\R^n$ ein Vektorfeld.
+Dann ist das Kurvenintegral des Vektorfelds "uber die Kurve definiert als
+$$ \int_{K} g(K) dK = \int_a^b <g(K(t)), \dot K(t)>\, dt.
+$$
+Im allgemeinen Fall ($\dot K$ beliebig) ist unser Integral schon
+durch normiert, und wir setzen
+$$ \int_{K} g(K) dK = \int_a^b <g(K(t)), \dot K(t)>\, dt.
+$$
+\end{sdefi}
+%===============================================================================
+\begin{auf}\chb\label{block9A2}
+\input{../../Aufgabensammlung/hm720.tex}
+\end{auf}
+
+\subsection{Gau"sscher Satz}
+
+Im Umfeld von partiellen Differentialgleichungen spielen mehrere und 
+insbesondere
+der Gau"ssche  Integralsatz eine Rolle. In der Physik findet man
+diese Integrals"atze bei der klassischen Beschreibung von Elektromagnetischen Feldern wieder.\par
+%===============================================================================
+\fpbox{
+Wir m"ochten die wohl bekannte Formel
+$$ \int_a^b F'(x)\, dx = F(a)-F(b)$$
+auf zwei (oder mehr) Dimensionen verallgemeinern. Letztlich besagt die Formel, dass das Integral
+"uber die Ableitung einer Funktion durch die Werte auf dem Rand des Integrationsgebietes ausgedr"uckt werden
+kann. Genau so eine Aussage wollen wir in $\R^2$ herleiten.}
+%===============================================================================
+Gegeben sei ein Gebiet im $\R^2$. Der Einfach halber sehen wir uns ein Quadrat an,
+$$\Omega = \{(x,y)\,|\, a < x< b,\quad c<y<d\}.$$
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=10cm]{../figures/pde3.pdf} 
+   \caption{Quadratisches Gebiet und Gau"sscher Satz.}
+   \label{pde3}
+\end{figure}
+
+%===============================================================================
+Der Rand eines Gebietes $\Omega$ wird mit $\partial \Omega$ bezeichnet. Wenn das Gebiet 
+in $\R^2$ liegt, bildet $\partial\Omega$ eine Kurve. \par
+Weiter betrachten wir ein Vektorfeld, d.h.\ jedem Ort $(x,y)$ wird ein Vektor 
+$f(x,y) = (f_1(x,y), f_2(x,y))$ zugeordnet. Nun definieren wir die "au"sere Normale 
+$n(x,y)$ auf $\partial\Omega$. D.h., ein Vektor der L"ange eins, der senkrecht 
+auf dem Rand des Gebiets liegt, und nach Au"sen zeigt. Wir integrieren nun "uber 
+dem Rand $\partial\Omega$ 
+des Gebiets das Skalarprodukt $n\, f$ (siehe Abb.~\ref{pde3}), indem wir 
+die Kurve in vier Strecken zerlegen,
+\begin{eqnarray*}
+\int_{\partial\Omega} <n(x,y), f(x,y)> do & :=  &\quad 
+\int_a^b \left(\begin{array}{c}0\\1\end{array}\right)\,\, \left(\begin{array}{c}f_1(x,d)\\f_2(x,d)\end{array}\right) dx
++\int_c^d \left(\begin{array}{c}1\\0\end{array}\right)\,\, \left(\begin{array}{c}f_1(b,y)\\f_2(b,y)\end{array}\right) dy\\
+&&+\int_a^b \left(\begin{array}{c}0\\-1\end{array}\right)\,\, \left(\begin{array}{c}f_1(x,c)\\f_2(x,c)\end{array}\right) dx
++\int_c^d \left(\begin{array}{c}-1\\0\end{array}\right)\,\, \left(\begin{array}{c}f_1(a,y)\\f_2(a,y)\end{array}\right) dy\\
+& = & 
+\int_a^b [f_2(x,d)-f_2(x,c)] dx + \int_c^d [f_1(b,y)-f_1(a,y)] dy\\
+& = & 
+\int_a^b \int_c^d \partial_y f_2(x,y) dy dx + \int_c^d \int_a^b\partial_x f_1(x,y) dx dy\\
+&=& \int_\Omega \left(\begin{array}{c}\partial_x\\\partial_y\end{array}\right)\,\, \left(\begin{array}{c}f_1(x,y)\\f_2(x,y)\end{array}\right) dxdy
+= \int_\Omega \nabla f(x,y) dx dy
+\end{eqnarray*}
+(``$do$'' als Symbol f"ur ``Integral "uber die Oberfl"ache von $\Omega$'', d.h.\ da unser Gebiet 
+zweidimensional ist, \"uber die Randkurve $\partial\Omega$). 
+%===============================================================================
+Die Formel klappt nat"urlich f"ur alle Gebiete, die aus der Vereinigung endlich 
+vieler Vierecke bestehen. Sogar allgemeinere Gebiete funktionieren, da man diese 
+beliebig genau durch die Vereinigung endlich vieler (sehr, sehr vieler) Vierecke 
+approximieren kann.\index{Gau"sscher Integralsatz}\index{Divergenztheorem}
+\begin{satz} Sei $\Omega$ ein Gebiet, dessen Rand $\partial\Omega$ eine 
+differenzierbare Kurve bildet, und $f:\R^2\rightarrow\R^2$ ein 
+differenzierbares Vektorfeld. Sei $n(x)\in\R^2$ der "au"sere Normalenvektor 
+auf dem Rand des Gebietes.
+Dann gilt
+$$ \int_{\partial\Omega} n(x)\, f(x) do  = \int_\Omega \nabla f(x) dx.$$
+(hier ist $x$ als $(x_1, x_2)\in\R^2$ zu interpretieren). Die Formel gilt auch 
+in h"oheren Dimensionen, speziell in $\R^3$. Dann ist $\int_{\partial\Omega}(..)do$ 
+das Integral "uber eine zweidimensionale Oberfl"ache. 
+\end{satz}
+
+Bemerkung: Man definiert auch $\mbox{div} f= \nabla f$, und nennt den 
+Gau"sschen Integralsatz auch Divergenztheorem. 
+
+\subsection{Gesetz "uber die Erhaltung von Masse}
+\index{Massenerhaltungsgesetz}
+{\bf Erhaltung in einer Dimension}.\par
+Sei $u(x,t)$ die Partikeldichte zur Zei $t$ (mit $x\in\R$). Dann ist
+$$  \int_a^bu(t,x)\, dx$$
+die Partikelmenge im Intervall $[a,b]$ zur Zeit $t$. Wenn Partikel weder erzeugt 
+noch vernichtet werden k"onnen, wird sich diese Dichte nur durch einen
+Partikelfluss "uber die Intervallgrenzen "andern. Sei
+$$ J(x,t) = \mbox{Netto-Partikelfluss von links nach rechts am Ort } x \mbox{ zur Zeit }t.$$
+D.h., wir z"ahlen am Ort $x$, wieviel Partikel pro Zeiteinheit 
+von links nach rechts laufen, und ziehen davon ab, wieviel Partikel pro Zeiteinheit 
+bei $x$ von rechts nach links laufen. Das kann man sich mit folgenden Bild 
+verdeutlichen: wir setzen uns mit einem Stuhl an eine Stra"se, und z"ahlen 
+f"ur je 
+eine Minute die Autos. Allerdings z"ahlen wir nur die von rechts nach links fahrenden 
+Autos mit ``+1'', die von links nach rechts fahrenden Autos z"ahlen wir mit ``-1''.
+
+Dann ist die "Anderung der Partikelmenge im Intervall $[a,b]$ gegeben durch den 
+Nettofluss hinein bei $a$ und den Nettofluss hinaus bei $b$, d.h.
+$$ \int_a^bu_t(t,x)\, dx = \frac d {dt}  \int_a^bu(t,x)\, dx 
+  = J(a,t)-J(b,t) = - \int_a^b   J_x(x,t)\, dx.$$
+Da $a$ und $b$ beliebig waren, erhalten wir
+$$ u_t = -J_x.$$
+Die zeitliche Ableitung der Partikeldichte h"angt 
+mit der r"aumlichen Ableitung des Partikelflusses zusammen. \par\medskip
+%===============================================================================
+{\bf Erhaltung in h"oheren Dimensionen}. Nun betrachten wir die Partikeldichte 
+$u(t,x)$ f"ur $x\in\R^3$, und den Fluss 
+$J(x,t)$, wobei der Fluss jetzt ein Vektor in drei Dimensionen darstellt, 
+$J(x,t)\in\R^3$. Die "Anderung der Partikelmenge innerhalb eines dreidimensionalen 
+Gebietes $\Omega$ ist gegeben durch den Nettofluss durch die Oberfl"ache $\partial\Omega$  
+dieses Gebietes. Nehmen wir ein Oberfl"achenelement. Wenn wir den Fluss dadurch  
+berechnen, so m"ussen wir den Fluss senkrecht zu diesem 
+Fl"achenelement berechnen
+(der Anteil des Flusses der tangential zur Fl"ache ist ver"andert die Partikelmenge 
+im Gebiet ja nicht). D.h., wir m"ussen das Skalarprodukt des Flusses mit der "au"seren 
+Normale berechnen. Damit erhalten wir
+$$ \int_\Omega u_t(x,t)\, dx = - \frac d {dt} \int_\Omega u(x,t)\, dx
+= - \int_{\partial\Omega} J(x,t)\, n do = - \int_{\Omega} \nabla J(x,t) dx.$$
+Vor dem Volumenintegral m"ussen wir das negative Vorzeichen w"ahlen, da wir die 
+"au"sere Normale $n$ nutzen, d.h.\ den Partikelfluss aus dem Volumen hinaus berechnen. 
+Beim letzten Schritt haben wir den Gau"sschen Integralsatz genutzt. Da $\Omega$ 
+beliebig ist, erhalten wir eine Beziehung zwischen $u_t$ und $\nabla J$.
+\par\label{fickschesXXGesetz}
+%===============================================================================
+\fpbox{Das  Erhaltungsgesetz f"ur Masse (auch erstes Ficksches Gesetz genannt)
+lautet $ u_t = - \nabla J(x,t).$}\index{Erstes Ficksches Gesetz}
+%===============================================================================
+%===============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\chd\label{block9A3}
+\input{../../Aufgabensammlung/hm716.tex}
+\end{auf}
+\begin{auf}\chc\label{block9A4}
+\input{../../Aufgabensammlung/hm717.tex}
+\end{auf}
+\begin{auf}\chc\label{block9A5}
+\input{../../Aufgabensammlung/hm718.tex}
+\end{auf}
+\begin{auf}\chc\label{block9A6}
+\input{../../Aufgabensammlung/hm719.tex}
+\end{auf}

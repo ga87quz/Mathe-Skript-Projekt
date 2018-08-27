@@ -1,0 +1,323 @@
+ 
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+%==============================================================================
+\section{Lineare Differentialgleichungen 3}
+%==============================================================================
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item  Partikul"are (spezielle) L"osungen f"ur folgende St"orfunktionen finden k"onnen: 
+            Polynom, exponentiell, trigonometrisch
+\item L"osung eines (auch inhomogenen) Anfangswertes oder Randwertes bestimmen k"onnen.
+\end{itemize}}
+%============================================================================== 
+\subsection{Inhomogene Gleichung:  Partikul"are L"osung}
+%==============================================================================
+Eine M"oglichkeit eine partikul"are (spezielle) L"osung in die Hand zu bekommen, besteht darin,
+die Variation-der-Konstanten Formel auf Systeme mit konstanten Koeffizienten zu erweitern.
+Wenn wir die Differentialgleichung h"oherer Ordnung als System schreiben, so erhalten wir
+$$ y' = A y+ b$$
+wobei $y$ und $b$ nun Vektoren, $A$ eine Matrix ist. Nun k"onnen wir die Methoden von Systemen
+(s.u.) anwenden, um  eine partikul"are L"osung zu erhalten. Dies ist mathematisch am befriedigendsten -- allerdings nicht sehr praktikabel.\\
+F"ur spezielle (die wichtigsten) Inhomogenit"aten finden wir ``Rezepte'', d.h.\ spezielle Ansatzfunktionen,
+die zu einer partikul"aren L"osung f"uhren. Die wichtigsten F"alle klappern wir jetzt ab. \index{St"orfunktion}
+
+\subsection{Polynom als St"orfunktion}
+Betrachte f"ur eine lineare Differentialgleichung $n$'ter Ordnung ein Polynom
+als St"orfunktion, d. h. \index{St"orfunktion!Polynom} 
+$$ \sum_{i=0}^n a_i x^{(i)}(t) = p(t)$$
+mit dem Polynom $ p(t) = \sum_{i=0}^k c_i t^i.$ vom Grad $k$. Wenn 
+$a_0=\cdots a_{l-1}=0$, $a_{l}\not = 0$, so setze an
+$$ x(t) = \sum_{i=0}^{k+l} b_i t^i.$$
+Einsetzen dieser Ansatzfunktion und Koeffizientenvergleich f"uhrt zum Ziel.\par\medskip
+%==============================================================================
+\begin{bspX}
+Finde spezielle L"osung f"ur 
+$$ x'' + 3 x'   = 9 t^2 + 8 t + 8.$$
+Dann ist $a_0=0$ und das Polynom auf der rechten Seite hat Grad zwei. Damit 
+setzen wir f"ur die L"osung ein allgemeines Polynom vom Grad drei an, und finden
+\begin{eqnarray*}
+x(t) & = &  b_0 + b_1 t + b_2 t^2 + b_3 t^3\\
+x'(t) & = &   b_1  + 2\,b_2 t + 3\,b_3 t^2\\
+x''(t) & = &  2\,b_2  + 6 b_3 t
+\end{eqnarray*}
+Einsetzen ergibt
+\begin{eqnarray*}
+3\,(b_1  + 2\,b_2 t + 3\,b_3 t^2) + (2\,b_2  + 6 b_3 t)  & = & 9 t^2 + 8 t + 8\\
+9 b_3  t^2 + ( 6 b_2+6 b_3)t + (3 b_1 +  2 b_2) & = & 9 t^2 + 8 t + 8
+\end{eqnarray*}
+Wir erhalten also ein lineares Gleichungssystem f"ur die Koeffizienten 
+$( b_1, b_2, b_3)$; $b_0$ kommt nicht vor:
+\begin{eqnarray*}
+\left(\begin{array}{ccc|c}
+3 & 2 & 0 & 8\\
+0 & 6 & 6 &8\\
+0 & 0 & 9 &9\\
+\end{array}
+\right)
+\end{eqnarray*}
+Dieses Gleichungssystem wird von $b_3=1$, 
+$b_2=(8-6 b_3)/6 = 2/6=1/3$ und $b_1=(8-2b_2)/3 = (8-2/3)/3 = 22/9$ erf"ullt, 
+d.h. jede Funktion
+$$ x(t) = b_0 +\frac{22}{9}t+\frac{1}{3}t^2+t^3$$
+f"ur irgendein $b_0\in\R$ ist eine spezielle L"osung der inhomogenen Gleichung 
+(es gibt nat"urlich noch viel, viel mehr!).
+\end{bspX}
+
+%==============================================================================
+\begin{auf}\chb\label{block4A1}
+\input{../../Aufgabensammlung/hm104.tex}
+\end{auf}
+%==============================================================================
+\subsection{Exponentialfunktion als St"orfunktion}
+Betrachte \index{St"orfunktion!Exponentialfunktion} 
+$$ \sum_{i=0}^n a_i x^{(i)}(t) = f(t)$$
+und
+$$ f(t) = a\,e^{bt}.$$
+Wir m"ussen zwei F"alle unterschieden: $b$ ist / ist nicht Nullstelle des 
+charakteristischen Polynoms $p(\lambda)$.\par\medskip
+\fpbox{{\it Fall 1:} $p(b)\not=0$.\par
+Ansatz:
+$$x(t) = c\, e^{bt}.$$
+Einsetzen ergibt
+$$ p(b) \,c\,e^{bt} = a\,e^{bt}$$
+d.h. $c= a/p(b)$ und 
+$$ x(t) = \frac a {p(b)} e^{bt}$$
+ist spezielle L"osung.}\par\medskip
+\fpbox{{\it Fall 2:}  $p(b)=0$, $b$ ist $m$-fache Nullstelle.\\ Also ist 
+$p(\lambda) = q	(\lambda) (\lambda-b)^m$.
+Dann m"ussen wir ansetzen
+$$ x(t) = c\, t^{m}e^{bt}.$$
+Einsetzen und Koeffizientenvergleich f"uhrt zum Ziel. Davon k"onnen wir uns 
+"uberzeugen: Die Rechnung
+in Lehr\-ein\-heit 3, Kapitel 3.2 (A), Fall~2 dieses Abschnittes zeigt
+$$p(d/dt) c t^m e^{bt} 
+= q(d/dt) (d/dt-b)^mc t^m e^{bt} 
+= q(d/dt) m!\, c\, e^{bt} 
+= m!\, c\, q(b)\,e^{bt} \not = 0$$
+Also
+$$ p(d/dt)c t^m e^{bt}  = a\,e^{bt}$$
+f"uhrt auf
+$$ c  = \frac{a}{m! q(b)}.$$
+(Bemerkung: Diese Gleichung ist nicht f"ur den praktischen Gebrauch - siehe 
+Beispiel - sondern nur dazu da, sich klar zu machen, dass der Ansatz zum Ziel 
+f"uhrt).}
+
+\begin{bspX}
+Finde eine spezielle L"osung von $ x''-4x' = 3\,e^{4t}$. Zur L"osung:
+Das charakteristische Polynom lautet $p(\lambda) = \lambda^2-4\lambda = \lambda(\lambda-4)$
+d.h. der Exponent der Inhomogenit"at (der ist vier) ist Nullstelle des 
+charakteristischen Polynoms. (man kann es auch so ausdr"ucken: $e^{4t}$ ist 
+L"osung der homogenen Gleichung $x''-4x'=0$).\par
+Die Nullstelle ist einfach. Wir setzen daher an
+$ x(t) = c\, t \, e^{4t}$ und erhalten
+$$ 
+x' = c e^{4t}+4cte^{4t},\qquad
+x'' = 4c e^{4t}+4ce^{4t}+16ce^{4t}.$$
+Einsetzen ergibt
+$$ x''-4x'
+ = (4c e^{4t}+4ce^{4t}+16ce^{4t}) - 4(c e^{4t}+4cte^{4t})
+= 4 c e^{4t}.
+$$
+Diese Funktion soll gleich $3 e^{4t}$ sein, d.h.
+$ c = 3/4$ und $ x(t) = \frac 3 4 \,\, t\,\,e^{4t}.$
+\end{bspX}
+%==============================================================================
+\begin{auf}\chb\label{block4A2}
+\input{../../Aufgabensammlung/hm127.tex}
+\end{auf}
+%==============================================================================
+\subsection{Trigonometrische Funktionen als St"orfunktion}
+Betrachte \index{St"orfunktion!Trigonometrische Funktion} 
+$$ \sum_{i=0}^n a_i x^{(i)}(t) = f(t)$$
+und
+$$ f(t) = a\,\sin(bt),\qquad\mbox{ oder }\quad f(t) = a\,\cos(bt).$$
+Dann machen wir folgenden Trick: Wir ersetzen die rechte
+Seite durch 
+$$\tilde f(t) = a e^{{\rm i} b t}.$$
+Dann sind wir im letzten Fall (St"orfunktion ist Exponentialfunktion). Den k"onnen 
+wir behandeln und erhalten eine komplexe, spezielle L"osung $x(t)$. Realteil 
+dieser L"osung ist die spezielle L"osung f"ur $f(t) = a \cos(bt)$, Imagin"arteil die
+spezielle L"osung f"ur $f(t) = b\sin(t)$.\\
+Man beachte, dass auch $a\,e^{rt}\sin(bt)$ als Imagin"arteil von 
+$a\,e^{(r+\iii b)t}$ geschrieben werden kann (analog f"ur 
+$a\,e^{rt}\cos(bt)$ mit dem Realteil dieser Funktion), und so auch diese St"orfunktion auf die gleiche Art abgehandelt werden kann.\par
+
+\begin{bspX} $x''+x=\sin(\omega\,t)$\par
+{\it Genereller Ansatz:} Wir rechnen komplex, $y''+y=e^{\iii\omega\,t}$.\par
+Charakteristisches Polynom: $p(\lambda)=\lambda^2+1$.\\
+{\it Fall 1:} $\omega\not=\pm 1$. Dann ist $p(\iii\omega)\not = 0$. 
+Ansatz: $y=c\, e^{\iii\omega\,t}$. 
+$$ -\omega^2 c\, e^{\iii\omega\,t}+c\,e^{\iii\omega\,t} = e^{\iii\omega\,t}.$$
+also $c(-\omega^2+1)=1$, d.h.\ $c=1/(1-\omega^2)$. \\
+Spezielle L"osung: 
+$x(t) 
+= \Im\left(e^{\iii\omega\,t}/(1-\omega^2)\right)
+= \sin(\omega t)/(1-\omega^2).$\\
+{\it Fall 2:} $\omega = \pm1$. Dann ist $p(\iii\omega) = 0$ 
+(einfache Nullstelle). 
+Ansatz: $y=c\, \,t\,e^{\iii\omega\,t}$. 
+$$ \left(-\omega^2 c\, t\, e^{\iii\omega\,t}
+ + 2\iii\omega e^{\iii\omega\,t}\right)_{\omega=\pm 1}
++\left(c\,t\,e^{\iii\omega\,t}\right)_{\omega=\pm 1}
+= \pm 2\iii e^{\pm\iii\,t}
+= e^{\pm\iii\,t}$$
+also $c = 1/(\pm 2 \iii)=\mp\iii/2$. 
+Spezielle L"osung:  
+$x(t) 
+= \Im\left(\mp\iii\,t\,e^{\iii\omega\,t}/2\right)
+= t\cos(\omega t)/2.$\\
+{\it Interpretation:} Die Gleichung $x''+x=0$ beschreibt eine 
+unged"ampfte Schwingung (z.B.\ eines Federpendels) 
+mit Eigenfrequenz $1$. Die Inhomogenit"at speigelt eine Anregung des
+Systems mit Frequenz (besser: Kreisfrequenz) $\omega$. 
+Falls $\omega\pm 1$, so wird das System nicht mit der Eigenfrequenz angeregt, es stellt sich eine stabile Schwingung ein. Falls $\omega=\pm 1$, so trifft die Anregung die Eigenschwingung. 
+Das System akkumuliert Energie, und die Amplitude der Schwingung steigt linear in der Zeit.
+\end{bspX}
+
+%==============================================================================
+\begin{auf}\cha\label{block4A3}
+\input{../../Aufgabensammlung/hm701.tex}
+\end{auf}
+%==============================================================================
+\subsection{Produkt von Polynom und Exponential- (Trigonometrischer)  Funktionen als St"orfunktion}
+{\it Betrachte\footnote{Dieser Abschnitt wird in der Vorlesung nicht behandelt}
+\index{St"orfunktion!Produkt von Polynom und Trigonometrische Funktion} 
+\index{St"orfunktion!Produkt von Polynom und Exponentialfunktion Funktion}
+$$ \sum_{i=0}^n a_i x^{(i)}(t) = f(t),$$
+und $q(t)$ ein Polynom des Grades $j$ und
+$$f(t) = q(t) e^{bt}.$$
+Der ``richtige'' Ansatz ist dann ein Produkt aus einem Polynom mit $e^{bt}$, d.h.
+$$ x(t) = \sum_{i=0}^j b_i t^i\,\,\, e^{bt}.$$
+Etwas genauer: 
+\begin{itemize}
+\item[Fall 1:] Sei $b$ nicht Nullstelle des Charakteristischen Polynoms.\\
+Dann ist der richtige Ansatz
+$$ x(t) = \sum_{i=0}^{j} b_i t^i\,\,\, e^{bt}.$$
+\item[Fall 2:] Sei $b$ $m$-fache Nullstelle des charakteristischen Polynoms.\\
+Dann ist der richtige Ansatz
+$$ x(t) = t^m\,\,\sum_{i=0}^{j} b_i t^i\,\,\, e^{bt}.$$ 
+\end{itemize}}
+%==============================================================================
+\subsection{St"orfunktion: Summen von bisherigen St"orfunktionen}
+ Betrachte \index{St"orfunktion!Summen von Funktion} 
+$$ \sum_{i=0}^n a_i x^{(i)}(t) = f(t)$$
+und
+$$ f(t) = f_1(t) + f_2(t).$$
+Dann finde partikul"are L"osungen $y_1$ f"ur
+$$ \sum_{i=0}^n a_i y_1^{(i)}(t) = f_1(t)$$
+und $y_2$ f"ur 
+$$ \sum_{i=0}^n a_i y_2^{(i)}(t) = f_2(t).$$
+Die Summe dieser beiden partikul"aren L"osungen $x=y_1+y_2$ tut's:
+\begin{eqnarray*}
+\sum_{i=0}^n a_i x^{(i)}(t)
+ & = & 
+\sum_{i=0}^n a_i (y_1(t)+y_2(t))^{(i)}\\
+ & = & 
+\sum_{i=0}^n a_i (y_1^{(i)}(t)+y_2^{(i)}(t))\\
+ & = &  
+ \sum_{i=0}^n a_i y_1^{(i)}(t) \quad + \quad
+ \sum_{i=0}^n a_i y_2^{(i)}(t)\\
+  & = & 
+  f_1(t)+f_2(t)
+\end{eqnarray*}
+Der Trick funktioniert nat"urlich auch, wenn wir nicht nur $f_1$ und $f_2$, 
+sondern $k$ Summanden $f_1+f_2+\cdots+f_k$ auf der rechten Seite haben.
+%==============================================================================
+\subsection{Volles Problem}
+%==============================================================================
+Im Prinzip wissen wir jetzt, wie wir ein inhomogenes Anfangswertproblem angehen m"ussen:  
+\begin{enumerate}
+\item Finde eine spezielle L"osung, und eliminiere damit die Inhomogenit"at
+\item F"ur geeignete Anfangswert (in der Regel nicht die Original-Anfangswerte!) 
+bestimme die L"osung der homogenen Gleichung
+\item Addiere beide L"osungen. Fertig!
+\end{enumerate}
+
+Das f"uhren wir jetzt an einem Beispiel durch.\par\medskip
+%==============================================================================
+\begin{bspX}
+L"osungswegs eines inhomogenen, linearen Anfangswertproblems: suche
+die L"osung von 
+$$ 3 x'' + 12 x' + 12 x + 12 = -24\, t,\qquad
+\mbox{ mit }\quad x(0) = 2,\quad x'(0) = -1.$$
+\noindent{\it Spezielle L"osung.} Die Gleichung kann man schreiben als
+$$ 3 x'' + 12 x' + 12 x =f(t) $$
+mit $ f(t) = -12-24 t$.\\
+Die St"orfunktion ist also ein Polynom  ersten Gerades. 
+Da $a_0=12\not=0$ setzen wir die spezielle L"osung
+$y(t)$ ebenfalls als Polynom ersten Grades an, und finden
+$$ y(t) = a + bt,\qquad y'(t) = b,\qquad y''(t) = 0.$$
+Einsetzen in die Gleichung ergibt
+$$ -12-24 t = 3y''+12y'+12y = 12\, b + 12\, (a+bt) = 12 (a+b) + 12 b t.$$
+Damit folgt $b=-2$ und $a = 1$. Die (besser: eine) spezielle L"osung lautet also $y(t) = 1-2t$.\\
+%==============================================================================
+\noindent{\it Anfangswerte.} Wir schreiben die L"osung $x(t)$ als Summe von der 
+schon berechneten speziellen L"osung $y(t)$ und einer unbekannten Funktion $z(t)$. 
+Die Funktion $z(t)$ folgt dann
+$ 3 z'' + 12 z' + 12 z = 0$
+mit Anfangsbedingungen
+$ z(0) = x(0)-y(0) = 2-1=1,\qquad z'(0) = x'(0)-y'(0) = -1-(-2)=1.$\\
+Das charakteristische Polynom lautet
+$ p(\lambda) = 3\lambda^2+12\lambda+12 = 3(\lambda^2+4\lambda+4) = 3(\lambda+2)^2$
+d.h.\ es besitzt nur eine, doppelte, Nullstelle $\lambda=-2$. \\
+Das (ein) Fundamentalsystem lautet daher
+$ e^{-2t}$ und $t\,e^{-2t}.$
+Wir k"onnen $z(t)$ also darstellen als
+$ z(t) = c_1 \,\, e^{-2t} \,\,+ c_2\,\, t\,e^{-2t}.$
+Die Anfangswerte bestimmen uns $c_1$, $c_2$. Die Bedingung $z(0) = 1$ ergibt
+$ c_1 = 1$ und mit $z'(t) = c_1(-2 e^{-2t}) \,\,+ c_2\,\,(e^{-2t}-2t \,e^{-2t})$ folgt aus der Bedingung $z'(0) = 1$
+dass
+$ -2c_1+c_2 =1$ und daraus $c_2 = 1+2 c_1 = 3.$
+Damit finden wir
+$ z(t) =  e^{-2t} \,\,+ 3\,\, t\,e^{-2t}.$\\
+\noindent{\it L"osung des Problems} Die L"osung des Problems ist gleich der Summe 
+von $y$ und $z$, $ x(t) =  e^{-2t} \,\,+ 3\,\, t\,e^{-2t} + 1-2t.$
+\end{bspX}
+%==============================================================================
+{\it Bemerkung:} Als die allgemeine L"osung eines inhomogenen Anfangswertproblems 
+\index{allgemeine L"osung}
+bezeichnet man die Summe der speziellen L"osung mit allen Funktionen des Fundamentalsystems (die
+mit Konstanten multipliziert werden). Man kann durch Wahl der Konstanten dann alle m"oglichen
+L"osungen erhalten. In unserem Beispiel w"urde die allgemeine L"osung lauten
+$$ x(t) = c_1 e^{-2t} \,\,+ c_2\,\, t\,e^{-2t} + 1-2t.$$
+%==============================================================================
+\subsection*{Aufgaben}
+
+\begin{auf}\chb\label{block4A5}
+\input{../../Aufgabensammlung/hm185.tex}
+\end{auf}
+\begin{auf}\cha\label{block4A6}
+\input{../../Aufgabensammlung/hm071.tex}
+\end{auf}
+\begin{auf}\chb\label{block4A7}
+\input{../../Aufgabensammlung/hm190.tex}
+\end{auf}
+%==============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,301 @@
+ 
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+%==============================================================================
+\section{Lineare Differentialgleichungen 2}
+%==============================================================================
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Die allgemeine L"osung einer homogenen, autonomen, linearen Differentialgleichung $n$'ter Ordnung bestimmen k"onnen
+\end{itemize}}
+%============================================================================== 
+\subsection{Homogene Gleichung}
+%==============================================================================
+Nun betrachten wir eine Gleichung der Form
+(man beachte: $a_i$ sind konstant, $b(t)$ darf von der Zeit abh"angen)
+$$ \sum_{i=0}^n a_i x^{(i)}(t)  =  b(t),\qquad x^{(i)}(t_0) = x^i_0\quad\mbox{f"ur }i=0,...,n-1$$
+Dazu bemerken wir zun"achst:\par
+Sei $y(t)$ eine L"osung von der inhomogenen Gleichung mit beliebigen Anfangsbedingungen
+$$ \sum_{i=0}^n a_i y^{(i)}(t)  =  b,$$
+und definieren wir
+$$ z(t) = x(t) -y(t),$$
+so folgt
+$$ \sum_{i=0}^n a_i z^{(i)}(t)  =  0,\qquad z^{(i)}(t_0) = x^i_0-y^{(i)}(t_0)\quad\mbox{f"ur }i=0,..,n-1$$
+\fpbox{
+Wir k"onnen also das Problem zerlegen:\par
+{\bf Schritt 1:} Finde eine (irgendeine) spezielle (partikul"are) L"osung $y(t)$ 
+des inhomogenen Problems; achte dabei nicht auf die Anfangsbedingungen.\par
+{\bf Schritt 2: } Finde eine L"osung des homogenen Problems mit Anfangsbedingungen
+$z^{(i)}(t_0) = x^i_0-y^{(i)}(t_0)$. \par
+{\bf Dann} ist die Summe von spezieller L"osung und L"osung der homogenen 
+Gleichung die L"osung des Anfangswertproblems,
+$$ x(t) = \mbox{Spezielle L"osung} + \mbox{Homogene L"osung} = z(t) + y(t) .$$
+%==============================================================================
+Vergleiche den Satz "uber die L"osungsmenge einer linearen Gleichung $Ax = b$:\\
+\centerline{ L"osungsmenge  = Spezielle L"osung + Kern(A) }
+}\par\bigskip
+
+
+{\bf Homogene Gleichung:}\par
+Wir wenden uns der ersten Aufgabe zu, alle L"osungen der homogenen Gleichung 
+$$ \sum_{i=0}^n a_i x^{(i)}(t)  =  0.$$
+zu finden. Wir verwenden den Ansatz $ x(t) = e^{\lambda t}.$\\
+Einsetzen ergibt: $ \sum_{i=0}^n a_i \lambda^i e^{\lambda t}=  0$
+d.h.
+$$ \sum_{i=0}^n a_i \lambda^i =  0$$
+Das Polynom $p(\lambda) = \sum_{i=0}^n a_i \lambda^i $ hei"st \emph{charakteristisches Polynom}.  
+Nur die Exponentialfunktionen mit 
+Exponenten, die Nullstellen des charakteristischen Polynoms sind, l"osen die 
+homogene Differentialgleichung. 
+
+Nun sind zwei F"alle zu unterscheiden:
+Im einfachsten Fall haben wir $n$ verschiedene Nullstellen (z.B. $p(\lambda) = \lambda^2-1$ hat
+die beiden verschiedenen Nullstellen $\lambda_\pm = \pm 1$). Etwas komplizierter sieht es aus,
+wenn es doppelte Nullstellen oder Nullstellen noch h"oherer Ordnung gibt (z.B. 
+besitzt $\lambda^2=0$ die doppelte Nullstelle $\lambda=0$).
+
+\subsection{Charakteristisches Polynom besitzt nur einfache Nullstellen}
+Falls wir $n$ verschiedene Nullstellen $\lambda_1,...,\lambda_n$ haben, so finden wir L"osungen
+$$ y_i(t) = c_i e^{\lambda_i\, t}$$
+(wobei die $\lambda_i$ durchaus komplex sein d"urfen). Dann ist auch die Summe 
+der Funktionen L"osung,
+$$ y(t) = \sum_{i=0}^n c_i e^{\lambda_i t}$$
+Dies ist die allgemeine L"osung der homogenen Differentialgleichung.
+Einsetzen der Anfangsbedingungen liefert ein lineares Gleichungssystem 
+f"ur die Konstanten $c_i$.
+
+\begin{auf}\cha\label{block3A1}
+\input{../../Aufgabensammlung/hm698.tex}
+\end{auf}
+%==============================================================================
+\subsection{Charakteristisches Polynom besitzt mehrfache Nullstellen}
+Wenn eine Nullstelle mehrfach ist, d.h. im charakteristischen Polynom der Term 
+$(\lambda-a)^m$ auftritt, so haben wir immer noch eine L"osung der Form 
+$$x(t) = e^{at}.$$
+Aber es gibt noch weitere L"osungen, die mit diesem Exponenten verbunden sind. 
+Betrachten wir im einfachsten Fall
+$$ x^{(m)} = 0$$
+so lautet das charakteristische Polynom $\lambda^m=0$, d.h. die Vielfachheit der 
+Nullstelle $\lambda=0$ ist $m$. Die zugeh"origen L"osungen sind 
+$$ x(t) = \sum_{i=0}^{m-1} c_i t^i \, e^{0t}$$
+d.h. ein Polynom $m-1$'ten Grades multipliziert mit $e^{0t}$. Das ist im 
+allgemeinen auch der Fall. Um dies einzusehen, rechnen wir zun"achst 
+formal: Das 
+charakteristische Polynom lautet
+$p(\lambda) = \sum_{i=0}^n a_i\lambda^i$. Wir ersetzten einfach frech das $\lambda$ 
+durch die Ableitung $d/dt$, und interpretieren  wie "ublich $(d/dt)^i = d^i/dt^i$ 
+als die $i$'te Ableitung. Dann finden wir
+$$\sum_{i=0}^n a_i \frac {d^i}{dt^i}y(t) = p(d/dt) y(t) = 0.$$
+Nun nehmen wir an, dass $a\in\C$ eine Nullstelle der Vielfachheit $m$ ist, d.h.\ es gibt ein Polynom $q(\lambda)$,
+sodass
+$$ p(\lambda) = q(\lambda) (\lambda-a)^m.$$
+Jetzt k"onnen wir unsere Frechheit fortsetzten, und finden
+$$ 0 = p(d/dt) y(t) = q(d/dt)\,\,\left(\frac d {dt} - a\right)^m \,\ y(t).$$
+Mit dem Wert $a$ sind also L"osungen dieser Gleichung verbunden, f"ur die 
+$$ 0 = \left(\frac d {dt} - a\right)^m \,\ y(t)$$
+gilt (aus dieser Gleichung folgt sofort, dass auch $p(d/dt) y=0$).
+Klar ist, dass die Funktion $y(t) = e^{at}$ diese Gleichung erf"ullt. 
+Um weitere 
+L"osungen zu finden, nutzen wir den Ansatz
+$$ y(t) = z(t) \, e^{a t}.$$
+Wir erhalten
+\begin{eqnarray*}
+\left(\frac d {dt} - a\right)^m \,\left(z(t) \, e^{a t}\right) 
+& = & 
+\left(\frac d {dt} - a\right)^{m-1}  \left(\frac d {dt} - a\right)\,\left(z(t) \, e^{a t}\right) 
+= 
+\left(\frac d {dt} - a\right)^{m-1}  \,\left(z'(t) \, e^{a t}+ z(t) (e^{a t})' - a z(t) e^{at}\right) \\
+& = &
+\left(\frac d {dt} - a\right)^{m-1}  \,\left(z'(t) \, e^{a t}\right) \\
+&\vdots &\\
+& = &
+ z^{(m)}(t) \, e^{a t}.
+\end{eqnarray*}
+Um $(d/dt -a)^m (z e^{at})=0$ zu erf"ullen muss die $m$'te Ableitung von $z(t)$ 
+verschwinden. Dies ist f"ur jedes Polynom mit einem Grade kleiner $m$ der Fall, 
+d.h. alle Funktionen der Form $$ \sum_{i=0}^{m-1} d_i t^i\,\, e^{at}$$
+erf"ullen die Differentialgleichung.
+
+\begin{auf}\cha\label{block3A2}
+\input{../../Aufgabensammlung/hm699.tex}
+\end{auf}
+%==============================================================================
+\subsection{Zusammenfassung} 
+Um L"osungen der Differentialgleichung
+$$ \sum_{i=0}^n a_i y^{(i)} = 0$$
+zu finden, bestimmen wir die Nullstellen des charakteristischen Polynoms
+$$ p(\lambda) = \sum_{i=0}^n a_i \lambda^i = 0.$$
+Eine einfache Nullstelle $a$ entspricht einer L"osung
+$$ y(t) = e^{at}$$
+und eine $m$-fache Nullstelle $a$ entspricht $m$ verschiedenen L"osungen
+$$ y(t) = t^i e^{a\, t},\qquad i=0,...,m-1.$$
+Bemerkung: Die Nullstellen $a$ k"onnen komplex sein! Da die $a_i$ reell sind, 
+finden wir mit einer komplexen Nullstelle $a$ auch ihre komplex konjugierte 
+Nullstelle $\bar a$. Dann k"onnen wir uns wieder zwei reelle L"osungen
+$$ e^{a t}+e^{\bar a t},\qquad (e^{a t}-e^{\bar a t})/\iii$$
+konstruieren. Auf diese Art k"onnen wir uns $n$ verschiedene, reelle L"osungen konstruieren.
+
+%==============================================================================
+\subsection{Fundamentalsystem}
+\begin{sdefi}
+{\it \underline{Fundamentalsystem} \index{Fundamentalsystem}} 
+Seien $y_1(t),...,y_n(t)$ L"osungen der Differentialgleichung $n$'ter Ordnung.  
+W"ahle einen beliebigen Zeitpunkt $t_0\in\R$. Definiere die Vektoren
+$$ {\cal Y}_i(t_0) = (y_i(t_0), y'_i(t_0), y^{(2)}(t_0),\cdots, y^{(n-1)}(t_0))^T.$$
+Wenn jeder Vektor ${\cal X}\in\R^n$ durch Linearkombinationen der ${\cal Y}_i$ 
+dargestellt werden kann, so heisst $y_1(t)$,..,$y_n(t)$ ein Fundamentalsystem. 
+\end{sdefi}
+%==============================================================================
+\begin{sbem}
+{\bf (1)} Die Eigenschaft, dass ein beliebiger Vektor durch die ${\cal Y}_i(t_0)$ 
+dargestellt werden kann, vererbt sich von einem Zeitpunkt auf alle Zeitpunkte: 
+gilt das f"ur ein $t_1$, so gilt es f"ur alle $t\in\R$ (dies ist eine Aussage, 
+die man eigentlich zeigen m"usste; tun wir aber nicht). Man muss also nur f"ur 
+einen Zeitpunkt alle L"osungen finden, und hat schon an allen Zeitpunkten alle 
+L"osungen gefunden.\\
+%==============================================================================
+{\bf (2)} Die $n$ verschiedenen L"osungen, die wir f"ur unsere Gleichung $n$ten Grades gefunden haben bilden in der
+Tat ein Fundamentalsystem.\\
+{\bf (3)} Ein besonders sch"ones Fundamentalsystem erh"alt man, wenn man verlangt, 
+dass  $y_i(t)$, $i=0,...,n-1$, das Anfangswertproblem
+$$  y^{(i)}(t_0) = 1
+\qquad \mbox{und }
+\quad
+y_i^{(k)}(t_0) = 0\quad\mbox{ f"ur }k=0,...,n-1,\,\,\, k\not=i$$
+erf"ullt. Dann finden wir n"amlich sofort, dass die L"osung unseres Anfangswertproblems 
+$x^{(i)}(t_0) = x_i$ durch $$ x(t) = \sum_{i=0}^{n-1} x_i y_i(t)$$
+gegeben ist.\end{sbem}
+\par\bigskip
+%==============================================================================
+\begin{bspX}
+Finde ein Fundamentalsystem der Gleichung $ x''+ 2x'+5x=0.$
+
+Zur L"osung: das charakteristische Polynom lautet
+$$p(\lambda) 
+= \lambda^2 + 2 \lambda  + 5
+= \lambda^2 + \lambda +1 +4
+= (\lambda + 1)^2 + 4 
+$$
+Also haben wir die Nullstellen
+$$\lambda_\pm = - 1\pm \, 2 \,{\rm i}$$
+und das (komplexe) Fundamentalsystem
+$$ 
+e^{(- 1 + \, 2 \,{\rm i})t},\qquad 
+e^{(- 1 - \, 2 \,{\rm i})t}.
+$$
+Nun wollen wir $x(0)=x_0$ und $x'(0)=x_1$ vorschreiben. Dazu betrachten wir uns 
+Linearkombinationen der beiden L"osungen.\\
+Zun"achst suchen wir $c_0$, $c_1$, so dass f"ur 
+$y_0=c_0 e^{(- 1 + \, 2 \,{\rm i})t} + c_1 e^{(- 1 - \, 2 \,{\rm i})t}$ gilt $y_0(0)=1$ und $y_0'(0)=0$; d.h.,
+$(c_0, c_1)$ erf"ullen das Gleichungssystem
+\begin{eqnarray*}
+&&\left(\begin{array}{cc|c} 
+1 & 1 & \quad 1\qquad\\
+-1+\,2\,{\rm i} & -1-\,2\,{\rm i}  &\quad 0\qquad\\
+\end{array}\right)\\
+&\Rightarrow&
+\left(\begin{array}{cc|c} 
+\qquad 1 \quad & \qquad 1\quad & 1\\
+\qquad 0 \quad & -\,4\,{\rm i}  & 1-\,2\,{\rm i}  \\
+\end{array}\right)\\
+\end{eqnarray*}
+Also finden wir $c_1 = 1/2+1/4\,\,{\rm i}$ und $c_0 = 1-c_1 = 1/2-1/4\,\,{\rm i}$. Daher
+\begin{eqnarray*}
+y_0(t) 
+& = & 
+(1/2-1/4\,\,{\rm i})\,\,e^{(- 1 + \, 2 \,{\rm i})t} + 
+(1/2+1/4\,\,{\rm i})\,\,e^{(- 1 - \, 2 \,{\rm i})t} \\
+& = & 
+(1/2-1/4\,\,{\rm i})\,\,e^{-t} (\cos(2 t) + i\sin(2t))  + 
+(1/2+1/4\,\,{\rm i})\,\,e^{-t}(\cos(2 t) -  i\sin(2t))\\
+& = & e^{-t}\bigg(
+[1/2\,\, \cos(2 t)  + 1/4 \sin(2t)] + {\rm i}\,[1/2\,\,\sin(2t)-1/4\,\,\cos(2t)]\\
+&& \quad+ [1/2\,\, \cos(2 t)  + 1/4 \sin(2t)] - {\rm i}\,[1/2\,\,\sin(2t)-1/4\,\,\cos(2t)]\bigg)\\
+& = & e^{-t}\big( \cos(2 t)  +1/2 \sin(2t)\big)
+\end{eqnarray*}
+Weiter bestimmen wir 
+$y_1=c_0 e^{(- 1 + \, 2 \,{\rm i})t} + c_1 e^{(- 1 - \, 2 \,{\rm i})t}$ mit $y_0(0)=0$ und $y'(0)=1$; d.h.,
+$(c_0, c_1)$ erf"ullen diesmal
+\begin{eqnarray*}
+&&\left(\begin{array}{cc|c} 
+1 & 1 & 0\\
+-1+\,2\,{\rm i} & -1-\,2\,{\rm i}  &1\\
+\end{array}\right) \Rightarrow
+\left(\begin{array}{cc|c} 
+\qquad 1 \quad & \qquad 1\quad & 0\\
+\qquad 0 \quad & -\,4\,{\rm i}  & 1  \\
+\end{array}\right)\\
+\end{eqnarray*}
+Also finden wir $c_1 = 1/4\,\,{\rm i}$ und $c_0 = 0-c_1 = -1/4\,\,{\rm i}$. Daher
+\begin{eqnarray*}
+y_1(t) 
+& = & 
+-1/4\,\,{\rm i}\,\,e^{(- 1 + \, 2 \,{\rm i})t} + 
+1/4\,\,{\rm i}\,\,e^{(- 1 - \, 2 \,{\rm i})t} \\
+& = & 
+-1/4\,\,{\rm i}\,\,e^{-t} (\cos(2 t) + i\sin(2t))  
++1/4\,\,{\rm i}\,\,e^{-t}(\cos(2 t) -  i\sin(2t))\\
+& = & 1/2 e^{-t} \,\sin(2t)
+\end{eqnarray*}
+Demnach ist die allgemeine L"osung $x(t)$, wenn $x(0) = x_0$ und $x'(0) = x_1$ gegeben ist
+$$ x(t) = x_0 y_0(t) + x_1 y_1(t) 
+= x_0 e^{-t}\big( \cos(2 t)  + 1/2 \sin(2t)\big) + 
+    \frac {x_1}{2} e^{-t} \,\sin(2t).
+    $$
+Die Interpretation dieser L"osung lautet: wir haben Schwingungen der Frequenz $2/2\pi$ 
+(es kommt $\sin(2t)$ und $\cos(2t)$ vor), die ged"ampft sind ($e^{-t}$ geht "uberall multiplikativ ein).
+\end{bspX}
+%==============================================================================
+\begin{bspX}
+Finde ein Fundamentalsystem der Gleichung $ x''-2x'+x=0.$ 
+Zur L"osung: das charakteristische Polynom lautet
+$p(\lambda) = \lambda^2-2\,\lambda +1 = (\lambda-1)^2$.
+Wir finden also nur eine Nullstelle $\lambda=1$, und die hat Vielfachheit zwei. 
+Demnach bildet $ e^{t},\qquad t\, e^{t}$ ein Fundamentalsystem. Wenn wir noch 
+das spezielle Fundamentalsystem suchen wollen, 
+so bilden wir Linearkombinationen der Funktionen unseres schon bekannten 
+Fundamentalsystems. Verlange von $y_0(t)$, dass $y_0(0) = 1$ und $y_0'(0) = 0$. 
+Also, suche Konstanten $c_0$ und $c_1$, sodass
+$$ 
+c_0e^{t}+c_1te^t \bigg|_{t=0}= 1,\qquad
+\left(c_0e^{t}+c_1te^t\right)' \bigg|_{t=0}= 0.
+$$
+Damit erhalten wir das Gleichungssystem in $(c_0, c_1)^T$
+\begin{eqnarray*}
+\left(\begin{array}{cc|c} 
+1 & 0 & 1\\
+1 & 1 & 0\\
+\end{array}\right)
+\end{eqnarray*}
+mit der L"osung $c_0=1$, $c_1=-1$.\\
+Die zweite Funktion im Fundamentalsystem $y_1$ sollte $y_1(0) = 0$ und $y_1'(0) = 1$ erf"ullen.
+Daher erhalten wir mit dem Ansatz $y_2 = c_0 e^t + c_1 t e^t$ das Gleichungssystem
+\begin{eqnarray*}
+\left(\begin{array}{cc|c} 
+1 & 0 & 0\\
+1 & 1 & 1\\
+\end{array}\right)
+\end{eqnarray*}
+Hier ist die L"osung $c_0=0$ und $c_1=1$. Damit finden wir das Fundamentalsystem
+$$y_0(t) = e^t-te^t = (1-t)e^t,\qquad y_1(t) = te^t.$$
+Wenn wir $x(0)=x_0$ und $x'(0)=x_1$ vorgeben, so erhalten wir die L"osung
+$$ x(t) = x_0y_0(t)+x_1y_1(t) = [x_0(1-t)+x_1t]e^t.$$
+\end{bspX}
+%==============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\chb\label{block3A3}
+\input{../../Aufgabensammlung/hm714.tex}
+\end{auf}
+
+\begin{auf}\chb\label{block3A4}
+\input{../../Aufgabensammlung/hm715.tex}
+\end{auf}
+
+\begin{auf}\cha\label{block4A4}
+\input{../../Aufgabensammlung/hm075.tex}
+\end{auf}

@@ -1,0 +1,472 @@
+
+%%   ! T E X  root=hm2ln.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+%==============================================================================
+\section{Lineare Differentialgleichungen 1}
+%==============================================================================
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Lineare Differentialgleichungen erkennen und klassifizieren k"onnen
+\item  Variation-der-Konstanten-Formel kennen und anwenden k"onnen
+\item Autonome lineare Differentialgleichung $n$-ter Ordnung in System 
+            erster Ordnung umschreiben k"onnen
+\item Autonome Systeme erster Ordnung l"osen k"onnen
+\item ``Zoo'' im Zweidimensionalen kennen
+\end{itemize}}
+%============================================================================== 
+\subsection{Grundlegende Definitionen}
+Um schnell den richtigen L"osungsansatz f"ur Differentialgleichungen zu finden,
+definiert man einen Reihe von Eigenschaften (Klassifikation von Differentialgleichungen).
+\begin{sdefi}
+$\bullet$ Eine Gleichung, die  eine Funktion $x(t)$ und ihre Ableitungen in Beziehung setzt, 
+$$ F(x(t), x'(t),\cdots,x^{(n)}(t)) = 0.$$
+hei"st Differentialgleichung. Wenn die h"ochste, vorkommende Ableitung  die $n$-te Ableitung
+ ist, so hei"st sie Differentialgleichung $n$-ter Ordnung. \\
+$\bullet$ Ist zur Zeit $t_0$ die Werte von  $x(0)=y_0$,..,$x^{(n-1)}(t_0)=y^{n-1}_0$ auch gegeben, so nennt man die Gleichung
+ $$ F(x(t), x'(t),\cdots,x^{(n)}(t)) = 0,\quad x^{(i)}(t_0)=y_i,\qquad i=0,..,n-1$$
+Anfangswertproblem.\\
+$\bullet$ Gibt es Funktionen $a_i(t)$, $b(t)$, sodass die Differentialgleichung die Form 
+$$ \sum_{i=0}  a_i(t) x^{(i)} = b(t)$$
+annimmt, so hei"st die Differentialgleichung linear.\\
+$\bullet$  Ist $b(t)=0$, so hei"st die Differentialgleichung (linear) homogen, ansonsten inhomogen. \\
+$\bullet$ $a_2x''+ a_1x'+a_0x=b$, $x(a)=x_0$, $x(b)=x_1$ f"ur $a<b$ hei"st Randwertproblem.\\
+$\bullet$ Sind die $a_i(t)$, $b(t)$ konstant (nicht von der Zeit abh"angig), 
+so hei"st die Differentialgleichung autonom, sonst nicht-autonom.\\
+$\bullet$ Ist $x(t)$ keine skalare Funktion, sondern ein Vektor, $A(t)$ eine 
+Matrix, und $b(t)$ ein Vektor, so hei"st
+$$ x' = A(t) x + b(t)$$
+ein System erster Ordnung (autonom, nicht-autonom, homogen, inhomogen,...).
+\end{sdefi}
+Die Differentialgleichung
+$$ x''(t) + \sin(t) x(t) = 2,\qquad x(0)=0, \quad x'(0)=1$$
+ist ein $\bullet$ lineares $\bullet$ inhomogenes $\bullet$ nicht-autonomes 
+$\bullet$ Anfangswertproblem $\bullet$ zweiter Ordnung (5 Eigenschaften). \\
+\fpbox{Wenn wir eine Differentialgleichung gegeben haben, und eine Funktion
+von der behauptet wird, dass sie eine L"osung darstellt, so k"onnen wir das "uberpr"ufen, indem wir (1) die Funktion in die Gleichung einsetzen, und 
+(2)~"uberpr"ufen, ob die Anfangswerte (oder Randwerte, je nach Problem) von der
+Funktion richtig angenommen werden.}\par
+
+%==============================================================================
+\begin{auf}\cha\label{block2A1}
+\input{../../Aufgabensammlung/hm687.tex}
+\end{auf}
+%==============================================================================
+\subsection{Variation-der-Konstanten Formel}
+
+F"ur ein lineares Anfangswertproblem erster Ordnung gibt es eine L"osungsformel. 
+
+\begin{ssatz}\index{Variation der Konstanten}
+{\it Variation der Konstanten-Gleichung:}\\
+Gegeben sei 
+$$ x' = a(t) x(t) + b(t), \qquad x(t_0) = x_0$$
+so k"onnen wir die L"osung direkt angeben,
+$$ x(t) = e^{\int_{t_0}^t a(\tau)\, d\tau} x_0 + \int_{t_0}^t e^{\int_\tau^t a(s)\, ds} b(\tau)\, d\tau.$$
+\end{ssatz}
+
+\begin{figure}[t]
+  \begin{center}
+   \includegraphics[width=9cm]{../figures/varkonstinterp}
+  \end{center}
+\vspace*{-1cm}
+  \caption{Zur Interpretation der Variation-der-Konstanten Formel.}
+\label{varkonstint}
+\end{figure}
+
+
+{\bf Interpretation.} Um diese Gleichung besser interpretieren zu k"onnen, 
+stellen wir uns einen Eimer mit einem kleinen Loch im Boden vor (Abb.~\ref{varkonstint}). Sei $x(t)$
+die Menge des Wassers im Eimer zum Zeitpunkt $t$. Wenn  zum Zeitpunkt
+$t=0$ die Wassermenge $x_0$ war, so ist $x(t)$ durch die infinitesimale "Anderung $\dot x(t)$ und den Anfangswert $x_0$ beschrieben,
+$$ x' = \underbrace{-a\, x}_{abfluss},\qquad x(0)=x_0.$$
+Nun gie"sen wir mit einer Gie"skanne Wasser nach. Die Menge pro Zeit, die wir nachgie"sen sei $b(t)$. Dann lautet unsere Differentialgleichung
+$$ x' = \underbrace{-a\, x}_{abfluss}+ \underbrace{b(t)}_{Zufluss},\qquad x(0)=x_0.$$
+Wieviel Wasser ist dann zur Zeit $t$ im Eimer? Wenn wir die Molek"ule, die wir
+zu Beginn ($t=0$) im Eimer vorfinden, in Gedanken gr"un f"arben, so ist klar 
+(die Gleichung ist linear), dass zur Zeit $t$ genau ein Anteil $e^{-a t}$
+der gr"unen Molek"ule noch da sind. Die L"osung hat also die Form
+$$ x(t) = e^{-a t} x_0+\mbox{Wasser aus dem Zufluss}.$$
+Wir m"ussen noch kl"aren, wieviel Wasser aus dem Zufluss da ist. Zur Zeit $\tau$
+floss $b(\tau)$ Wasser zu. F"arben wir diese Molek"ule in Gedanken rot. Wieviel 
+rote Molek"ule erwarten wir zur Zeit $t$? Ein Teil des rot gef"arbten Wassers 
+ist schon herausgeflossen. Das Wasser hatte die Zeit 
+$t-\tau$ herauszufliessen. Daher (die Gleichung ist linear, es verschwindet pro 
+Zeiteinheit immer der gleiche Anteil des vorhandenen Wassers, wie lange das Wasser auch schon im Eimer gewesen sein mag) haben wir zur Zeit $t$ noch 
+$b(\tau)e^{-a(t-\tau)}$ Wasser des zur Zeit $\tau$ zugeleiteten Wassers im Eimer. Wir m"ussen nun "uber alle $\tau$ summieren (d.h.\ integrieren), um 
+die Menge des zugeleiteten Wassers, die jetzt im Eimer ist, zu berechnen, 
+$$ \int_0^t e^{-a(t-\tau)} b(\tau)\, d\tau.$$
+Die Menge des Wasser $x(t)$, das wir {\it jetzt}, zur Zeit $t$, 
+im Eimer vorfinden, setzt sich zusammen aus dem Teil des Wassers, 
+das zur Zeit $t=0$ im Eimer war, und noch nicht herausgeflossen ist 
+plus den Teil der zugef"uhrten Menge Wassers, die noch nicht 
+herausgeflossen ist.
+Alles in allem haben wir die Variation-der-Konstanten Formel:
+$$ x(t) = ^{-a t}x_0 + \int_0^t e^{-a(t-\tau)} b(\tau)\, d\tau.$$
+\par\medskip
+
+Wir werden sehen, dass es f"ur nicht-autonome Gleichungen h"oherer Ordnung
+fast nie m"oglich ist die L"osung
+explizit anzugeben; dies ist insofern eine Ausnahme.
+\begin{bbspX}
+$$ x' = - 3 t^2\, x(t) + t^2,\qquad x(0) = 5$$
+Dann erhalten wir also L"osung
+\begin{eqnarray*} 
+x(t) 
+& = & e^{-\int_0^t 3 \tau^2\, d\tau}\,5 + \int_0^t  e^{-\int_\tau^t 3 s^2\, ds}\frac 3 3 \, \tau ^2\, d\tau
+= 5\,e^{-t^3}\, + \frac 1 3 e^{-t^3}\int_0^t  \left(e^{\int_0^\tau 3 s^2\, ds} \right)'\, d\tau\\
+& =& 5\,e^{-t^3}\, + \frac 1 3 e^{-t^3} 
+           \left( e^{\int_0^t 3 s^2\, ds} -1\right)
+= 5\,e^{-t^3}\, + \frac 1 3 
+           \left( 1 -e^{-t^3} \right)           
+\end{eqnarray*}
+\end{bbspX}
+
+%==============================================================================
+\begin{auf}\chc\label{block2A2}
+\input{../../Aufgabensammlung/hm376.tex}
+\end{auf}
+%==============================================================================
+
+%==============================================================================
+\begin{auf}\chb\label{block2A3}
+\input{../../Aufgabensammlung/hm692.tex}
+\end{auf}
+%==============================================================================
+
+%==============================================================================
+\subsection{Autonomes System erster Ordnung}
+%==============================================================================
+\subsubsection{Exponentialfunktion von Matrizen}
+%==============================================================================
+\paragraph{(A) Definition der Exponentialfunktion.} Zur Erinnerung: f"ur $x\in\R$ 
+ist definiert $e^x = \sum_{i=0}^\infty \frac 1 {i!} x^i.$
+
+\begin{sdefi} Sei $A\in \R^{n\times n}$, so ist 
+$$ e^{A} = \sum_{i=0}^\infty \frac 1 {i!} A^i$$
+\end{sdefi}
+
+%==============================================================================
+\paragraph{(B) Ableitung der Exponentialfunktion.} Zur Erinnerung:  
+wenn $a\in\R$, so ist $\frac d {dt} e^{at} = a e^{at}$.
+\begin{slemma}  Sei $A\in \R^{n\times n}$, und $t\in\R$. Dann gilt
+$$ \frac d {dt} e^{At} = A e^{At} = e^{At}A.$$
+\end{slemma}
+{\bf Beweis: } 
+\begin{eqnarray*}
+\frac d {dt} e^{At} 
+& = &  \frac d {dt}\sum_{i=0}^\infty \frac 1 {i!} t ^i \,\, A^i  =  \frac d {dt} \sum_{i=1}^\infty \frac 1 {i!} t ^i \,\, A^i\qquad\mbox{ 
+weil: Ableitung von konstanten ist Null}\\
+& = & \sum_{i=1}^\infty \frac i {i!} t^{i-1} \,\, A^i =  \sum_{i=1}^\infty \frac 1 {(i-1)!} t^{i-1} \,\, A A^{i-1} =  A \sum_{i=1}^\infty \frac 1 {(i-1)!} t^{i-1} \,\, A^{i-1}\\
+& = & A \sum_{j=0}^\infty \frac 1 {j!} t^{j} \,\, A^{j}\qquad\mbox{ Index verschieben,}j=i-1\\
+& = &  A e^{At}
+\end{eqnarray*}
+Genauso sehen wir auch, dass
+$$ \frac d {dt} e^{At} 
+ =    e^{At} A$$
+(das ist bei Matrizen nicht selbstverst"andlich, da Matrizen i.a. nicht vertauschen.). \qed
+\begin{sbem}
+Demnach  finden wir die L"osung des linearen Differentialgleichungssystems
+$$ \frac d {dt}x(t) = Ax(t),\qquad x(0) = x_0$$
+indem wir
+$$ x(t) = e^{A t}x_0$$
+setzen.
+\end{sbem} 
+%==============================================================================
+\paragraph{(C)  Berechnung der Exponentialfunktion.} Um die Exponentialfunktion 
+zu berechnen, muss man $A^i$ bestimmen. Das ist i.a. ziemlich 
+schwierig. Daher versuchen wir einen Trick. Wir nehmen an, dass es eine Eigenbasis 
+gibt. In diesem Falle k"onnen wir die Exponentialfunktion einfacher berechnen: Sei
+$$ A = TDT^{-1}$$
+wobei $D$ eine Diagonalmatrix ist. Dann,
+\begin{eqnarray*}
+e^{A} 
+&=& \sum_{i=0}^\infty \frac 1 {i!} A^i = \sum_{i=0}^\infty \frac 1 {i!} (TDT^{-1})^i 
+= \sum_{i=0}^\infty \frac 1 {i!} \underbrace{(TDT^{-1})(TDT^{-1})\cdots(TDT^{-1})}_{i \mbox{ mal}}\\
+&= &\sum_{i=0}^\infty \frac 1 {i!}T \underbrace {DD \cdots D}_{i \mbox{ mal}}T^{-1}
+= \sum_{i=0}^\infty \frac 1 {i!} T  D^iT^{-1}
+= T \left(\sum_{i=0}^\infty \frac 1 {i!} D^i\right)T^{-1}\\
+&= &T e^{D}T^{-1}
+\end{eqnarray*}
+Dabei ist dann
+$$ D^i = 
+\left(\begin{array}{cccc}
+\lambda_1 & 0 &\dots & 0\\
+0 & \lambda_2&\ddots &\vdots\\
+ \vdots   &    \ddots                &\ddots & 0\\\
+0 &\cdots &0&\lambda_n
+\end{array}\right)^i
+= 
+\left(\begin{array}{cccc}
+\lambda_1^i & 0 &\dots & 0\\
+0 & \lambda_2^i&\ddots &\vdots\\
+ \vdots   &    \ddots                &\ddots & 0\\\
+0 &\cdots &0&\lambda_n^i
+\end{array}\right)
+$$
+und also
+$$ e^{A} = T \left(\sum_{i=0}^\infty \frac 1 {i!} D^i\right)T^{-1}
+= T 
+\left(\begin{array}{cccc}
+\sum_{i=0}^\infty \frac 1 {i!}\lambda_1^i & 0 &\dots & 0\\
+0 & \sum_{i=0}^\infty \frac 1 {i!}\lambda_2^i&\ddots &\vdots\\
+ \vdots   &    \ddots                &\ddots & 0\\\
+0 &\cdots &0&\sum_{i=0}^\infty \frac 1 {i!}\lambda_n^i
+\end{array}\right)
+T^{-1}
+= T \left(\begin{array}{cccc}
+e^{\lambda_1} & 0 &\dots & 0\\
+0 & e^{\lambda_2}&\ddots &\vdots\\
+ \vdots   &    \ddots                &\ddots & 0\\\
+0 &\cdots &0&e^{\lambda_n}
+\end{array}\right)
+T^{-1}.
+$$
+D.h., bei dieser Methode m"ussen wir nur die (reellen oder komplexen) Eigenwerte
+in die Exponentialfunktion einsetzen.  
+%==============================================================================
+{\it Bemerkung:} Es gilt (allgemein) dass
+$$\exp(tA) = I \qquad\mbox{ f"ur }t=0.$$
+\begin{bspX}
+Berechne $e^{A t}$  mit
+$$ A = \left(\begin{array}{cc}
+2 & -3/2\\
+0 & -1
+\end{array}\right).
+$$
+\noindent Schritt 1: Zun"achst ben"otigen wir Eigenwerte und Eigenvektoren.
+Da dies eine obere Dreiecksmatrix ist, lesen wir sofort die Eigenwerte 
+ab (das sind die Diagonalelemente, siehe Vorlesung HM I).
+Die Eigenvektoren berechnen sich zu
+$$ \lambda_1 = 2,\quad x_1=\vvektor{1}{0}, 
+\qquad \lambda_2 = -1,\quad x_2=\vvektor{1}{2}.$$
+\noindent {Schritt 2:} Die Transformationsmatrix f"ur den Basiswechsel in die Eigenbasis 
+lautet daher
+$$ T = (x_1,x_2) = \mmatrix{1}{1}{0}{2}
+\quad\Rightarrow\quad
+T^{-1} = \frac{1}{2}  \mmatrix{2}{-1}{0}{1}  
+$$
+und also 
+$$A = T\,\,
+\mmatrix{2}{0}{0}{-1}
+\,\,T^{-1}.$$
+\noindent{Schritt 3:} Damit finden wir
+\begin{eqnarray*}
+e^{At} & = & T \,\mmatrix{e^{ 2t}}{0}{0}{e^{-t}} T^{-1}
+= \frac 1 2 \,\, \mmatrix{1}{1}{0}{2}
+\,\mmatrix{e^{ 2t}}{0}{0}{e^{-t}} 
+ \mmatrix{2}{-1}{0}{1}  \\
+&=& \frac 1 2 \,\, \mmatrix{1}{1}{0}{2}
+ \mmatrix
+{2 e^{2t}  } { -e^{2t}  }
+{  0} {e^{-t}  }
+=
+ \mmatrix
+{e^{2t}  } {( e^{-t}-e^{2t})/2  }
+{  0} {e^{-t}  }
+\end{eqnarray*}
+\end{bspX}
+%==============================================================================
+\begin{auf}\cha\label{block2A4}
+\input{../../Aufgabensammlung/hm116.tex}
+\end{auf}
+%==============================================================================
+\subsubsection{``Zoo'' in zwei Dimensionen}
+Wir haben eben gesehen, dass wir die L"osung des Systems
+$$ x'=Ax, \quad x(0) = x_0$$
+durch 
+$$ x(t) = e^{A t} x_0$$
+darstellen k"onnen; Nehmen wir an, dass die Matrix zwei Eigenwerte $\lambda_1$
+und $\lambda_2$ mit zugeh"origen Eigenvektoren $x_1$ und $x_2$ besitzt, d.h.\ 
+$A x_i = \lambda_1 x_i$, $i=1,2$. Definieren wir ($i=1,2$)
+$$ y_i(t) = e^{\lambda_i t} x_i$$
+so sind die $y_i$ L"osungen:
+$$ \frac d {dt} y_i(t)
+ = 
+ \frac d {dt}e^{\lambda_i t} x_i
+=
+\lambda_i \, e^{\lambda_i t} x_i
+= 
+e^{\lambda_i t} Ax_i 
+= 
+A e^{\lambda_i t} x_i
+= Ay_i(t).$$ 
+Wenn wir also auf einem Eigenvektor starten, so bleiben wir auf dem Eigenvektor; nur dessen L"ange wird exponentiell schnell in der Zeit 
+ gestreckt (oder geschrumpft, je nach Vorzeichen von $\lambda_i$). 
+\par
+Wenn wir zwei reelle Eigenwerte haben, so k"onnen wir die L"osung also schon 
+auf den Geraden, die von den beiden Eigenvektoren aufgespannt werden. Wenn wir
+mit einem Punkt in allgemeiner Lage (nicht auf den Geraden) starten, so k"onnen wir diesem Punkt als Linearkombination der beiden Eigenvektoren darstellen. 
+Daher ist die L"osung eine Linearkombination von $y_1(t)$ und $y_2(t)$.\par
+\medskip
+
+Fall: $\lambda_1<\lambda_2<0$. In dem Fall gehen die L"osungen, die auf den
+Eigenvektoren starten, beide gegen Null. Daher geht auch jede 
+ Linearkombination dieser L"osungen gegen Null. Wir laufen also immer
+in die Null (``die Null ist stabil''). Da die Eigenwerte nicht gleich sind, 
+sind die L"osungskuvern, die nicht auf den Eigenvektoren liegen, gekr"ummt.
+Wir haben einen {\bf stabilen Knoten} (siehe Abb.~\ref{zoo}). \par\medskip
+Fall: $0<\lambda_1<\lambda2$. Um uns hier klar zumachen, wie die L"osungen
+assuehen, nutzen wir einen Trick: setze $\tilde y(t)=y(-t)$. Wenn die zeit
+$t$ nach vorne l"auft (in $y(t)$, l"auft die Zeit in $\tilde y(t)$ r"uckw"arts. 
+Gelte $y'=Ay$, so folgt 
+$$\frac d {dt} y(-t) = y'(-t)(-1) = -Ay(-t) = -A\tilde y(t).$$
+Die Eigenwerte von $-A$ sind nun gerade die negativen Eigenwerte von $A$.
+D.h., wenn die Eigenwerte von $A$ positiv sind, sind die Eigenwerte von $-A$ negativ. $\tilde y(t)$ hat genau das Bild von Fall~1. Daher (wir m"ussen die 
+L"osungen von Fall~1 r"uckw"arts laufen), haben wir einen instabilen Knoten.\par\medskip
+Fall: $\lambda_1<0<\lambda_2$. Auf dem einen Eigenvektor laufen wir in die 
+Null (``stabile Eigenvektor''), auf dem anderen nach unendlich (``instabiler Eigenvektor''). Daher verh"alt sich eine L"osung, so, dass sie sich dem instabilen Eigenvektor anschmiegt, und enltang diesme nach unendlich l"auft. 
+Dieser Fall hei"st {\bf Sattel}. 
+\par\medskip
+Nun m"ussen wir uns noch ansehen, was wir mit komplexen Eigenwerten machen. 
+Sei also $\lambda$ komplexer Eigenwert.
+Zun"achst rechnen wir komplex: wir finden einen komplexen Eigenvektor $z_0\in \C^2$, sodass $A z_0 = \lambda z_0$. dann ist, wie eben,
+$$z(t) = e^{\lambda t} z_0$$
+eine (komplexe) L"osung der Differentialgleichung. Wir h"atten aber gerne eine 
+reelle L"osung. Dazu sei erinnert, dass man jede komplexe Zahl als Summe 
+von Realteil und ${\iii}$ mal Imagin"arteil schreiben kann, also
+$$z(t) = a(t)+\iii b(t)$$
+mit $a$, $b$ zwei Vektor-wertige, reelle Funktionen. Dann ist
+$$z' = a'+\iii b' = Az = Aa+\iii Ab.$$
+Da zwei komplexe zahlen nur gleich sind, wenn Real- und Imagin"arteil getrennt "ubereinstimmen, folgt 
+$$ a' = A a,\qquad b' = Ab$$
+d.h.\ Real- und Imagin"arteil sind schon selbt L"osungen von $x'=Ax$.\par
+
+Sei nun $\lambda=r+{\iii} \omega$, so kann man $e^{\lambda t}$ und $z_0$ schreiben 
+(Euler-Formel!)
+$$ e^{\lambda t}z(t) = e^{r t}(\cos(\omega i)+\iii\sin(\omega t)),\qquad
+z_0 = a_0+\iii \, b_0$$
+wobei $a_0,b_0\in\R^2$. Also ist
+\begin{eqnarray*}
+ z(t) &=& e^{\lambda t} z_0 = 
+e^{r t}(\cos(\omega i)+i\sin(\omega t))\,\,(a_0+i\, b_0)\\
+&=& 
+\left\{e^{r t}(\cos(\omega t) a_0-\sin(\omega t)b_0)\right\}
++\iii 
+\left\{e^{r t}(\cos(\omega t) a_0-\sin(\omega t)b_0)\right\}
+\end{eqnarray*}
+Da Realteil schon L"osung ist, so haben wir eine reelle L"osung gegeben durch
+$$ a(t) = e^{r t}(\cos(\omega t) a_0-\sin(\omega t)b_0).$$
+Der Ausdruck in der Klammer ist periodisch (ist $\omega t=n\, 2\pi$, $n\in\N$, 
+so sind wir wieder in der Ausgangslage). Der Vorfaktor $e^{rt}$ w"achst exponentiell oder f"allt exponentiell, je nach Vorzeichen von $r=\Re(\lambda)$.\par
+Wie haben einen {\bf stabilen Strudel} f"ur $\lambda\in\C\setminus\R$, $\Re(\lambda)<0$, und einen {\bf instabilen Strudel} falls $\Re(\lambda)>0$. 
+\par\medskip
+
+Wir k"onnen die verschiedenen F"alle anhand der Determinanten und 
+der Spur (Summe der Diagonalwerte der Matrix) ablesen.\par\medskip
+
+\begin{sbem}
+{Formel f"ur die Eigenwerte einer $2\times 2$-Matrix:}\par
+Sei
+$$ A 
+= \left(\begin{array}{cc} a_{11} & a_{12}\\ a_{21}&a_{22}  \end{array}\right).
+$$
+Das charakteristische Polynom f"ur die Eigenwerte $\lambda$  
+$$ \lambda^2 -(a_{11}+a_{22})\lambda + a_{11}a_{22}-a_{21}a_{12}=0
+$$
+Mit Spur(A)=sp(A)=$a_{11}+a_{22}$ bzw.\ det(A) = $a_{11}a_{22}-a_{21}a_{12}$ 
+erhalten wir aus der Mitternachtsformel
+\begin{eqnarray*}
+\lambda_\pm & = & \frac 1 2\left(\mbox{sp}(A)\pm\sqrt{\mbox{sp}(A)^2-\,4\mbox{det}(A)}\right)
+\end{eqnarray*}
+\end{sbem}
+%==============================================================================
+Da f"ur $A\in\R^{2\times 2}$ die Eigenwerte schon durch die Spur und die
+ Determinante gegeben sind,  (zur Erinnerung: die Spur von $A$ ist die Summe 
+der Diagonalelemente), 
+$$ \lambda_\pm 
+=\frac1 2\left( \mbox{Spur}(A) 
+                 \pm\sqrt{\mbox{Spur}(A)^2-4\,\mbox{det}(A)) }\right).
+$$
+k"onnen wir ein Diagramm erstellen, auf dessen $x$-Achse die Determinante, und
+ auf der $y$-Achse die Spur aufgetragen ist, und 
+in dem die Bereiche f"ur die qualitativ verschiedenen L"osungsformen 
+eingetragen sind (Siehe Abb.~\ref{zoo}). \\
+Insbesondere ist der Realteil beider Eigenwerte kleiner Null, falls
+$$ \mbox{Spur}(A)<0,\qquad\mbox{det}(A)>0.$$
+Genau in diesem Fall geht jede L"osung, welche Anfangsbedingungen wir auch w"ahlen, f"ur $t\rightarrow\infty$ gegen Null.\par\medskip
+Wir charakterisieren die L"osungen etwas genauer.
+
+%==============================================================================
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=17cm]{../figures/zoo.pdf}
+\end{center}
+\caption{``Zoo'' der L"osungen zweidimensionaler, linearer, 
+homogener autonomer Differentialgleichungen. Die Kurve 
+$\mbox{Spur}(A) = 4\mbox{dat}(A)$ markiert die Grenze zwischen dem Gebiet,
+in dem die Eigenwerte reel resp.\ komplex sind.}
+\label{zoo}
+\end{figure}
+%==============================================================================
+\begin{auf}\cha\label{block2A5}
+\input{../../Aufgabensammlung/hm690.tex}
+\end{auf}
+%==============================================================================
+\subsection{Autonome skalare Gleichung $n$'ter Ordnung}
+%==============================================================================
+\begin{sbem} Betrachte eine lineare, homogene Differentialgleichung
+$$ \sum_{i=0}^n a_i(t) x^{(i)}(t) = 0.$$
+Wenn $x(t)$ und $y(t)$ L"osungen sind, so ist auch $a\, x(t)+b\,y(t)$ mit $a,b\in\R$ eine L"osung. 
+\end{sbem}
+Betrachte nun das Anfangswertproblem 
+$$ \sum_{i=0}^n a_i(t) x^{(i)}(t) = b(t), \quad  x^{(i)}(t_0) = x_0^i,\quad i=0,..,n-1.$$
+Wir definieren nun
+$$ y_i(t) = x^{(i)}(t).$$
+Dann finden wir
+\begin{eqnarray*}
+\frac d {dt}\,  x^{(0)} & = & x^{(1)}\\
+\frac d {dt}\, x^{(1)}  & = & x^{(2)}\\
+ & \vdots & \\
+\frac d {dt}\, x^{(n-1)}  & = & x^{(n)} =  -\sum_{i=0}^{n-1} \frac{a_i(t)}{a_n(t)} x^{(i)}(t) +\frac{b(t)}{a_n(t)}
+\end{eqnarray*}
+bzw.
+\begin{eqnarray*}
+\frac d {dt}\,  y_0 & = & y_1\\
+\frac d {dt}\, y_1 & = & y_2\\
+ & \vdots & \\
+\frac d {dt}\, y_{n-1}  & = & x^{(n)}  = -\sum_{i=0}^{n-1} \frac{a_i(t)}{a_n(t)} y_i(t) +
+\frac{b(t)}{a_n(t)}
+\end{eqnarray*}
+Nun definieren wir noch die (zeitabh"angige) Matrix
+$$ A(t) = \left(\begin{array}{cccccc}
+0 & 1 & 0 & 0 & \cdots & 0\\
+0 & 0 & 1 & 0 & \cdots & 0\\
+  &      &  \vdots &        &   \\
+  -a_0(t)/a_n(t) & -a_1(t)/a_n(t)   & -a_2(t)/a_n(t)   & -a_3(t)/a_n(t)&\cdots    & -a_{n-1}(t)/a_n(t)  \\
+  \end{array}
+   \right).
+$$
+und die (zeitabh"angigen) Vektoren
+$$ B(t) = (0,0,...,0, b(t)/a_n(t))^T,\qquad y(t) = y_0(t),...,y_{n-1}(t))^T$$
+so
+$$ y'(t) = A(t) y(t) +B(t).$$
+
+
+\begin{sbem}
+Falls die Matrix $A$ nicht zeitabh"angig ist, $A(t)=A$,   
+so gilt f"ur $y' = Ay+B(t)$,  $y(t_0)=y_0\in\R^n$, die Variation-der-Konstanten-Formel immer noch: 
+$$ y(t) = e^{A(t-t_0)} y_0 + \int_{t_0}^t e^{A(t-s)} B(s)\, ds.$$
+Dabei ist $e^{A t}$ wieder die Exponentialfunktion einer Matrix, und das 
+Integral ist komponentenweise auf den Vektor $ e^{A(t-s)} B(s)$ anzuwenden.
+\end{sbem}
+Beweis: in den Aufgaben.
+%==============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\chb\label{block2A6a}
+\input{../../Aufgabensammlung/hmJM221.tex}
+\end{auf}
+\begin{auf}\chb\label{block2A6}
+\input{../../Aufgabensammlung/hm688.tex}
+\end{auf}
+\begin{auf}\chb\label{block2A7}
+\input{../../Aufgabensammlung/hm689.tex}
+\end{auf}
+
+
+
+
+

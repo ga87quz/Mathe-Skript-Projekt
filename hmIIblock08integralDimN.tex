@@ -1,0 +1,299 @@
+ 
+
+
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+%===============================================================================
+\section{Integration im $\R^n$; Volumen- und Oberfl"achenintegral}
+%===============================================================================
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Eine Funktion im $\R^n$ integrieren k"onnen
+\item Transformation eines Integrals im $\R^n$
+\item Definition des Oberfl"achenintegrals verstehen
+\item Oberfl"achenintegrale berechnen k"onnen
+\end{itemize}}
+%=============================================================================== 
+\subsection{Volumenintegrale}
+%===============================================================================
+Wir haben Integrale prim"ar "uber Intervallen betrachtet. Mit Kurvenintegrale 
+haben wir dies schon etwas verallgemeinert. Nun integrieren wir "uber 
+mehrdimensionale Objekte, etwa das Volumen von K"orpern.\\
+\fpbox{\emph{Volumenintegrale} gleichen den eindimensionalen Integralen. In der Tat, die 
+Technik sind im Prinzip die Gleichen: Formal wird das Volumen in kleine Kuben 
+$B_i(h)$ zerlegt, mit einer Kantenl"ange kleiner $h$. Das Volumen dieser Kuben 
+ist bekannt. Sei das Volumen des Kubus $B_i(h)$ gerade $b_i(h)=h^3$; bezeichne 
+weiter $x_i$ einen beliebigen Punkt in $B_i$. F"ur eine glatte (z.B.\ stetige) 
+Funktion $f:\R^3\rightarrow \R$ ist das Integral
+$$ \int_V f(x) dx  = \int_V f(x,y,z) d(x,y,z) 
+= \lim_{h\rightarrow 0} \sum_i f(x_i)b_i(h).$$
+Diese Definitionsbildung ist analog der des Riemann-Integrals aus HMI.
+Um ein Integral auszuwerten, f"uhrt man es auf drei, ineinander verschachtelte 
+Integrale zur"uck. Sei die Grenze des Volumens gegeben durch
+$$ V = \{(x,y,z)\, |\, a\leq x \leq b, f_1(x)\leq y\leq f_2(x), g_1(x,y)\leq z\leq g_2(x,y)\}$$
+so ist
+$$ \int_V f(x,y,z) d(x,y,z) = \int_a^b \left( \int_{f_1(x)}^{f_2(x)}\left( 
+    \int_{g_1(x,y)}^{g_2(x,y)}  \,f(x,y,z)\, dz\right)\, dy\right)\, dz.$$
+}    
+ 
+%===============================================================================
+\begin{bspX}
+{\bf Anwendungen von Volumenintegralen:}\\
+(a) Volumen eines K"orpers $V = \int_V\, 1\, d(x,y,z)$\\
+(b) Masse eines K"orpers mit Dichte $\rho(x,y,z)$ ist   $V = \int_V\, \rho(x,y,z)\, d(x,y,z)$\\
+(c) Schwerpunkt eines K"orpers mit Dichte $\rho(x,y,z)$ ist   $(\hat x,\hat y,\hat z)$ mit \\ 
+\centerline{
+$\hat x = \int_V\, x\rho(x,y,z)\, d(x,y,z)$, $\hat y = \int_V\, y\rho(x,y,z)\, d(x,y,z)$, $\hat z = \int_V\, z\rho(x,y,z)\, d(x,y,z)$.}     
+\end{bspX}
+%===============================================================================
+\begin{bspX} Bestimmen Sie die Masse eines Kubus mit Kantenl"ange $k$, 
+dessen Massendichte innerhalb des Kubus variiert;
+je h"oher man kommt, desto schwerer wird er. Sei $x, y, z$ die x-, y- bzw. z.-Koordinate. Dann ist
+$$ \rho(x,y,z)= a z.$$
+Also betr"agt die Massendichte
+$$ \int_V \rho(x,y,z)d(x,y,z) = \int_0^k\int_0^k\int_0^k \,az\, dx dy dz = k^2\,a\,\int_0^k z\, dz = \frac a 2 k^4.$$ 
+ \end{bspX}
+%=============================================================================== 
+ \begin{auf}\chb\label{block8A1}
+\input{../../Aufgabensammlung/hm711.tex}
+\end{auf}
+%=============================================================================== 
+ \subsubsection{Koordinatentransformation in zwei Dimensionen:}\par
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=12cm]{../figures/spatNeuKoorf.pdf} 
+   \caption{Neue Koordinaten f"ur ein Gebiet / Integraltransformation.  
+Um die Transformation durchzuf"uhren, muss man berechnen, welche Fl"ache ein Quadrates in der u/v-Ebene (graues Quadrat links) nach der Transformation 
+in der x/y-Ebene besitzt (graue Fl"ache, links). }
+   \label{neueKoord}
+\end{figure}
+Um das Prinzip der Integraltransformation zu verstehen,  sehen wir 
+uns erst den zweidimensionalen Fall an. Wir haben also ein zweidimensionales Gebiet 
+$\Omega\subset\R^2$, und das Integral $\int_\Omega f(x,y)d(x,y)$ und wollen 
+dieses Integral bez"uglich neuer Koordinaten $u$, $v$
+ \begin{eqnarray*}
+ x & = & g_1(u,v)\\
+ y & = & g_2(u,v)
+ \end{eqnarray*}
+darstellen. Auf der Ebene der ``keinen Quadrate'' stellt sich die Transformation so dar (siehe auch Abb.~\ref{neueKoord})
+\begin{eqnarray*}
+ \int_\Omega f(x,y)d(x,y)
+&\approx& \sum_{j,j} f(g_1(u_i,v_j), g_2(u_i,v_j))\,
+\mbox{graue Fl"ache bei } (g_1(u_i,v_j), g_2(u_i,v_j))\mbox{ in x/y Ebene}\\
+&\approx& \sum_{j,j} f(g_1(u_i,v_j), g_2(u_i,v_j))\,
+\mbox{Fl"ache des transformierten Quadrats bei } (u_i,v_j) \mbox{ in u/v Ebene}
+\end{eqnarray*}
+
+Wie wird die Fl"ache eines kleinen Quadrates mit Eckpunkten $(u,v)$, 
+$(u+\Delta u,v)$, $(u,v+\Delta v)$ und $u+\Delta u, v+\Delta v)$ transformiert? 
+Da das Quadrat klein ist, ist $\Delta u$, $\Delta v$ klein; daher k"onnen wir 
+$g_1$, $g_2$ linear approximieren. Es ist
+ \begin{eqnarray*}
+ g_1(u+\Delta u,v)                   & = & g_1(u,v)+(g_1(u,v))_u\Delta u + \mbox{kleiner Fehler},\\
+ g_2(u,v+\Delta v)                  & = &  g_2(u,v)   +(g_2(u,v))_v\Delta v + \mbox{kleiner Fehler},\\
+ g_1(u+\Delta u,v+\Delta v) & = &  g_1(u,v)+(g_1(u,v))_u\Delta u+ (g_1(u,v) )_v\Delta v + \mbox{kleiner Fehler},\\
+ g_2(u+\Delta u,v+\Delta v) &=&  g_2(u,v)  +(g_2(u,v))_u\Delta u+ (g_2(u,v))_v\Delta v + \mbox{kleiner Fehler}.
+  \end{eqnarray*}
+wobei $g_1(u,v))_u$ die partielle Ableitung von $g_1$ an der Stelle (u.v) nach 
+$u$ bedeutet etc. Demnach wird die Fl"ache aufgespannt durch den Vektor $X$ vom 
+Punkt
+$$  \vvektor{g_1(u,v)}{ g_2(u,v)} \quad \mbox{ nach } \quad \vvektor{g_1(u,v)+(g_1(u,v))_u\Delta u }{ g_2(u,v)+(g_2(u,v))_u\Delta u}$$
+und dem Vektor $Y$ vom Punkt 
+  $$  \vvektor{g_1(u,v)}{ g_2(u,v)} \quad \mbox{ nach } \quad \vvektor{ g_1(u,v)+(g_1(u,v))_v\Delta v}{ g_2(u,v)+(g_2(u,v))_v\Delta v}.$$
+  Sei also
+  $$ X = \vvektor{(g_1(u,v))_u\Delta u}{(g_2(u,v))_u\Delta u}, \qquad Y = \vvektor{(g_1(u,v))_v\Delta v}{(g_2(u,v))_v\Delta v}.$$
+Die Fl"ache dieses Parallelogramms ist gegeben durch Breite mal H"ohe. 
+Wir k"onnen 
+als Breite die L"ange des Vektors $X$ nehmen, 
+$$\mbox{Breite} = \|X\|.$$
+Die H"ohe ist nun mitnichten $ \|Y\|$, da i.A.\ $X$ und $Y$ nicht senkrecht 
+aufeinander stehen. Nun, da nehmen wir den Normalenvektor (der ist auf L"ange 
+eins normiert), und projizieren $Y$ darauf; die L"ange dieses Vektors
+ist dann die H"ohe (siehe Abb.\ref{para}).\par
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=9cm]{../figures/spat.pdf} 
+   \caption{Fl"ache eines Parallelogramms.   }
+   \label{para}
+\end{figure}
+%===============================================================================
+Der Normalenvektor auf $X$ ist
+$$ N =  \vvektor{-(g_2(u,v))_u\Delta u}{(g_1(u,v))_u\Delta u}\,\,\frac  1{\|X\|}$$
+und also
+$$ \mbox{H"ohe} = |<N, Y>|$$
+(die Betragsstriche ben"otigen wir, da wir nicht wissen, 
+welche der beiden m"oglichen 
+Normalenvektoren wir genommen haben; die H"ohe 
+sollte auf jeden Fall positiv sein, 
+und die Betragsstriche erzwingen uns  diese Positivit"at).
+Damit erhalten wir als transformierte Fl"ache $\Delta x\Delta y$
+\begin{eqnarray*} 
+\Delta x\Delta y = \mbox{Fl"ache}  & = & |\mbox{Breite} \,\cdot\,\mbox{H"ohe} | = |<N,Y>\|X\| | \\
+& = & \bigg| <  \vvektor{-(g_2(u,v))_u\Delta u}{g_1(u,v))_u\Delta u}, 
+\vvektor{(g_1(u,v))_v\Delta v}{(g_2(u,v))_v\Delta v}>\bigg| \\
+& =& 
+ |(g_1)_u \Delta u(g_2)_v \Delta v -(g_1)_v \Delta u(g_2)_u \Delta v| \\
+ & =& \left|\mbox{det}\mmatrix{(g_1)_u}{(g_1)_v}{(g_2)_u}{(g_2)_v}\right | \Delta u \Delta v.
+ \end{eqnarray*}
+Die Matrix
+$$ J = \mmatrix{(g_1)_u}{(g_1)_v}{(g_2)_u}{(g_2)_v}
+$$
+hei"st \emph{Jacobi-Matrix} (kam schon vor im Satz~\ref{hartGrob}, 
+Hartman-Grobman, Seite~\pageref{hartGrob}). 
+\par\bigskip
+Nun m"ussen wir noch "uber alle $(u,v)$ integrieren, die in das Gebiet 
+$V$ abgebildet werden. D.h., "uber $\{(u,v)\,|\,(g_1(u,v),g_2(u,v))\in V\} = G^{-1} (V)$. \par\bigskip
+%===============================================================================
+%\fpbox{
+Damit finden wir
+\begin{eqnarray*} 
+\int_V f(x,y) d(x,y) 
+& = & \lim_{\Delta x, \Delta y\rightarrow 0} \sum_i\sum_j  f(x_i,y_j) \Delta x_i\Delta y_j\\
+& = & \lim_{\Delta u, \Delta v\rightarrow 0} \sum_i\sum_j  f(g_1(u_i,v_j),g_2(u_i,v_j)) 
+                     \frac{\Delta x_i\Delta y_j}{\Delta u_i \Delta v_j} \Delta u_i \Delta v_j\\
+& = & \lim_{\Delta u, \Delta v\rightarrow 0} \sum_i\sum_j  f(g_1(u_i,v_j),g_2(u_i,v_j))  
+                      \left|\mbox{det}\mmatrix{(g_1)_u}{(g_1)_v}{(g_2)_u}{(g_2)_v}\right | \Delta u_i \Delta v_j\\
+& = & \int_{G^{-1}(V)} f(g_1(u,v), g_2(u,v))\, \left  |\mbox{det}\mmatrix{(g_1)_u}{(g_1)_v}{(g_2)_u}{(g_2)_v}\right | \, d(u,v)
+\end{eqnarray*}
+%}
+
+\begin{ssatz}
+Sei $G:\R^2\rightarrow\R^2$, $(u,v)\mapsto G(u,v)=(g_1(u,v), g_2(u,v))$ eine invertierbare Funktion von $\R^2$ nach $\R^2$, so gilt
+$$
+\int_V f(x,y) d(x,y) 
+ = 
+ \int_{G^{-1}(V)} f(g_1(u,v), g_2(u,v))\, \left  |\mbox{det}\mmatrix{(g_1)_u}{(g_1)_v}{(g_2)_u}{(g_2)_v}\right | \, d(u,v).$$
+\end{ssatz}
+
+\fpbox{
+Vergleiche die Formel mit der Substitutions-Formel im Eindimensionalen:
+$$\int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(u))\, g'(u)\, du.$$
+Man sieht, dass die Transfromationsregel im $\R^2$ eine direkte Verallgemeinerung dieser Transformationsregel ist.
+}
+%===============================================================================
+\begin{bspX}
+F"ur Polarkoordinaten in der Ebene erhalten wir also
+$$ x= r\cos(\varphi),\qquad y = r\sin(\varphi)$$
+und ($u = r$, $\varphi = v$)
+$$ 
+\mbox{det}\mmatrix{(g_1)_u}{(g_1)_v}{(g_2)_u}{(g_2)_v}
+=
+\mbox{det}\mmatrix{\cos(\varphi)}{-r\sin(\varphi)}{\sin(\varphi)}{r\cos(\varphi)}
+= r
+$$
+und also
+$$ \int_V f(x,y) d(x,y)  = \int_V f(r,\varphi) \, r dr d\varphi.$$
+\medskip
+Insbesondere: Fl"ache eines Kreises:
+$$\int_{x^2+y^2 < R} \, 1 \, d(x,y) = \int_0^R \int_0^{2\pi}\, 1 \, r \,d\varphi \,dr = 2\pi \int_0^R r dr = 2\pi \frac 1 2 R^2 = \pi R^2.$$
+\end{bspX}
+%===============================================================================
+\subsubsection{Koordinatentransformation in drei Dimensionen:}\par
+ Oft genug sind kartesische Koordinaten nicht angemessen, sondern man m"ochte 
+ die Koordinaten  transformieren. Der vielleicht wichtigste Spezialfall sind 
+ \emph{Kugelkoordinaten}, 
+ \begin{eqnarray*}
+ x & = & r\sin(\varphi)\cos(\theta)\\ 
+ y & = & r\sin(\varphi)\sin(\theta)\\ 
+ z & = & r \cos(\varphi)
+ \end{eqnarray*}
+ mit $r\geq 0$, $0\leq \varphi < 2\pi$, $-\pi/2 < \theta < \pi/2$.
+ Wie k"onnen wir ein Integral in kartesischen Koordinaten durch Kugelkoordinaten 
+ ausdr"ucken? Oder, allgemeiner, $(x,y,z)$ wird durch $(u,v,w)$ bestimmt mittels
+ \begin{eqnarray*}
+\left(\begin{array}{c} x\\ y\\ z\end{array}\right)
+= G(u,v,w) 
+= 
+\left(\begin{array}{c}
+ g_1(u,v,w)\\
+ g_2(u,v,w)\\
+ g_3(u,v,w)
+ \end{array}\right).
+ \end{eqnarray*}
+Wir finden f"ur diese Abbildung 
+die Jacobi-Matrix
+$$ J =  \mmmatrix{(g_{1})_u}{(g_{1})_v}{(g_1)_w}   {(g_2)_u}{(g_2)_v}{(g_2)_w}   {(g_3)_u}{(g_3)_v}{(g_3)_w}
+$$
+Dann folgt nach l"anglicher Rechnung (deren Idee aber dem zweidimensionalen Falle gleicht)\par
+\fpbox{
+$$ \int_V f(x) dx  = \int_{G^{-1}(V)} f(x,y,z) d(x,y,z) = \int_V f(g_1(u,v,w), g_2(u,v,w), g_3(u,v,w))\,|\det(J)|\,d(u,v,w).$$}
+\begin{bspX}  {\bf Kugelkoordinaten:}\\
+Betrachten wir also die Kugelkoordinaten, so finden wir $(u,v,w) = (r,\varphi, \theta)$
+\begin{eqnarray*}
+ x & = & r\sin(\varphi)\cos(\theta) \qquad = g_1(r,\varphi,\theta)\\ 
+ y & = & r\sin(\varphi)\sin(\theta) \qquad = g_2(r,\varphi,\theta)\\ 
+ z & = & r \cos(\varphi) \qquad\qquad\,\,\, = g_3(r,\varphi,\theta)\\
+ J &= & \mmmatrix{\sin(\varphi)\cos(\theta) }{r\cos(\varphi)\cos(\theta) }{-r\sin(\varphi)\sin(\theta) }  
+                    {\sin(\varphi)\sin(\theta)}{r\cos(\varphi)\sin(\theta)}{r\sin(\varphi)\cos(\theta)}  
+                     { \cos(\varphi) }{-r \sin(\varphi) }{0},\\
+     det(J) & = & 0 + r^2\cos^2(\varphi)\sin(\varphi)\cos^2(\theta) + r^2 \sin^3(\varphi)\sin^2(\theta)\\
+&&     +r^2\cos^2(\varphi)\sin(\varphi)\sin^2(\theta) + r^2 \sin^3(\varphi)\cos^2(\theta) + 0\\
+&=&     r^2\sin(\varphi)
+\end{eqnarray*}
+Also ist
+$$\int_V f(x,y,z) d(x,y,z) = \int_{G^{-1}(V)} f(r\sin(\varphi)\cos(\theta),  r\sin(\varphi)\sin(\theta), r \cos(\varphi) )\,  r^2\sin(\varphi) dr d\theta d\varphi.$$
+\end{bspX}
+%=============================================================================== 
+\begin{bspX} {\bf Rotationsk"orper:}\\\label{volIntegralBsp}
+Sei nun eine Funktion $f(x,y,z)$ nur von $r = \sqrt{x^2+y^2}$ abh"angig, d.h. 
+durch  $f(r, z)$ darstellbar. Wenn das Integrationsgebiet
+nun nur mit $z$ sich "andert,
+$$ V = \{(x,y,z)\, |\, x^2+y^2 < R(z), a<z<b\}$$
+so kann man Zylinderkoordinaten nutzen
+ \begin{eqnarray*}
+ x & = & r\cos(\theta)\\ 
+ y & = & r\sin(\theta)\\ 
+ z & = & z
+ \end{eqnarray*}
+um das integral einfacher zu bestimmen,
+$$ \int_Vf(x,y,z) d(x,y,z) 
+= \int_a ^b \int_0^{R(z)}\int_0^{2\pi} f(r,z) rd\varphi dr dz
+= \int_a ^b \int_0^{R(z)} f(r,z)\,\, 2\pi \, r \,\,dr dz
+.$$
+\end{bspX}
+%=============================================================================== 
+\begin{auf}\chb\label{block8A2}
+\input{../../Aufgabensammlung/hm712.tex}
+\end{auf}
+
+\begin{auf}\cha\label{block8A3}
+\input{../../Aufgabensammlung/hm713.tex}
+\end{auf}
+%===============================================================================
+\subsection{Oberfl"achenintegrale}\label{oberlaecheIntegral}
+Integrale "uber Oberfl"achen folgen "ahnlichen Ideen wie Volumenintegrale. Sei im 
+einfachsten Falle $z=F(x,y)$ f"ur $(x,y)\in \Omega$ eine Fl"ache
+im dreidimensionalen Raum "uber dem zweidimensionalen Gebiet $\Omega$. Wir wollen 
+zun"achst einfach die Gr"o"se der Fl"ache bestimmen. Um uns das Prinzip klar zumachen, 
+betrachten wir eine Funktionen $F=F(x)$, die nur von $x$ abh"angt. Nun nehmen wir uns 
+ein kleines Quadrat in $\Omega$ $[x,x+\Delta x]\times [y, y+\Delta y]$ und fragen uns,
+wie gro"s die Fl"ache "uber diesem kleinen Quadrat wohl sein mag. Diese Fl"ache ist in etwa (bis auf quadratische Terme in $\Delta x$ und
+$\Delta y$) diejenige Fl"ache, die von dem zweidimensionalen Quadrat im dreidimensionalen Raum mit den Eckpunkten
+$$ (x,y,F(x)),\quad (x+\Delta x, y, F(x)+F_x(x)\Delta x), \quad(x, y+\Delta y, F(x)), \quad
+(x, y+\Delta y, F(x)+F_x(x)\Delta x  )
+$$
+getragen wird. Die Kantenl"ange in x-Richtung ist nach Pythagoras
+$$ \sqrt{\Delta x ^2 + F_x(x)^2 \Delta x ^2} = \sqrt{1 + F_x(x)^2 } \Delta x
+$$
+und also erhalten wir sofort, dass die Fl"ache "uber dem Quadrat gerade gegeben ist durch
+$$ \sqrt{1 + F_x(x)^2 } \Delta x\Delta y$$
+Unsere Gesamtfl"ache wird bestimmt durch
+$$ \int_\Omega \sqrt{1+F_x^2(x)}\, d(x,y).$$
+Wenn die Fl"ache nicht nur von $x$, sondern auch von $y$ abh"angt, 
+so findet man durch "ahnliche "uberlegungen
+$$ \int_\Omega \sqrt{1+F_x^2(x,y)+F_y^2(x,y)}\, d(x,y).$$
+
+Wollen wir nicht nur eine Fl"ache ausrechnen, sondern das Integral einer Funktion 
+$g(x,y,z)$ "uber eine Fl"ache (z.B.\ werden wir den Massefluss durch eine 
+Fl"ache 
+behandeln), so m"ussen wir jedes Fl"achenelement mit dieser Funktion gewichten, 
+und erhalten als Fl"achenintegral (mit ``do'' von ``d Oberfl"ache'')
+$$ \int_\Omega g(x,y,z)do = \int_\Omega g(x,y,F(x,y))  \sqrt{1+F_x^2(x,y)+F_y^2(x,y)}\, d(x,y).$$
+

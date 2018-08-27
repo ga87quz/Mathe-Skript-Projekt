@@ -1,0 +1,616 @@
+
+%%%%  ! T  E X root=hm2ln.tex
+% !TEX root=MA9603.WZW.tex
+% !TeX program = pdflatex
+% !TEX spellcheck = de_DE
+
+%===============================================================================
+\section{Singul"arwertzerlegung}
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Skalarprodukt und Cauchy-Schwarz-Ungleichung kennen
+\item Eigenschaften orthonormaler Basen und Matrizen kennen
+\item Gram-Schmidt-Verfahren durchf"uhren k"onnen
+\item Singul"arwertzerlegung einer Matrix durchf"uhren k"onnen
+\end{itemize}}
+%===============================================================================
+\subsection{Skalarpodukt, CSU und Winkel}
+%===============================================================================
+\paragraph{(A) Definition }\index{Skalarprodukt}
+\begin{sdefi}
+Seien $x=(x_1, x_2, \cdots x_n)^T$ und $y = (y_1, y_2, \cdots y_n)^T\in \R^n$ 
+zwei Vektoren, so definieren wir
+das Skalarprodukt
+$$ <x,y> = <x,y>_e = <x,y>_2 = x^T y = y^T x = \sum_{i=1}^n x_iy_i.$$
+\end{sdefi}
+Manchmal sieht man auch runde Klammern f"ur das Skalarprodukt, $(x,y)$; 
+die Schreibweise $x\circ y$ findet man ebenfalls in einigen B"uchern. 
+Die Indizes in $<x,y>_e$ bzw. $<x,y>_2$ weisen auf die Euklidische oder
+2-Norm hin. 
+%===============================================================================
+\begin{sbem}\label{le1bem1}
+Das Skalarprodukt hat einige sch"one Eigenschaften:\\
+(a) $<x,y> = <y,x>$ (Symmetrie) \\
+(b) f"ur $x,y,z\in\R^3$ und $a\in\R$ gilt (Linearit"at)
+$$<a\cdot(x+y),z> = a<x,z> +a <y,z>$$
+(c) $<x,x>\geq 0$ und $<x,x>= 0\Leftrightarrow x = 0$ (positive Definitheit)
+\end{sbem}
+In der positiven Definitheit, die durch $<x,x>\geq 0$ und $<x,x>= 0\Leftrightarrow x = 0$
+festgelegt wird, ist der zweite Teil nicht automatisch im Ersten enthalten: 
+es hei"st $<x,x>\geq 0$ f"ur beliebige, aber $<x,x>= 0\Leftrightarrow x = 0$,
+also $<x, x> = 0$ dann und nur dann, wenn $x = 0$. Die Eigenschaften lassen sich 
+leicht nachrechnen, wie folgende Aufgabe zeigt.
+%===============================================================================
+\begin{auf}\chb\label{block1A1}
+\input{../../Aufgabensammlung/hm680.tex}
+\end{auf}
+%===============================================================================
+Umgekehrt kann man allgemeiner ein Skalarprodukt "uber (a)-(c) definieren.
+als eine
+Abbildung $<.,.>:\R^n\times \R^n\rightarrow \R$ definieren, die (a)-(c) erf"ullt. 
+\begin{sdefi} Sei $V$ ein Vektorraum, $<.,.>:\R^n\times \R^n\rightarrow \R$
+eine Abbildung. Falls f\"ur $<.,.>$ die Eigenschaften (a)-(c) aus 
+Bemerkung~\ref{le1bem1} erf"ullt ist, so nennt man $<.,.>$ ein Skalarprodukt 
+auf $V$. 
+Die zu dem Skalarprodukt zugeh"orige Norm (d.h.\ L"ange eines Vektors) 
+ist definiert durch
+$$\|x\| =  \sqrt{<x,x>}$$
+\end{sdefi}
+Und tats"achlich, wenn wir das Euklidsche Skalarprodukt betrachten, so finden wir
+$$ \|x\|_2 = \sqrt{\sum x_i^2}$$
+die ganz normale Norm eines Vektors - dabei weist der Index 2 wieder auf
+die 2-Norm, also die gewohnte euklidische Norm hin.
+\begin{bbspX}
+Warum m"ussen wir allgemeine Skalarprodukte definieren? 
+Der Begriff des Skalarprodukts funktioniert auch f"ur allgemeinere R"aume: 
+Betrachte die Menge der Abbildungen $f:[a,b]\rightarrow\R$, die 
+quadratintegrierbar sind, d.h.\ f"ur die $\int_a^b f^2(x)\, dx<\infty$ gilt.
+Diese Menge bezeichnet man mit $L^2(a,b)$. Man sieht leicht, dass f"ur  $
+f,g\in L^2(a,b)$ die Abbildung 
+$$<f,g> = \int_a^b f(x) g(x)\, dx$$
+ein Skalarprodukt ist. Diese Eigenschaft hat Anwendung bei der Signalverarbeitung.\\
+Im Raum der stetigen Funktionen geht das "ubrigens nicht: auf diesem Raum finden 
+wir kein Skalarprodukt. Man kann also -- aus diesem Blickwinkel betrachtet -- 
+mit quadratintegrierbaren Funktionen leichter arbeiten als mit stetigen Funktionen.
+\end{bbspX}
+%===============================================================================
+\begin{auf}\chb\label{block1A2}
+\input{../../Aufgabensammlung/hm685.tex}
+\end{auf}
+%===============================================================================
+\paragraph{(B) Cauchy-Schwarzsche Ungleichung (CSU)}
+\begin{ssatz}
+F"ur das Skalarprodukt eines Vektorraumes gilt die \emph{Cauchy-Schwarzsche Ungleichung} (CSU)
+$$ |<x,y>|\leq \|x\|\,\,\|y\|$$
+\end{ssatz}
+{\bf Beweis.} Mit einem Trick kann man die CSU leicht nachrechnen: Falls $y=0$ gilt die 
+Ungleichung (mit Gleichheit). Sei nun $y\not = 0$. W"ahle irgendein $\lambda\in\R$, so
+$$ 0\,\leq\, <x-\lambda y, x-\lambda y> 
+= <x, x-\lambda y> -\lambda <y,x-\lambda y>
+= <x,x> - 2\lambda <x,y> + \lambda^2 <y,y>$$
+(dabei haben wir vor allem die Eigenschaft (b) des Skalarproduktes genutzt, 
+wobei Symmetrie und positive Definitheit auch einflossen). Nun w"ahlen wir speziell
+$\lambda = <x,y>/<y,y>$ und finden 
+\begin{eqnarray*}
+ 0 & \leq  & <x,x> - 2\frac{<x,y>}{<y,y>} <x,y> + \frac{(<x,y>)^2}{(<y,y>)^2} <y,y>\\
+&\Rightarrow& 0  \leq  <x,x><y,y>  - (<x,y>)^2 \Rightarrow  |<x,y>| \leq  \|x\|\,\,\|y\|,
+\end{eqnarray*}
+Was den Beweis beschlie"st. \qed.
+
+Es gilt also insbesondere f"ur Vektoren, die nicht gleich Null sind, dass 
+$ -1 < \frac{<x,y>}{\|x\|\|y\|}\leq 1$.
+
+\noindent{\it Bemerkung: } Hinter dem Pearsonschen  Korrelationskoeffizienten der Statistik, 
+der die Zusammenh"ange zweier Merkmale misst, steckt die Cauchy-Schwarz-Ungleichung.
+%===============================================================================
+\paragraph{(C) Winkel, Vektoren und Skalarprodukt }
+Betrachte zwei Vektoren $x$, $y$. Sei $y$ in Polarkoordinaten dargestellt, d.h.
+$$y 
+= \left(\begin{array}{c} y_1 \\ y_2\end{array}\right)
+= \|y\|  \left(\begin{array}{c} \cos(\varphi) \\ \sin(\varphi)\end{array}\right).
+ $$ 
+Nun w"ahlen wir gezielt $x=e_1$ als den ersten Einheitsvektor. 
+Dann erhalten wir
+$$ \frac{<x,y>}{\|x\|\,\,|y\|} 
+= \frac{\|y\|\cos(\varphi)}{\|x\|\,\,\|y\|} 
+= \frac{\|x\|\,\|y\|\cos(\varphi)}{\|x\|\,\,\|y\|} 
+= \cos(\varphi)$$
+da $\|x\|=1$. Das gilt auch allgemein (beweisen wir aber nicht):
+\begin{sbem} Wenn $\varphi$ der Winkel zwischen den beiden Vektoren ist 
+(wobei keiner von beiden die L"ange Null haben darf), so 
+gilt
+$$ \cos(\varphi) = \frac{<x,y>}{\|x\|\,\,\|y\|}.$$
+Das ist einer der gro"sen Vorteile des Skalarproduktes: Wir k"onnen Geometrie 
+treiben.\end{sbem}
+
+Speziell finden wir, dass zwei Vektoren $x$ und $y$ senkrecht aufeinander stehen, 
+falls der Kosinus gleich Null ist, d.h. falls $ <x,y> = 0.$
+Der Nullvektor ist senkrecht zu allen Vektoren.
+
+%===============================================================================
+\begin{sdefi} Zwei Vektoren $x,y\in V$ mit $<x,y>=0$ hei"sen orthogonal zueinander 
+(stehen senkrecht aufeinander). 
+\end{sdefi}
+%===============================================================================
+\begin{auf}\cha\label{block1A3}
+\input{../../Aufgabensammlung/hm248.tex}
+\end{auf}
+\begin{auf}\cha\label{block1A4}
+\input{../../Aufgabensammlung/hm551.tex}
+\end{auf}
+\begin{auf}\chc\label{block1A5a}
+\input{../../Aufgabensammlung/hm733.tex}
+\end{auf}
+%===============================================================================
+
+\subsection{Orthonormale basen, Gram-Schmidt-Orthogonalisierung und Orthogonale Matrizen}
+
+\paragraph{(A) Orthonormale Basen}$\quad$\par
+Erinnern wir uns, wie eine Besis im $\R^n$ definiert war:\\
+\begin{sdefi} Eine Basis des $\R^n$ besteht aus $n$ linear unabh"angigen 
+Vektoren $\{b_1,..,b_n\}$.
+\end{sdefi}
+Die wichtigste Eigenschaft einer Basis ist, dass sich jeder Vektor $x$ 
+des $\R^n$ eindeutig als Linerakombination der Basisvektoren $\{b_1,..,b_n\}$ darstellen l"asst, 
+$$ x = \sum_{i=1}^n \alpha_i b_i,\qquad \alpha_i\in\R.$$
+Dies haben wir ausgenutzt, um eine Eigenbasis f"ur eine Matrix in $\R^{n\times n}$ mit 
+$n$ linear unabh"angigen Eigenvektoren zu definieren. 
+In der meist gebr"auchlichen Basis stehen die Vektoren senkrecht aufeinander, 
+und besitzen die L"ange eins. Das ist eine Definition wert.
+\begin{sdefi} 
+{\bf (a)} Das \emph{Kronecker-Symbol} (oder auch \emph{Kronecker-$\delta$}) 
+$\delta_{ij}$ ist definiert durch, \index{$\delta_{i,j}$}
+$$ \delta_{ij} = \left\{\begin{array}{ccc} 1 & \mbox{ falls }& i=j\\ 0 & \mbox{ sonst} & \end{array}\right . .$$
+{\bf (b)} Sei $V$ ein Vektorraum mit Skalarprodukt $<.,.>$ und Basis $\{b_i\}_{i\in I}$.
+Falls $ <b_i, b_j> = \delta_{ij}$ so hei"st  die Basis \emph{Orthonormalbasis} oder auch kurz \emph{ONB}. 
+\end{sdefi}
+Das Kronecker-$\delta$ ist eine Zahl, die von zwei Indizes $i$ und $j$ abh"angt.
+Sind die Indizes gleich, so ist $\delta_{ij} = 1$, sonst Null. Mit dieser
+Schreibweise lassen sich z. B. die Eintr"age der Einheitsmatrix $I$ darstellen:
+auf der Hauptdiagonalen Einsen, sonst sind alle Eintr"age Null.
+
+\begin{bspX}
+Die ``normale'' Basis des $\R^n$ $\{e_i\}_{i=1,..,n}$ ist 
+eine ONB bzgl. des Euklidschen Skalarprodukts.
+\end{bspX}
+
+
+
+\paragraph{(B) Gram-Schmidt-Orthogonalisierung}$\quad$\par
+
+Wie beschaffen wir uns eine orthonormale Basis?
+
+\fpbox{{\bf Merke:}\index{Orthonormalbasis}\index{Gram-Schmidt-Orthogonalisierung} Um 
+Von einer Basis $b_i$, $i=1,2,...$ eine Basis aus Orthonormalvektoren 
+$E_1, E_2, E_3,...$  bez"uglich eines gegebenen Skalarproduktes $<.,.>$ zu erhalten, 
+kann man folgenden Algorithmus anwenden (sog.\ Gram-Schmidt-Orthonormalisierung).
+
+\noindent {\bf Schritt 1.} Setze $E_1 = c b_1$, und bestimme den einen Parameter $c$ aus der Gleichung
+(1)  $<E_1, E_1 > = 1$.\par
+Damit kennen wir das erste Glied unserer Orthonormalbasis, d.h. $E_i$ f"ur $i=1$.
+
+\noindent{\bf Schritt 2,3,...} Sei $E_i$ bestimmt f"ur $i=1,...,k$. Bestimme dann 
+$E_{k+1}$, indem wir ansetzen
+$$ E_{k+1} = \sum_{i=1}^{k} c_i E_i + c_{k+1} b_{k+1}$$
+Die $k+1$ Parameter $c_1,...,c_{k+1}$ werden nun aus den $k+1$ Gleichungen\\
+\begin{itemize}
+  \item[(2)] $<E_1, E_{k+1}>=0$, $<E_2, E_{k+1}>=0$, $\cdots$,$<E_k, E_{k+1}>=0$
+  \item[(3)] $<E_{k+1}, E_{k+1}>=1$
+\end{itemize}
+bestimmt. Zun"achst bestimmt man aus (2) die Richtung des neuen Vektors $E_{k+1}$, 
+und normiert ihn dann (um auch (3) zu erf"ullen).}
+
+Den Algorithmus f"ur $n$ linear unabh"angige Vektoren $x_k$ kann man auch umschreiben zu
+\begin{itemize}
+  \item $y_1 = x_1$
+  \item $k = 2,\dots, n$: $y_k = x_k - \sum_{i = 1}^{k-1} \frac{<x_k, y_i>}{<y_i, y_i>}y_i$
+\end{itemize}
+Normiert man die Vektoren $y_k$ noch durch $z_k = \frac{y_k}{\mid y_k \mid}$, so
+ist $z_k$ eine orthonormale Basis. 
+
+\begin{bspX}
+Betrachten wir die Vektoren $x$ und $y$ gegeben durch 
+$$ x= \left(\begin{array}{c} 1\\ 1\end{array}\right),\qquad y =  \left(\begin{array}{c} 1\\ 0\end{array}\right).$$
+Dann sind $x,y$ linear unabh"angig, bilden also eine Basis in $\R^2$. Da aber
+$$ <x,y> = 1$$
+nicht Null ist, ist es keine ONB. Nun zur {\bf Konstruktion einer ONB.}
+
+\noindent{\it Schritt 1:} $ E_1 =c x$ wobei $c$ so bestimmt wird, dass $\|E_1\|=1$, d.h.
+$$ c = 1/\|x\| = 1/\sqrt{2},\qquad \Rightarrow 
+E_1 = \left(\begin{array}{c} 1/\sqrt{2}\\ 1/\sqrt{2}\end{array}\right).
+$$
+\noindent{\it Schritt 2:} Suche $E_2$, sodass $E_2$ senkrecht auf $E_1$ steht, und $y$ 
+durch $E_1$ und $E_2$ darstellbar ist. Also $ E_2 = c_1E_1+c_2 y$.
+
+Skalarprodukt mit $E_1$ liefert $ 0 = <E_1, E_2> = c_1 + c_2 <E_1, y> = c_1+c_2/\sqrt{2}$,
+das Skalarprodukt mit $E_2$ ergibt $ 1 = <E_2, E_2> = c_1\,\, 0 + c_2 <E_2, y>$.
+Also finden wir $ c_2 = - c_1\sqrt{2}$ und damit
+$$ E_2 = c_1 (E_1 - \sqrt{2} y)
+= c_1  \left(\begin{array}{c} 1/\sqrt{2}-\sqrt{2}\\ 1/\sqrt{2}\end{array}\right)
+= c_1  \left(\begin{array}{c} 1/\sqrt{2}-2/\sqrt{2}\\ 1/\sqrt{2}\end{array}\right)
+= c_1  \left(\begin{array}{c} -1/\sqrt{2}\\ 1/\sqrt{2}\end{array}\right)
+.$$
+Nun m"ussen wir noch $c_1$ so w"ahlen, dass $<E_2,E_2>=1$, d.h.
+$$ c_1 
+= \frac 1 {(-1/\sqrt{2})^2 + 1/2}
+= 1.$$
+\end{bspX}
+
+\begin{sdefi} f"ur eine Matrix $A\in \R^{n\times m}$ wird die Matrix 
+$A^T\in \R^{m\times n}$ durch das Vertauschen von Zeilen und Spalten
+definiert,
+$$ ((A^T))_{i,j} = ((A))_{j,i}.$$
+\end{sdefi}
+Wir finden (durch kurze Rechnung, die wir hier weglassen), dass $(A B)^T = B^T A^T$.
+%===============================================================================
+
+\begin{auf}\chc\label{block1A5}
+\input{../../Aufgabensammlung/hm004.tex}
+\end{auf}
+
+\begin{auf}\cha\label{block1A6}
+\input{../../Aufgabensammlung/hm681.tex}
+\end{auf}
+%===============================================================================
+
+
+\paragraph{(C) Orthogonale Matrizen}$\quad$\par
+Bevor wir orthogonale Matrizen definieren und ihre Eigenschaften untersuchen, sehen wir uns erst zwei Sätze an "uber Matrizen und 
+Skalarpodukte an.
+\begin{slemma} Sei $A$ die Darstellung einer linearen Funktion von einem 
+reellen, endlichdimensionalen Vektorraum $V$, der ein
+Skalarprodukt $<.,.>$ tr"agt, in sich selbst bzgl. einer ONB. Dann gilt
+$$ \forall x,y\in V:  <A x, y> = <x, A^T y>.$$
+\end{slemma}
+{\bf Beweis: }\footnote{wird in der Vorlesung nicht vorgerechnet} {\it Sei $A\in \R^{n\times n}$ eine
+beliebige (also nicht notwendig invertierbare) Matrix, und $\{b_i\}$ ONB. Dann 
+gilt f"ur beliebige Vektoren $x, y\in\R^n$, dass 
+$$ Ax = \sum_{i=1}^n \left(\sum_{j=1}^n a_{i,j}x_j\right) b_i,\qquad 
+y = \sum_{k=0}^n <y,b_k>b_k= \sum_{k=0}^n y_kb_k$$
+wobei $x_i=<x,b_i>$ und $y_i = <y,b_i>$ die Komponenten von $x$ und $y$ in 
+Richtung von $b_i$ bedeuten.  Nach der obigen Formel f"ur das Skalarprodukt 
+finden wir
+\begin{eqnarray*}
+<Ax,y>  
+& = & <  \sum_{i=1}^n \left(\sum_{j=1}^n a_{i,j}x_j\right) b_i,\,\,\,  \sum_{k=0}^n y_kb_k>\\
+& = &  \sum_{i=1}^n \sum_{j=1}^n \sum_{k=0}^n a_{i,j} x_j  y_k  <b_i,\, b_k>  \\
+& = &  \sum_{i=1}^n \sum_{j=1}^n \sum_{k=0}^n a_{i,j} x_j  y_k \delta_{i,k} \\
+& = &  \sum_{i=1}^n \sum_{j=1}^n  a_{i,j} x_j  y_i  =   \sum_{i=1}^n \sum_{j=1}^n  y_i a_{i,j} x_j \\
+& = & \sum_{j=1}^n x_j \left(\sum_{i=1}^n a_{i,j}y_i\right)  = \sum_{j=1}^n x_j \left(\sum_{i=1}^n ((A^T))_{j,i}y_i\right)  = <x, A^Ty>
+\end{eqnarray*}}
+\qed
+\newpage 
+
+Wir ben"otigen sp"ater noch den folgenden Satz, den wir aber nicht beweisen.
+\begin{satz}\label{symmEV}
+Sei $A\in\R^{n\times n}$ eine symmetrische Matrix, d.h.\ $A^T=A$. Dann besitzt
+$A$ eine Eigenbasis, die ein ONB bildet, und die Eigenwerte von $A$ sind alle reell.
+\end{satz}
+%===============================================================================
+
+
+Wie "ublich, ist die  \emph{Einheitsmatrix} $I$ definiert als 
+$$ I = \left(\begin{array}{cccc}
+1 & 0& \cdots & 0\\
+0 & 1& \cdots & 0\\
+               &             & \vdots &                \\
+0 & 0 & \cdots & 1\\  
+\end{array}\right).
+$$
+Die Einheitsmatrix ist die Darstellung der Identit"atsabbildung auf $\R^n$.
+
+\begin{sdefi} 
+Matrizen $U\in \R^{n\times n}$ mit 
+$ U^T U = I$
+hei"sen \emph{orthogonale Matrizen}.
+\end{sdefi}
+%===============================================================================
+
+
+\begin{slemma} Eine orthogonale Matrix $U\in\R^{n\times n}$\\
+(a) ist invertierbar mit $U^{-1}=U^T$,\\
+(b) besitzt orthonormale Spaltenvektoren\\
+(c) besitzt orthonormale Zeilenvektoren\\
+(d) $<Ux, Uy> = <x,y>$\\
+(e) bildet eine ONB auf eine ONB ab\\
+(f) l"asst die Norm eines Vektors invariant\\
+(g) l"asst Winkel (Erinnerung: $\cos(\alpha) = <x,y>/(\|x\|\,\|y\|)$) zwischen Vektoren invariant\\
+\end{slemma}
+{\bf Beweis: } Sei $U$ eine orthogonale Matrix. \par 
+(a) Da $U^T U = I$ haben wir sofort $U^{-1} = U^T$.\par
+(b,c) Da $(U^TU)^T = I^T = I$, und $(U^TU)^T = U^TU$, so haben wir $U^TU=I$. 
+Seien $a_1,...,a_n$ die Spaltenvektoren von $U$,  $U=(a_1,...,a_n)$. Dann ist 
+$ \delta_{i,j} = ((I))_{i,j} = ((U^TU))_{i,j} = a_i^T a_j = <a_i, a_j>.$
+Also formt $\{a_i\}_{i=1,...n}$ eine ONB des $\R^n$. (c): analog.\par
+(d) Zun"achst ist $ <Ux,Uy> = <x, U^TUy> = <x,y>$.\par
+(e) Seien $\tilde b_i = U b_i$, $i=1,...,n$ die transformierten Basisvektoren. 
+Dann ist $ <\tilde b_i, \tilde b_j>  = <b_i, b_j> = \delta_{i,j}.$ Damit ist
+ $\{\tilde b_i\}$ eine ONB.\par
+(f) Weiter folgt $\|Ux\|^2 = <Ux, Ux> =   <x,x> = \|x\|^2$.\par
+(g) Zuletzt folgt, dass die Invarianz des Skalarprodukts die Invarianz von Winkel 
+impliziert.
+\par\qed
+\begin{sbem}
+Orthonormale Matrizen lassen also die Lage der Vektoren zueinander invariant; letztlich entsprechen diese Matrizen den geometrischen Operationen: Spiegelung und Drehung; auch die Permutation von Koordinaten wird durch orthogonale Matrizen beschrieben.
+\end{sbem}
+%===============================================================================
+
+\begin{auf}\cha\label{block1A6b}
+\input{../../Aufgabensammlung/hm734.tex}
+\end{auf}
+%===============================================================================
+
+%===============================================================================
+\subsection{Singul"arwertzerlegung}
+%===============================================================================
+Im Falle von quadratischen Matrizen ist die Transformation in die Eigenbasis 
+sehr n"utzlich. Man m"ochte ein analoges Konzept f"ur allgemeine $m\times n$-Matrizen 
+entwickeln. Das geht nat"urlich nicht direkt, aber man erh"alt immerhin so etwas 
+"ahnliches wie eine Diagonalmatrix, die von rechts und links mit zwei 
+Basis-Transformations-Matrizen multipliziert werden (siehe auch Fig.~\ref{singAbb1}).\par\bigskip
+
+\begin{ssatz} Sei $A\in \R^{m\times n}$ eine Matrix. Dann existieren orthogonale 
+Matrizen $U\in \R^{m\times m}$ und $V\in\R^{n\times n}$, sowie eine Matrix 
+$\Sigma=(s_{i,j})\in \R^{m\times n}$,
+die au"serhalb der Diagonalen verschwindet ($s_{i,j}=0$ f"ur $i\not = j$), und 
+nicht-negativen Diagonalelementen $s_{1,1}\geq s_{2,2}\geq\cdots\geq 0$, sodass 
+gilt 
+$$ A = U \Sigma V^T.$$
+Diese Darstellung hei"st Singul"arwertzerlegung von $A$. Die Werte $\sigma_i := s_{i,i}$
+hei"sen Singul"arwerte von $A$.
+\end{ssatz}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=8.5cm]{../figures/singulaer.pdf}
+\end{center}
+\caption{Zerlegung der Wirkung der Matrix $A$ in drei einfache, lineare
+Abbildungen: zwei Drehspiegelungen (orthogonale Matrizen), und eine komponentenweise Streckung kombiniert mit einer  
+Einbettung des $\R^m$-Vektors in $\R^n$ am Beispiel von $A\in\R^{3\times 2}$.}
+\label{singAbb1}
+\end{figure}
+
+{\bf Beweis: } Der Beweis ist auch insofern n"utzlich, als er konstruktiv ist. 
+D.h., letztlich besteht der Beweis aus einem Kochrezept, und der Begr"undung, 
+warum das Rezept funktioniert. 
+{\bf Die Ausf"uhrung dieser Rezeptur zu "uben sei dringend anempfohlen!}
+
+$\bullet$ {\it Schritt 1: } Sei $B := A^T A$. Dann ist $A$ eine symmetrische 
+(und damit auch quadratische) Matrix. Zu dieser Matrix bestimmen wir die 
+Eigenwerte $\lambda_i$ und orthonormale Eigenvektoren $v_i\in \R^n$. 
+Die Eigenwerte einer symmetrischen Matrix sind reell, und wir finden $n$ linear 
+unabh"angige Eigenvektoren. Wir ordnen sie an,
+$$ \lambda_1\geq \lambda_2\geq\cdots.$$
+Es gilt nun
+$$ v_i^T B v_i = v_i^T \lambda_i v_i = \lambda_i$$
+und es gilt
+$$ v_i^T B v_i = v_i^TA^T A v_i = (A v_i)^T (A v_i)\geq 0.$$
+D.h., $\lambda_i\geq 0$. Seien die ersten $r$ Eigenwerte strikt positiv, 
+$\lambda_1\geq ...\geq \lambda_r>0=\lambda_{r+1}=...=\lambda_n$. 
+
+$\bullet$ {\it Schritt 2: } Definiere f"ur die ersten $r$ Eigenwerte
+$$ u_i = \frac 1 {\sqrt{\lambda_i}} Av_i.$$
+Dann sind die $u_i$ genau $r$ Vektoren, $u_i\in \R^m$. Erg"anze diese $r$ Vektoren durch
+$m-r$ weitere Vektoren
+$u_{r+1},..,u_m$  zu einer Orthonormalbasis des $\R^n$. 
+\par\medskip
+
+$\bullet$ {\it Schritt 3: } Nun ``bastele'' die Matrizen $U$, $V$ und $\Sigma$:\par
+\begin{eqnarray*}
+U & := &  (u_1, u_2, \cdots u_m)\in \R^{m\times m} \\
+V & := &   (v_1, v_2, \cdots v_n) \in\R^{n\times n}\\
+\Sigma & := & (s_{i,j})\in \R^{m\times n}\\
+s_{i,j} & = & 0 \qquad\mbox{ f"ur } i\not = j\\
+s_{i,i} & = & \sqrt{\lambda_i}\mbox{ f"ur } i\leq r\\
+s_{i,i} & = & 0 \quad\mbox{ f"ur } i>r\\
+\end{eqnarray*}
+D.h.
+$$ \Sigma = \sum_{i=1}^r \underbrace{e_i}_{{\scriptsize \in\R^m}} s_{i,i} \underbrace{e_i^T}_{{\scriptsize \in\R^n}}.$$
+
+{\it Soweit das Rezept. Nun m"ussen wir noch nachrechnen, dass $U$, 
+$V$ orthonormal sind, und $A = U \Sigma V^T$  auch tats"achlich gilt.}
+
+$\bullet$ $V$ ist orthogonal nach Konstruktion.
+$\bullet$ f"ur zwei Spaltenvektoren $u_i$, $u_j$, $i,j\in\{1,..,r\}$ gilt
+$$ u_i^T u_j 
+= \frac 1 {\sqrt{\lambda_i\lambda_j}} v_i^T A^T A v_j 
+= \frac 1 {\sqrt{\lambda_i\lambda_j}} v_i^T B v_j 
+= \frac{\sqrt{\lambda_j}}{\sqrt{\lambda_i}} v_i^T v_j 
+= 
+\left\{\begin{array}{ccc}
+\sqrt{\lambda_i/\lambda_j}&\mbox{ f"ur }&i=j\\
+0 &\mbox{ sonst}&\
+\end{array}\right.
+= 
+\left\{\begin{array}{ccc}
+1&\mbox{ f"ur }&i=j\\
+0 &\mbox{ sonst}&\
+\end{array}\right.
+$$
+Falls mindestens einer der Indizes $i$, $j$ gr"osser $r$ ist, so haben wir 
+sofort $u_i^T u_j=1$, da wir die $\{u_1,..,u_r\}$ durch orthonormale 
+Vektoren erg"anzt haben.
+$\bullet$ Nach Definition gilt
+\begin{eqnarray*}
+U\Sigma V^T & = & U \sum_{i=1}^r e_i s_{i,i} e_i^T = \sum_{i=1}^r \sqrt{\lambda_i} u_i v_i^T \\
+& = &  \sum_{i=1}^r  A v_i v_i^T 
+ =   \sum_{i=1}^n  A v_i v_i^T \qquad ( v_{r+1},.., v_n \mbox{ sind Eigenvektoren zum Eigenwert }0)\\
+& = & A  \sum_{i=1}^n  v_i v_i^T 
+ =  A  V V^T  = A I = A
+\end{eqnarray*}
+\qed 
+
+N"utzlich ist die Singul"arwertzerlegung z.B.\ bei der Behandlung von singul"aren 
+Gleichungssystemen, in der Statistik (Hauptkomponentenanalyse, lineare Modelle) 
+und in Bildkompressionsverfahren.
+
+\begin{bbspX}
+Gegeben sei die Matrix 
+%$$A^T =\left(\begin{array}{ccc} 0 & 3 & -1 \\ 0 &-1 &3\end{array}\right).$$
+$$A = \left(\begin{array}{cc} 0  & 0 \\3 & -1\\ -1 &3
+\end{array}\right) .$$
+f"ur die Matrix $A$ soll die Singul"arwertzerlegung durchgef"uhrt werden, d.h. die 
+folgenden Schritte m"ussen ausgef"uhrt werden:
+\begin{enumerate}
+\item Berechnen der Matrix $A^TA$, ihrer Eigenwerte $\lambda_i$ und {\it normierten} 
+Eigenvektoren
+$v_i$.
+\item Bestimmung der  Vektoren $u_i = \frac{1}{\sqrt{\lambda_i}}Av_i$ ($u_i$ sind 
+automatisch normiert!)
+\item Bestimmung eines Vektors $u_3$, der zu $u_i$ orthogonalen ist, d. h. 
+$<u_i, u_3> = 0$. (Welches Verfahren l"asst sich dazu nutzen?)
+\item Aus den  $v_i$, $u_i$ werden die Matrizen $V$ und $U$ definiert. Weiter 
+kann die Matrix $\Sigma$ durch die Singul"arwerte bestimmt werden. Man kann dann 
+durch direkte Rechnung verifizieren, dass $A = U \Sigma V^T$. 
+\end{enumerate}
+
+\newpage{\bf Vorgehen: }
+\begin{enumerate}
+\item
+$A^T A =
+\left(\begin{array}{cc} 10 &-6\\-6 & 10\end{array}\right)$. Die Nullstellen des charakteristischen Polynoms 
+$$ p(\lambda) = (10-\lambda)^2-36 = \lambda^2 -20\lambda+64 = (\lambda-4)(\lambda-16)$$
+zeigen, dass $\lambda_1 = 16$ und $\lambda_2 = 4$ die Eigenwerte sind. 
+Die Eigenvektoren erh"alt man aus
+\begin{eqnarray*}
+(A^T A - 16I) x &=& \left(\begin{array}{cc} -6 &-6\\-6 &
+-6\end{array}\right)x = \left(\begin{array}{c} 0\\0\end{array}\right) \quad \Rightarrow \quad x = \left(\begin{array}{c} 1\\-1\end{array}\right)\\
+(A^T A - 4I) x &=& \left(\begin{array}{cc} 6 &-6\\-6 &
+6\end{array}\right)x = \left(\begin{array}{c} 0\\0\end{array}\right)\quad \Rightarrow \quad x = \left(\begin{array}{c} 1\\1\end{array}\right).
+\end{eqnarray*}
+Damit haben wir die normierten Eigenvektoren zu $\lambda_{1}$ und $\lambda_2$
+$$
+v_{1} = \frac{1}{\sqrt{2}}\left(\begin{array}{c} 1 \\ -1\end{array}\right),\qquad
+v_{2} = \frac{1}{\sqrt{2}}\left(\begin{array}{c}  1 \\ 1\end{array}\right)
+.$$
+\item
+Ausrechnen nach Vorschrift:
+\begin{eqnarray*}
+u_1 & = & \frac{1}{\sqrt{\lambda_2}}Av_2 = \frac{1}{\sqrt{16}}\left(\begin{array}{cc} 0  & 0 \\3 & -1\\ -1 &3
+\end{array}\right)\frac 1 {\sqrt{2}} \left(\begin{array}{c} 1\\-1\end{array}\right) =
+\frac{1}{4\, \sqrt{2}}\left(\begin{array}{c} 0\\4\\-4\end{array}\right)  = 
+\frac{1}{\sqrt{2}}\left(\begin{array}{c} 0\\1\\-1\end{array}\right) \\
+u_2 & = & \frac{1}{\sqrt{\lambda_1}}Av_1 = 
+\frac{1}{\sqrt{4}}\left(\begin{array}{cc} 0  & 0 \\3 & -1\\ -1 &3
+\end{array}\right) \frac 1 {\sqrt{2}}\left(\begin{array}{c} 1\\1\end{array}\right) =
+\frac{1}{2\, \sqrt{2}}\left(\begin{array}{c} 0\\2\\2\end{array}\right) = 
+\frac{1}{\sqrt{2}}\left(\begin{array}{c} 0\\1\\1\end{array}\right).
+\end{eqnarray*}
+Man bemerke, dass (wie schon im ``Theorie-Teil'' bewiesen) man normierte Vektoren $u_1$ und $u_2$ erh"alt,
+d.h.\ Vektoren der L"ange eins.
+\item
+Hier tut es jeder Vektor mit einer beliebigen $x$-Komponente - wir nehmen 
+$(1, 0, 0)^T$. Wenn man das nicht sieht, nutzt man das Gram-Schmidtsche 
+Orthogonalisierungsverfahren. 
+\item Zusammenbauen der Matrizen. 
+Es sind $\lambda_1=16<\lambda_2=4$ geordnet, 
+i.e. $V = (v_1, v_2)$, $U = (u_1, u_2, u_3)$. Damit
+\bqa
+V = \frac 1 {\sqrt{2}} \left(\begin{array}{cc}  1& 1\\-1 &1  \end{array}\right), \quad
+U = \frac 1 {\sqrt{2}}\left(\begin{array}{ccc}
+0 & 0 & \sqrt{2}\\
+1 & 1 & 0\\
+-1 & 1 & 0
+\end{array}\right), \quad \Sigma = 
+  \left(\begin{array}{cc}
+\sqrt{16} & 0 \\
+0 & \sqrt{4} \\
+0 & 0 
+\end{array}\right)
+ = 
+  \left(\begin{array}{cc}
+4 & 0 \\
+0 & 2 \\
+0 & 0 
+\end{array}\right) 
+\eqa
+"uberpr"ufen:
+\begin{eqnarray*}
+U\Sigma V^T & = &  
+\frac 1 {\sqrt{2}}
+\left(\begin{array}{ccc}
+0 & 0 & \sqrt{2}\\
+1 & 1 & 0\\
+-1 & 1 & 0
+\end{array}\right)
+  \left(\begin{array}{cc}
+4 & 0 \\
+0 & 2 \\
+0 & 0 
+\end{array}\right)
+\frac 1 {\sqrt{2}} \left(\begin{array}{cc}  1& 1\\-1 &1  \end{array}\right)^T\\
+ & = &  
+\frac 1 {\sqrt{2}}
+\left(\begin{array}{ccc}
+0 & 0 & \sqrt{2}\\
+1 & 1 & 0\\
+-1 & 1 & 0
+\end{array}\right)
+  \left(\begin{array}{cc}
+4 & 0 \\
+0 & 2 \\
+0 & 0 
+\end{array}\right)
+\frac 1 {\sqrt{2}} \left(\begin{array}{cc}  1& -1\\1 &1  \end{array}\right)\\
+& = & \frac 1 2 
+\left(\begin{array}{ccc}
+0 & 0 & \sqrt{2}\\
+1 & 1 & 0\\
+-1 & 1 & 0
+\end{array}\right)
+  \left(\begin{array}{cc}
+  4 & -4\\
+  2 & 2\\
+  0 & 0 
+  \end{array}\right)
+  = \left(\begin{array}{cc} 0  & 0 \\3 & -1\\ -1 &3
+\end{array}\right)=A.
+\end{eqnarray*}
+\end{enumerate}
+
+\end{bbspX}
+%===============================================================================
+\subsection*{Aufgaben}
+
+\begin{auf}\cha\label{block1A7}
+\input{../../Aufgabensammlung/hm682.tex}
+\end{auf}
+
+\begin{auf}\chb\label{block1A8}
+\input{../../Aufgabensammlung/hm683.tex}
+\end{auf}
+
+\begin{auf}\che\label{block1A9}
+\input{../../Aufgabensammlung/hm684.tex}
+\end{auf}
+
+\begin{auf}\cha\label{block1A10}
+\input{../../Aufgabensammlung/hm081.tex}
+\end{auf}
+
+\begin{auf}\cha\label{block1A11}
+\input{../../Aufgabensammlung/hm187.tex}
+\end{auf}
+
+\begin{auf}\chd\label{block1A12}
+\input{../../Aufgabensammlung/hm020.tex}
+\end{auf}
+
+\begin{auf}\chd\label{block1A13}
+\input{../../Aufgabensammlung/hm025.tex}
+\end{auf}
+
+\begin{auf}\chb\label{block1A14}
+\input{../../Aufgabensammlung/hm286.tex}
+\end{auf}
+
+\begin{auf}\cha\label{block1A15}
+\input{../../Aufgabensammlung/hm686.tex}
+\end{auf}
+
+
+
+
+
+

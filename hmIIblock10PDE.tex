@@ -1,0 +1,610 @@
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+%===============================================================================
+\section{Klassen und Typen partieller Differentialgleichungen}
+%===============================================================================
+\zbox{{\bf Ziele}:
+\begin{itemize}
+\item Characteristiken-Methode f"ur partielle Differentialgleichungen 1'ter Ordnung anwenden k"onnen 
+\item Laplace-Gleichung erkennen, wichtigste Eigenschaften kennen
+\item W"armeleitungsgleichung erkennen, wichtigste Eigenschaften kennen
+\item Wellengleichung erkennen,  wichtigste Eigenschaften kennen
+\end{itemize}}\par
+%=============================================================================== 
+Wir werden hier (relativ kurz) eine Einf"uhrung in das Gebiet der 
+partiellen Differentialgleichngen (PDE's) geben.
+Dazu starten wir mit Differenitalgleichungen erster Ordnung (nur erste 
+Differentialgleichngen tauchen auf),
+um dann zu Differentialgleichungen zweiter Ordnung zu gehen.
+%===============================================================================
+\subsection{Partielle Differentialgleichungen erster Ordnung}
+%===============================================================================
+Ziel dieser Sektion ist es, Verhalten und L"osungsmethoden f"ur Differentialgleichungen erster Ordnung zu verstehen. Damit 
+k"onnen wir insbesondere auch die Boltzmanngleichung verstehen. 
+Diese bildet eine der Grundlagen f"ur das Verst"andnis der Gleichungen der 
+Str"omungsmechanik.
+%===============================================================================
+\subsubsection{Lineare, skalare PDE in einer r"aumliche Dimension}\par
+ Dazu betrachten wir zun"achst 
+eine Gleichung der Form
+$$ h_t(t,x) + a(x)h(t,x)_x =0.$$
+%===============================================================================
+\fpbox{Diese Gleichung ist linear, da mit den L"osungen $h(t,x)$ und $w(t,x)$ auch
+die Funktion 
+$$\alpha h(t,x)+\beta w(t,x)$$
+eine L"osungen ist ($\alpha,\beta\in\R$, beliebig). Die Koeffizientenfunktion $a(x)$ 
+hingegen darf recht beliebig (auch nichtlinear) von $x$ abh"angen.} 
+
+
+%===============================================================================
+\fpbox{ Wir geben nun zus"atzlich eine Anfangsbedienung $h(0,x)=h_0(x)$ vor,
+d.h. betrachten 
+$$ h_t(t,x) + a(x)h(t,x)_x =0,\qquad h(0,x)=h_0(x).$$
+\underline{L"osungsmethode:}\\ Schritt 1: Wir suchen Kurven $x=X(t)$ in der 
+Raum-Zeit, "uber denen die L"osung $h(x,t)$ der PDE konstant ist
+$$ \forall t\geq 0:\qquad h(t, X(t)) = h(0, X(0)).$$
+Die totale Ableitung nach der Zeit der Gleichung $h(t, X(t)) = h(0, X(0))$ ergibt
+$$ 0 = \frac d {dt} h(t, X(t)) = h_t + h_x X'(t). $$
+Vergleichen wir diese  Gleichungen mit der PDE $ h_t + a(x)h_x =0$, so sehen wir, 
+dass
+$$ X'(t) = a(X(t)).$$
+Dies ist aber eine gew"ohnliche Differentialgleichung (die sog.\ ``Charakteristische 
+Gleichung'', nicht zu verwechseln mit dem ``charakteristischen Polynom'  von 
+Matrizen und linearen, gew"ohnlichen Differentialgleichungen; die L"osungen dieser 
+Differentialgleichungen hei"sen ``Charakteristiken''). Die Charakteristiken 
+$X(t;x_0)$ h"angen nat"urlich vom Anfangswert $X(0)=x_0$ ab. \\
+Schritt 2: Um $h(x,t)$ zu bestimmen, suchen wir die Kurve $X(t;x_0)$, die
+durch $(x,t)$ l"auft, d.h.\ bestimmen $x_0$ aus
+$$ x = X(t;x_0).$$
+Da wir wissen, dass $h(x,t)$ "uber denk Kurven $(x,t)=(X(t;x_0), t)$ konstant ist, 
+so muss $h(x,t) = h_0(x_0)$ sein.
+}
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=10cm]{../figures/pde1.pdf} 
+   \caption{Charakteristiken f"ur das Beispiel.}
+\label{pde1}
+\end{figure}
+
+%===============================================================================
+\begin{bspX} Gegeben seid die partielle Differentialgleichung $ h_t(t,x) + x h(t,x)_x =0$
+mit der Anfangsbedingung $h(0,x) = 5x^2.$ Damit ist $a(x) = x$ und wir 
+erhalten als charakteristische Gleichung $  \dot X = X$, 
+i.e. (siehe Abb.~\ref{pde1}) $ X(t) = x_0 e^t.$
+"Uber diesen Kurven ist die Funktion $u(t,x)$ konstant,
+$ h(t, X(t)) = h(0,X(0)) = h(0,x_0) = 5 x_0^2.$
+Um $h(t,x)$ zu bestimmen, m"ussen wir also die Kurve $X(t;x_0)$ bestimmen, die 
+durch $(t,x)$ l"auft, d.h. 
+$ x = X(t;x_0) = x_0e^t$, woraus $x_0 = xe^{-t}$ folgt.
+Damit ist 
+$$ h(t,x) = h(0, xe^{-t}) = 5(xe^{-t})^2 = 5x^2 e^{-2t}.$$
+Wir k"onnen das Ergebnis direkt "uberpr"ufen. F"ur $t=0$ finden wir $h(0,x) = 5x^2$, 
+d.h. die Anfangsbedingung wird vn der L"osung korrekt angenommen. 
+Wenn wir weiter die Funktion in die Partielle Differentialgleichung einsetzen, 
+haben wir
+$$ h_t+xh_x 
+= \left(5x^2 e^{-2t}\right)_t + x  \left(5x^2 e^{-2t}\right)_x
+= (-2)\,\,\left(5x^2 e^{-2t}\right) + 2\,\, x  \left(5x e^{-2t}\right) = 0.$$
+Stimmt!
+\end{bspX}
+\par\bigskip
+
+
+\subsubsection{Lineare, skalare PDE in drei r"aumlichen Dimensionen}\par
+Das gleiche Rezept funktioniert auch bei mehreren Dimensionen:
+$$ h_t(t,x,y,z) 
++ a(x,y,z)h(t,x,y,z)_x 
++ b(x,y,z)h(t,x,y,z)_y 
++ c(x,y,z)h(t,x,y,z)_z 
+=0.$$
+Definieren wir 
+$$v(x,y,z)=\left(\begin{array}{c}
+a(x,y,z)\\b(x,y,z)\\c(x,y,z)
+\end{array}\right)
+$$
+so k"onnen wir die Gleichung schreiben als
+$$ h_t + v\nabla h=0.$$
+
+Suchen wir wieder Kurven $K(t) = (X(t), Y(t), Z(t))$ "uber die die L"osung konstant 
+ist, so finden wir
+$$ 0 = \frac d {dt} h(t,X(t), Y(t), Z(t)) = h_t+h_x\dot X+h_y \dot Y+h_z \dot Z = h_t + \dot K(t)\nabla h.$$
+Koeffizientenvergleich mit der partiellen Differentialgleichung f"uhrt auf
+$$ \dot K = v.$$
+
+%===============================================================================
+\subsubsection{ Altersstrukturierte Populationen}\par
+{\it Die\footnote{Wird in der Vorlesung nicht behandelt} Vorhersage der Entwicklung der Gr"o"se einer (humanen) Bev"olkerung erfolgt 
+zweckdienlicherweise mittels alterstrukturierten Modelle. Dabei soll die
+zeitliche Entwicklung der Funktion $u(t,a)$ berechnet werden, wobei
+$$ \int_{a_1}^{a_2} u(t,a)\, da = \mbox{Zahl der Personen mit Alter zwischen }
+a_1 \mbox{ und } a_2 \mbox{ zur Zeit } t.$$
+Die  Entwicklung in der Zeit wird durch drei Effekte bestimmt: 
+Altern (wird in die Struktur der Gleichung eingearbeitet), 
+Mortalit"at und Geburten.\par
+\underline{Mortalit"at:} 
+Die Zahl der Todesf"alle einem kleinen Zeitintervall $\Delta$ 
+(ein Jahr, ein Monat), wird proportional von Personen in 
+einem gegebenen Alter $a$, wird proportional zu der L"ange des Zeitintervalls,
+und der Zahl der Personen dieses Alters $u(a,t)$ sein. Die Proportionalit"atskonstante h"angt sicherlich vom Alter ab. Wir nennen diese 
+ $\mu(a)$, und haben
+$$ \Delta u(t,a)\mu(a)\approx
+\mbox{Todesf"alle im Zeitintervall } [t,t+\Delta] 
+\mbox{ im Alter } a.$$
+$\mu(a)$ hei"st Mortalit"at oder auch Sterberate.\par
+\underline{Geburt:} Wir w"ahlen uns zuf"allig eine Person 
+aus der Population, die das Alter $a$ besitzt. Die Wahrscheinlichkeit, 
+dass diese Person in den n"achsten $\Delta$ Monaten ($\Delta$ klein) 
+ein Kind bekommt sei h"angt sicher von $a$ ab, und sei $b(a)$.
+Bei gegebener Populationsstruktur $u(a,t)$ m"ussen wir $b(a)$ mit
+$u(t,a)$ multiplizieren (wie viele Personen sind wie im Moment wie fertil?) und
+"uber $a$ integrieren, um die Gesamtzahl der Geburten zu ermitteln,
+$$ \int_0^\infty b(a)u(t,a)\, da = \mbox{ Zahl der Geburten zur Zeit }t.$$
+\underline{Gleichung } 
+Wenn wir grob wissen wollen, wieviel Personen in einem Jahr mit Alter
+$a+1$ leben, so finden wir (unter Vernachl"assigung der Todesf"alle) gerade die
+Zahl der Personen des Alters $a$, die heute leben. Allgemeiner, zur Zeit 
+$t+\Delta$ und Alter $a+\Delta$ leben '(ohne Todesf"alle) genauso viele 
+Individuen wie heute mit Alter $a$. Bei Ber"ucksichtigung der Todesf"alle m"ussen wir
+$\mu(a) u(t,a)\Delta$ Individuen noch abziehen, d.h.
+\begin{eqnarray*}
+u(t+\Delta, a+\Delta) &= &  u(t,a) - \mu(a)\Delta u(t,a)\\
+\quad\Rightarrow\quad
+\frac {u(t+\Delta, a+\Delta)-u(t, a+\Delta) } { \Delta }
++\frac{u(t, a+\Delta)- u(t,a)}{\Delta} & = & - \mu(a) u(t,a).
+\end{eqnarray*}
+Der zweite Term auf der linken Seite ist der Differenzenquotient in 
+Hinblick auf $a$. Wenn $\Delta\rightarrow 0$ geht dieser Term gegen $u_a(a,t)$.
+Der erste Term ist analog der Differenzenquotienten in Hinblick auf $t$ 
+(man beachte, dass das zweite Argument in diesem Term immer $a+\Delta a$
+ist). Also finden wir f"ur $\Delta\rightarrow 0$,
+$$ u_t(t,a) + u_a(t,a) = -\mu(a) u(t,a).$$
+Wir m"ussen noch die Geburten angeben, d.h.\ die Zahl der Individuen 
+mit Alter $a=0$, 
+$$ u(t,0) = \int_0^\infty b(a)\, u(t,a)\, da.$$
+Die letzte Information, die wir noch ben"otigen ist Anfangsbedingung (Populationsgr"o"se $u_0(a)$ zur Zeit $t=0$). Das altersstrukturierte 
+Modell lautet
+\begin{eqnarray*}
+u_t(t,a) + u_a(t,a) & = & -\mu(a) u(t,a)\\
+u(t,0) & = &\int_0^\infty b(a)\, u(t,a)\, da,\qquad u(0,a)=u_0(a).
+\end{eqnarray*}
+Damit k"onnen wir im Prinzip mittel- und langfristige Prognosen der Bev"olkerungsentwicklung berechnen.
+}
+
+%===============================================================================
+\subsubsection{ Boltzmann Gleichung}\par
+Zun"achst kehren wir zu der eingangs behandelten Gleichung zur"uck.\par
+\fpbox{{\bf Ausbreitung ohne Wechselwirklung.} Wenn die ``Teilchendichte'' $h(x,t)$ (mit $x\in\R^3$) 
+sich mit Geschwindigkeit $v$ ausbreitet, so folgen einzelne Teilchen 
+der Bahn, die gegeben ist durch $\dot x = v$. Daher breitet sich die Dichte 
+gem"a"s
+$$ h_t(x,t) + \nabla (v h(x,t)) = 0$$
+aus (diese Gleichung besitzt die richtigen charakteristischen Differentialgleichungen). \\
+ Nun k"onnen wir nat"urlich auch Teilchen mit 
+mehreren, verschiedenen Geschwindigkeiten
+im System haben. F"ur jede Geschwindigkeit $v$ geben wir $h(t,x,v)$ die Teilchendichte 
+am Ort $x$ mit
+Geschwindigkeit $v$ zur Zeit $t$ an. Wenn die Teilchen nicht wechselwirken, so 
+gen"ugt (f"ur jedes feste $v$) die Funktion der Gleichung
+$$ h_t(t,x,v) + v\, \nabla h(t,x,v) = 0.$$
+Wir k"onnen also unendlich viele Gleichungen (f"ur die verschiedenen Geschwindigkeiten) 
+in einer Gleichung zusammenfassen. }\par\medskip
+Nun stimmt es nicht, dass (Gas-)Molek"ule/Teilchen ohne Wechselwirkung nebeneinander 
+herfliegen: sie sto"sen
+zusammen und interagieren. Wenn zwei Teilchen (an einem Ort) zusammenstossen, so 
+werden sie i.a.\ ihre Geschwindigkeit "andern. Es verschwinden also Teilchen mit
+einer Geschwindigkeit, und tauchen mit einer anderen Geschwindigkeit wieder auf. 
+Man kann diesen Term schreiben als \par
+\fpbox{
+$$ h_t(t,x,v) + v\, \nabla h(t,x,v) = Q(h(t,x,.));$$
+diese Gleichung hei"st Boltzmann-Gleichung.\index{Boltzmann-Gleichung}
+}\par\medskip
+Dabei wollen wir den Sto"soperator $Q(.)$ nicht n"aher bestimmen. Wichtig ist, dass 
+er r"aumlich (und zeitlich) lokal wirkt. Die Physik fordert drei Erhaltungsgr"o"sen: 
+Teilchendichte, Impulsdichte und Energiedichte. Welche Eigenschaft verlangen wir 
+von $Q(.)$, sodass diese drei Gr"o"sen erhalten bleiben?
+
+Wir verlangen f"ur die Massenerhaltung
+ $$ \int Q(h,h)\, dv = 0$$
+f"ur die Impulserhaltung
+$$ \int Q(h,h)\, v\, dv = 0$$
+und f"ur die Energieerhaltung
+$$ \int Q(h,h)\, (v-u)^2\, dv = 0$$
+(wobei $u=\int v h\, dv$). Warum das die richtigen Gleichungen sind, 
+diskutieren wir hier nicht (aber im Anhang).
+
+%===============================================================================
+\begin{auf}\chc\label{block10A1}
+\input{../../Aufgabensammlung/hm722.tex}
+\end{auf}
+\begin{auf}\chc\label{block10A2}
+\input{../../Aufgabensammlung/hm723.tex}
+\end{auf}
+\begin{auf}\chd\label{block10A2a}
+\input{../../Aufgabensammlung/hm760.tex}
+\end{auf}
+%===============================================================================
+\subsection{Standard-Gleichungen zweiter Ordnung}
+\subsubsection{Typen partieller Differentialgleichung zweiter Ordnung}
+
+Partielle Differentialgleichungen zweiter Ordnung sind Differentialgleichungen in denen mindestens eine zweite Ableitung vorkommt. In zwei Dimensionen haben wir 
+$$ a u_{xx}+ bu_{xy}+c u_{yy} + du_x+e u_y+f u = 0.$$
+
+Man rechnet leicht nach, dass (falls $a,b,c$ reelle Konstanten sind)
+$$ \nabla^T 
+\underbrace{\left(\begin{array}{cc}
+a & b/2\\
+b/2 & c
+\end{array}\right)}_{=: A}\nabla u
+= a u_{xx}+ bu_{xy}+c u_{yy}.
+$$
+Die Matrix $A$ bestimmt also die Terme zweiter Ordnung v"ollig. Man kann 
+anhand von $A$ eine Typeneinteilung vornehmen. Da $A$ eine (symmetrische) Matrix ist (Symmetrie impliziert zwei reelle Eigenwerte, siehe Seite~\pageref{symmEV}), und
+Matrizen weitgehend durch ihre Eigenwerte bestimmt sind, liegt es nahe, bei der Typeneinteilung
+"uber die Eigenwerte zu gehen.\par
+Diese Einteilung f"allt hier vom Himmel. Wir werden sie angeben, und aus jedem
+Typ eine prototypische Gleichung etwas diskutieren. Einerseits spielen diese 
+Prototypen in den Anwendungen (Physik) eine zentrale Rolle, andererseits 
+wird es klar, dass diese Gleichungen v"ollig verschiedene Charaktere haben.\par
+\fpbox{
+Fall 1: Zwei Eigenwerte mit gleichem Vorzeichen - elliptische Gleichungen\\
+\vspace*{-0.9cm}\\
+\noindent\rule{\textwidth}{1pt}
+Einfachstes Beispiel:
+$$ A = 
+\left(\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right)$$
+(Eigenwerte sind beide $1$). Prototyp ist die {\bf Laplace-Gleichung}
+$$ \Delta u = u_{xx}+u_{yy} = 0.$$
+Fall 2: Zwei Eigenwerte mit unterschiedlichem Vorzeichen - hyperbolische Gleichungen\\
+\vspace*{-0.9cm}\\
+\noindent\rule{\textwidth}{1pt}
+Einfachstes Beispiel:
+$$ A = 
+\left(\begin{array}{cc}
+1 & 0\\
+0 & -1
+\end{array}\right)$$
+(Eigenwerte sind $\pm 1$). Prototyp ist die {\bf Wellengleichung}
+$$  u_{tt}-u_{xx} = 0.$$
+(wir schreiben hier $t$ statt $y$, da diese Koordinate in der Wellengleichung
+tats"achlich die Rolle der Zeit spielt.\par\medskip
+Fall 3: Ein Eigenwerte Null einer ungleich Null - parabolische Gleichungen\\
+\vspace*{-0.9cm}\\
+\noindent\rule{\textwidth}{1pt}
+Einfachstes Beispiel:
+$$ A = 
+\left(\begin{array}{cc}
+1 & 0\\
+0 & 0
+\end{array}\right)$$
+(Eigenwerte $1$ und $0$). Prototyp ist die {\bf W"armeleitungs- oder Diffusionsgleichung}.
+$$ u_t =  u_{xx}.$$
+(wir haben nur zweite Ableitungen in $x$, und nehmen noch eine 
+erste Ableitung hinzu; die entsprechende Variable "ubernimmt wieder die Rolle der Zeit, daher schreiben wir $u_t$ statt $u_y$).
+}
+\par\medskip
+
+Im dreidimensionalen Raum haben wir statt einer zweidimensionalen Matrix eine 
+dreidimensionale Matrix mit drei Eigenwerten; entsprechend mehr Typen gibt es.
+Aber auch in h"oheren Dimensionen sind diese drei Standard-Typen (und diese 
+drei standard-Gleichungen) die aller- allerwichtigsten.
+
+%===============================================================================
+\subsubsection{Wellengleichung}
+Betrachte
+$$ h_{tt}-c^2h_{xx} = 0.$$
+Diese Gleichung beschreibt die Ausbreitung einer Welle mit Geschwindigkeit $c$ 
+(im eindimensionalen Raum). Wie kann man L"osungen finden? Nun, wir bemerken, dass allgemein
+$$
+[ (\partial_t+c\partial_x) (\partial_t-c\partial_x) ]h
+= 
+[\partial_t^2-c\partial_t \partial_x+c\partial_x \partial_t - c^2 \partial_x^2]h
+=  h_{tt}-c^2h_{xx} = 0.
+$$
+Also insbesondere
+$$
+[ (\partial_t+c\partial_x) (\partial_t-c\partial_x) ]h
+= 0 = 
+[ (\partial_t-c\partial_x) (\partial_t+c\partial_x) ]h.
+$$
+Daher sind  L"osungen der Gleichungen
+$$ 
+(\partial_t-c\partial_x) ]h_- = 0,\qquad
+(\partial_t+c\partial_x) ]h_+ = 0.
+$$
+auch L"osungen der Wellengleichung. Diese beiden Gleichungen sind aber 
+f"ur uns alte Bekannte: die L"osungen k"onnen geschrieben werden als
+$$ h_-(t,x) = H_-(x+ct),\quad h_+(t,x) = H_+(x+ct).$$
+Alles in allem haben wir die L"osung
+$$ h(x,t) = H_-(x-ct)+H_+(x+ct).$$
+Die L"osung wird eindeutig bestimmt durch die Angabe von
+$$ h(0,x) = h_0(x),\qquad h_x(0,x) = h_1(x).$$
+Der Anteil der L"osung, den wir hier bestimmt haben, 
+behandelt nur $h_0(x)$. der andere Anteil $h_1(x)$ verlangt einen
+weiteren Term (siehe Aufgabe~\ref{block10A4}).  
+{\bf Wichtig: } Die Wellengleichung beschreibt die Ausbreitung von Teilchen 
+(Energie, Schall...) mit einer festen Geschwindigkeit.
+\begin{sdefi}
+Die Wellengleichung in drei r"aumliche Dimensionen ist gegeben durch
+$$ h_{tt} - c^2\Delta h = 0.$$
+\end{sdefi}
+Erinnerung: $\Delta h$ bedeutet die Summe der zweiten, r"aumlichen Ableitungen
+$\Delta h = h_{xx}+h_{yy}+\cdots$, und hei"st Laplace-Operator.\index{Laplace-Operator}
+
+%===============================================================================
+\subsubsection{W"armeleitungsgleichung}
+
+Im Gegensatz zur Wellengleichung, in der die Partikel eine feste Geschwindigkeit 
+besitzen, beschreibt die W"armeleitungsgleichung eine ungeordnete (Brownsche) 
+Bewegung. Wir werden die W"armeleitungsgleichung 
+zwei mal mit unterschiedlichen Argumenten herleiten.\par\medskip
+
+{\bf Herleitung 1: Ungeordnete Bewegung.}\par
+Als Modell betrachten wir zun"achst eine lange Reihe von Trittsteinen. 
+Ein Kind h"upft von Trittstein zu Trittstein, nach rechts mit Wahrscheinlichkeit 
+1/2, und links ebenfalls mit Wahrscheinlichkeit 1/2. 
+Sei $p(m,n)$ die Wahrscheinlichkeit nach $n$ Zeitschritten das Kind auf 
+Trittstein $m\in\Z$ zu finden, wobei bei Zeit $n=0$ das Kind auf Trittstein $m=0$ 
+startete. \par
+Man kann $p(m,n)$ tats"achlich explizit ausrechnen via 
+$$ p(m,n) = \frac 1 2 p(m-1,n-1) + \frac 1 2 p(m+1,n-1);
+$$
+allerdings wollen wir $p(m,n)$ approximieren. 
+
+
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=10cm]{../figures/p1_ssd1.pdf} 
+   \caption{(a) Diskrete Zufallsbewegung. (b) Zeitentwicklung der diskreten Zufallsbewegung.}
+\label{pde2}
+\end{figure}
+
+%===============================================================================
+
+
+Dazu fahren wir Skalierung  f"ur den Ort $x_m = m\Delta x$, $m\in\Z$  und der
+Zeit  
+zur Zeit $t_n=n\,\Delta t$ ein; diese Wahl ist schon ein Hinweis darauf, dass
+wir $\Delta t$ und $\Delta h$ gegen Null gehen lassen wollen. Dabei werden wir
+verlangen, dass
+$$  \Delta x\rightarrow 0,\qquad
+    \Delta t\rightarrow 0,\qquad
+    \frac{\Delta x^2}{2\Delta t} = D.
+$$
+Wir vermuten nun, dass die Wahrscheinlichkeiten 
+ $p(m,,n)$ eine Funktion $u(x,t)$ approximieren, und zwar via
+$$ u(x,t ) = p(x/\Delta x, t/\Delta t).$$
+Diese Annahme ergibt
+\begin{eqnarray*}
+u(x,t) 
+& = & \frac 1 2 
+\left( u(x+\Delta x, t-\Delta t) + u(x-\Delta x, t-\Delta t) \right)\\
+\Rightarrow\quad
+\frac{u(x,t)-u(x,t-\Delta t)}{\Delta t}& = & \frac {\Delta x^2}{2\Delta t}\,\, 
+\frac{u(x+\Delta x, t-\Delta t)- 2u(x,t-\Delta t)+ u(x-\Delta x, t-\Delta t)}
+{\Delta x^2}\\
+&=&
+ \frac {\Delta x^2}{2\Delta t}\,\, 
+\frac{\frac{u(x+\Delta x, t-\Delta t)- u(x,t-\Delta t)}{\Delta x}-\frac{u(x,t-\Delta t)- u(x-\Delta x, t-\Delta t)}{\Delta x}}
+{\Delta x}\\
+ & \downarrow & \quad_{ (\Delta t,\Delta x \rightarrow 0,\quad 
+                 \Delta x^2/(2\Delta t) = D)}\\
+u_t & = & D\, u_{xx}
+\end{eqnarray*}
+Diese Gleichung ist die W"armeleitungsgleichung in einer Dimension.
+\par\medskip
+%===============================================================================
+{\bf Herleitung II: Erhaltungsgesetz}\par\medskip
+Eine Bewegung wird die Masse nicht ver"andern, d.h.\ das Erhaltungsgesetz 
+(1.'tes Fick'sches Gesetz)
+$$ u_t = - \nabla J$$
+ist g"ultig. Das zweite Fick'sche Gesetz lautet nun, dass bei Diffusion bzw.\ 
+W"armeleitung die Partikel in Richtung des negativen Gradienten laufen, d.h.\ 
+der Fluss proportional (mit Proportionalit"atskonstante $D$) dem negativen 
+Gradienten von $u$ ist,
+$$ J = - D \nabla u.$$
+Kombinieren wir erstes und zweites Fick'sches Gesetz, so finden wir
+$$ u_t = \nabla D\nabla u = D\Delta u.$$
+
+%===============================================================================
+\begin{sdefi}
+ Die W"armeleitungsgleichung in drei r"aumliche Dimensionen ist gegeben durch
+$$ u_{t} = D \Delta u = 0.$$
+\end{sdefi}
+%===============================================================================
+
+\begin{sbem} Eine Gau"s-Verteilung mit Varianz $\sqrt{2 D t}$ 
+$$ u(x,t) = \frac 1 {2\sqrt{\pi D t}}e^{-x^2/(4Dt)}.$$
+erf"ullt die W"armeleitungsgleichung. D.h., wenn wir zur Zeit $t=0$ mit einem Partikel 
+im Ort $x=0$ starten, so ist dessen Aufenthaltswahrscheinlichkeit 
+durch eine Gau"s-Verteilung mit in der Zeit wie eine Wurzel steigenden 
+Varianz gegeben. 
+\end{sbem}
+
+%===============================================================================
+
+{\bf Merke: } Die W"armeleitungsgleichung beschreibt eine Zufallsbewegung. 
+Die Ausbreitungsgeschwindigkeit dieser Teilchen sind (mit sehr kleiner Wahrscheinlichkeit)
+beliebig schnell.
+
+\par\bigskip
+%===============================================================================
+{\bf Anwendung: Bestimmung der Diffusionsrate eines Schadstoffs im Boden}\par\medskip\label{difMod}
+Versuch: Schadstoff wurde radioaktiv markiert, 
+Ackerboden wurde mit einem Schadstoff versetzt, die linke H"alfte von 
+Test-R"ohrchen mit verseuchten Boden, die rechte H"alfte mit unverseuchten 
+Boden versetzt. An vier Zeitpunkten (einigen Wochen) wurde die Verteilung der
+Radioaktivit"at gemessen. Die Diffusionsrate soll bestimmt werden.\par\medskip
+Modell: $u(x,t)$ Dichte des Schadstoffs (Radioaktivi"at) im Boden, $x\in [0,L]$ 
+(L"ange der R"ohrchen ist $L$). Diffusionsgleichung:
+$$u_t = D u_{xx},
+\qquad u(x,0) = 0 \mbox{ f"ur } x<L/2,\quad
+\qquad u(x,0) = u_0 \mbox{ f"ur } x>L/2$$
+wobei $u_0$ die Anfangskonzentration des Schadstoffs ist. Wir ben"otigen 
+ Informationen "uber die beiden "offnungen des R"ohrchens, sogenannte 
+ Randbedingungen.
+
+\fpbox{ Bei Endlichen Gebieten muss man -- zus"atzlich zur Anfangsbedingung -- auch Randbedingungen angeben. Experimente k"onnen die R"ander (``"offnungen der R"ohrchen'') v"ollig unterschiedlich behandeln, entsprechend unterschiedlich 
+sind die Randbedingungen:\\
+{\bf (a)} Die Enden der R"ohrchen werden mit L"osungsmittel verbunden, das immer wieder
+ausgetauscht wird. Damit setzen (und halten) wir die Konzentration an den
+Enden der R"ohrchen auf Null ({\bf homogene Dirichlet-Randbedingungen})
+$$ u(0,t)=u(L,t)=0.$$
+{\bf (b)} Die Enden des R"ohrchens werden mit einem Reservoir des Schadstoffs verbunden, das eine gegebene Schadstoffkonzentration $\hat u_0$ aufweist
+ ({\bf inhomogene Dirichlet-Randbedingungen})
+$$ u(0,t)=u(L,t)=\hat u_0.$$
+{\bf (c)} Nichts flie"st in das R"ohrchen hinein, nichts hinaus (hier kontrollieren wir nicht die Konzentration direkt wie in (a), (b), sondern den Fluss $j=-Du_x$) 
+ ({\bf homogene Neumann-Randbedingungen})
+$$ - Du_x(0,t) = -Du_x(L,t)=0
+\quad\Leftrightarrow\quad
+u_x (0,t) = u_x(L,t)=0.$$
+{\bf (d)} Ein definierter Fluss in das R"ohrchen / aus dem R"ohrchen wird vorgegeben (Pumpen anschlie"sen?) 
+ ({\bf inhomogene Neumann-Randbedingungen})
+$$ - Du_x(0,t) = a,\qquad -Du_x(L,t)=b.$$
+}
+\par\medskip
+
+%===============================================================================
+
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=12cm]{../figures/diffu_SImul} 
+%   \caption{Vergleich unserer L"osung der Diffusionsgleichung von %Schadstoff 
+%in der R"ohre (gestrichelte Linie) mit einer anderen numerischen %Methode.}
+%\label{difSim}
+%\end{figure}
+
+%===============================================================================
+
+
+In unserem Fall ging nichts in die R"ohrchen hinein und nichts hinaus, d.h.
+wir w"ahlen homogene Neumann-Randbedingungen.\par
+Man kann die  L"osung der Differentialgleichung z.B.\ numerisch bestimmen, und (bei adaptiertem $D$)
+mit Daten vergleichen (Abb.~\ref{difDat}). Die "ubereinstimmung ist sehr sch"on.
+
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=8cm]{../figures/diffu_data} 
+   \caption{Diffusionsgleichung, Kapitel~\ref{difMod}. Vergleich der L"osung ($D$ adaptiert) (Kreise) mit Daten 
+(Punkte) zu verschiedenen Zeitpunkten. }
+\label{difDat}
+\end{figure}
+
+\kommentar{
+Weiter stellen wir die Anfangsbedingung als Summe von Kosinusfunktionen da
+(dass dies m"oglich ist, ist eine Konsequenz der Fourier-Transformation),
+$$ u_0(x) = \sum_{n=0}^\infty C_n\cos(n\,\pi,x/L),\quad
+C_n = \frac 2{\pi n}\, [\sin(n\pi)-\sin(n\pi/2)]\in\R.$$
+{\bf Zusammenfassung des Modells:}
+\begin{eqnarray*}
+u_t & =& D u_{xx},\qquad u_x (0,t) = u_x(L,t)=0\\
+u_0(x) & =& \sum_{n=0}^\infty C_n\cos(n\,\pi,x/L).
+\end{eqnarray*}
+
+{\bf Konstruktion einer L"osung:}\par
+Wir versuchen (im Sinne der Konstruktion eines Fundamentalsystems) zun"achst soviele L"osungen wie m"oglich zu finden. Ein Separationsansatz, 
+$u(x,t) = g(g) h(t)$ f"uhrt auf 
+($u_t(t,x)=h'(t)g(x)$, $u_{xx}(t,x)=h(t)g''(x)$)
+$$ h'(t) g(x) = D h(t) g''(x),\qquad h(t)g'(0)=h(t)g'(L)=0.$$
+Insbesondere folgt $h'(t)/(D h(t)) = g''(x)/g(x)$. Wir d"urfen also insbesondere
+$t=0$ w"ahlen, und finden mit $\lambda=h'(0)/(D h(0))$ (eine Konstante!)
+$$ \frac{g''(x)}{g(x)}=\lambda,
+\quad\Leftrightarrow\quad
+g'' = \lambda g,\qquad g'(0)=g'(L)=0.$$
+Diese Gleichung ist prinzipiell eine gew"ohnliche Differentialgleichung 
+(wobei wir $\lambda$ nicht kennen, aber Zusatzbedingungen $g'(0)=g'(L)=0$
+haben). Falls $\lambda>0$ sind die L"osungen $C\, e^{\sqrt{\lambda} x}$
+und $C\, e^{-\sqrt{\lambda} x}$. Beide L"osungen k"onnen die Randbedingungen
+nicht erf"ullen. Also ist $\lambda$ negativ oder Null, wir setzen 
+$\lambda = -\omega^2$, und finden die L"osungen $C \sin(\omega x)$, 
+ $C\cos(\omega x)$. Da die Ableitung des Sinus bei $x=0$ nicht Null ist, kann
+auch $\sin\omega x)$ die Zusatzbedingungen nicht erf"ullen. Bleibt
+$\cos(\omega x)$. Hier erzwingen die Zusatzbedingungen spezielle 
+Werte f"ur $\omega$,
+$$ \frac d{dx}\cos(\omega x) = -\omega\sin(\omega x),
+\quad
+\frac d{dx}\cos(\omega x)|_{x=0} = 0,
+\quad
+\frac d{dx}\cos(\omega x)|_{x=L} = -\omega\sin(\omega L) = 0
+$$
+und also
+$$ \sin(\omega L)=0\quad\Rightarrow\quad
+\omega = n\,\pi/L,\quad n\in\N_0.$$
+
+
+Wir haben also eine Folge von L"osungen f"ur $g(x)$, gegeben durch 
+$g_n(x) =  \cos(n\pi x/L)$.\par
+Da wir nun $\lambda=-\omega^2=-(n\pi/L)^2$ kennen, finden wir wegen $f'=\lambda f$, dass $f(t) = \exp(-(n\pi/L)^2 t)$, und unendlich viele
+L"osungen der partiellen Differentialgleichungen (mit Randwerten)
+$$ u_n(x,t) = e^{-(n\pi/L)^2 t}\,\,  \cos(n\pi x/L).$$
+Da die Gleichung linear ist, d"urfen wir $u_n(x,t)$ mit reellen Konstanten 
+$c_n$ multiplizieren und aufaddieren, und erhalten wieder eine L"osung 
+$u=\sum c_n u_n$ (falls
+die Reihe konvergiert). 
+In Anbetracht der Anfangsbedingung w"ahlen wir $c_n=Cn$, und finden
+$$ u(x,t) = \sum_{n=0}^\infty C_n e^{-(n\pi/L)^2 t}\,\,  \cos(n\pi x/L).$$
+Diese Funktion kann man nun numerisch berechnen (summiere nur bis 
+endliches $n$, z.B.\ $n=16$). Abbildung~\ref{difSim} zeigt den Vergeich
+unserer Methode mit einer anderen numerischen Methode (die wir hier nicht besprechen wollen). 
+Man kann die theoretische L"osung (mit adaptiertem $D$)
+mit Daten vergleichen (Abb.~\ref{difDat}). Die "ubereinstimmung ist sehr sch"on.}
+
+%===============================================================================
+\subsubsection{Laplace-Gleichung}
+%===============================================================================
+Die Laplace-Gleichung beschreibt die station"aren Punkte der W"armeleitungsgleichung.
+Also
+$$ \Delta u = 0.$$
+Wie sehen typische L"osungen aus?\par
+{\bf Eine Dimension:}\par
+Hier lautet die Gleichung $u'' = 0$, d.h. $u(x) = a+b x$.\par\medskip
+{\bf Zwei Dimensionen:}\par
+Wir bemerken hier nur (ohne Beweis),
+dass wir eine L"osung erhalten, 
+wenn wir eine differenzierbare Funktion nehmen, in die
+Funktion eine komplexe Zahl einsetzen, und den Real- oder Imagin"arteil dieser 
+Funktion betrachten.
+Also
+$$ 
+u(x,y) = \Re(h(x+{\rm i} y))
+\qquad\mbox{ oder }\qquad
+u(x,y) = \Im(h(x+{\rm i} y)).
+$$
+\begin{bspX}
+$h(x) = x^2$, und
+$$ u(x,y) = \Re( (x+{\rm i}y)^2 ) = \Re (x^2-y^2+2{\rm i}xy) = x^2-y^2.$$
+Setzen wir ein, so finden wir
+$$ (x^2-y^2)_{xx}+(x^2-y^2)_{yy} = 2-2 = 0.$$
+Stimmt!
+\end{bspX}
+
+Die L"osung der Laplace-Gleichung "ahnelt der Form eine Seifenhaut, die 
+in einen Drahtrahmen eingespannt wird (die pr"azise Gleichung f"ur Seifenh"aute 
+beinhaltet noch eine Nichtlinearit"at, die man aber in vielen F"ullen vernachl"assigen 
+darf).
+%===============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\chc\label{block10A3}
+\input{../../Aufgabensammlung/hm724.tex}
+\end{auf}
+
+\begin{auf}\che\label{block10A4}
+\input{../../Aufgabensammlung/hm725.tex}
+\end{auf}
+
+\begin{auf}\chb\label{block10A5}
+\input{../../Aufgabensammlung/hm076.tex}
+\end{auf}
+
+\begin{auf}\che\label{block10A6}
+\input{../../Aufgabensammlung/hm726.tex}
+\end{auf}

@@ -1,0 +1,111 @@
+
+
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+\section{Navier-Stokes und Boltzmann: Euler-Gleichungen}
+\label{boltzxx}
+We already know that mass, impulse and energy, or better variability and temperature, 
+is preserved by the Boltzmann equation. We define the
+marginal distributions related to these magnitudes, namely density $\rho(x,t)$, velocity $u(x,t)$ and temperature $\theta(x,t)$ by
+\begin{eqnarray*}
+\rho(x,t) & := & \int f(t,x,v)\, dv\\
+\rho(x,t) u(x,t)     & := &  \int f(t,x,v)\,v\, dv\\
+\rho(x,t)\theta(x,t) & := & \int f(t,x,v)\,(u-v)^2\, dv
+\end{eqnarray*}
+We consider the original Boltzmann equation with initial conditions
+$$ f(0,x,v) = \frac{\rho(x)}{(2\pi\theta(x))^{3/2}} e^{-(v-u(x))^2/(2\theta(x))},$$
+and hope to find a solution of the form
+$$ f(t,x,v) = \frac{\rho(x,t)}{(2\pi\theta(x,t))^{3/2}} e^{-(v-u(x,t))^2/(2\theta(x,t))}.$$
+Please note, that  $\rho$, $u$ and $\theta$ are consistent with the definitions above. 
+We now derive equations for these magnitudes. 
+First of all, we find for $\rho(x,t)$
+\begin{eqnarray*}
+0 & = & \int \partial_t f(x,v,t)\, dv + \int \nabla (vf(t,x,v)\, dv  \\
+\Rightarrow\hspace{1cm} 0 & = & \partial_t \rho + \nabla(\rho u).
+\end{eqnarray*}
+This is the equation for mass conservaition. 
+In order to derive an equation  for the velocity $u(x,t)$, we first multiply the Boltzmann equation by $v_i$ and the integrate. As
+$\int Q(f,f) v_i\, dv = 0$, we obtain
+\begin{eqnarray*}
+0 & = & \int v_i \partial_t f(t,x,v)\, dv + \int v_i\,\,\left[\nabla (v f(t,x,v))\right]\, dv \\
+& = & \partial_t(\rho u_i) + \int v_i\,\,\left[\nabla (v f(t,x,v))\right]\, dv \\
+& = & \rho \partial_t u_i - u_i \nabla(\rho u)+ \int (v_i-u_i)\,\,\left[\nabla (v f(t,x,v))\right]\, dv +\underbrace{ \int u_i\,\,\left[\nabla (v f(t,x,v))\right]\, dv}_{=u_i\nabla(\rho u)} \\
+& = & \rho \partial_t u_i + \int (v_i-u_i)\,\,\left[\nabla (v-u) f(t,x,v))\right]\, dv  + \int (v_i-u_i)\,\,\left[\nabla u f(t,x,v))\right]\, dv \\
+& = & \partial_t(\rho u_i) + \nabla \int v_i\,\,(v f(t,x,v))\, dv \\
+& = & \partial_t(\rho u_i) + \nabla \int (v_i-u_i)\,\,((v-u) f(t,x,v))\, dv +\nabla\left( \int u_i v f(t,x,v)\, dv\right) \\
+&&\qquad\qquad+ \nabla \left( \int v_i u f(t,x,v)\, dv \right)- \nabla \left(\int u_i f(t,x,v) u  dv \right) \\
+%& = & \partial_t(\rho u_i) + \nabla \int (v_i-u_i)\,\,(v-u) f(t,x,v)\, dv +\nabla(  u_i \rho u) + \nabla \left( u_i u \rho \right)- \nabla( u_i u\rho ) \\
+& = & [\rho \partial_t u_i  - u_i \nabla(\rho u)] + \nabla \int (v_i-u_i)\,\,(v-u) f(t,x,v)\, dv +\nabla(  u_i \rho u).\\
+& = & \partial_t(\rho u_i) + \rho (u\cdot \nabla) u_i + u_i \nabla (u\rho) + \nabla \int (v_i-u_i)\,\,(v-u) f(t,x,v)\, dv\\
+& = &[\rho \partial_t u_i  - u_i \nabla(\rho u)]+ \rho (u\cdot \nabla) u_i + u_i \nabla (u\rho) + \nabla \int (v_i-u_i)\,\,((v-u) f(t,x,v))\, dv
+\end{eqnarray*}
+As the velocities $v_1$, $v_2$ and $v_3$ are uncorrelated, we find 
+\begin{eqnarray*}
+\nabla \int (v_i-u_i)\,\,(v-u) f(t,x,v)\, dv & = & 
+\nabla \int (v_i-u_i)\,\,(v-u) 
+ \frac{\rho(x,t)}{(2\pi\theta(x,t))^{3/2}} e^{-(v-u(x,t))^2/(2\theta(x,t))}\, dv\\
+ & = & 
+  \nabla \rho \left(\begin{array}{c}
+\mbox{cov}(v_i, v_1)\\
+\mbox{cov}(v_i, v_2)\\
+\mbox{cov}(v_i, v_3)\\
+\end{array}\right)
+= \partial_i(\rho(x,t)\mbox{var}(v_i)) = \partial_i\theta(x).
+\end{eqnarray*}
+If we define the pressure by $p(x,t) = \theta(x,t)$  we obtain the Euler's equation
+\begin{eqnarray*}
+ \rho \partial_t u + \rho (u\cdot\nabla) u & = & \nabla \theta
+ \end{eqnarray*}
+Last, for the temperature, we also are able to work out an equation. We use the fact, that the first and the third 
+centered moment of a normal distribution is zero,
+$$ \int (v-u)\, f(t,x,v)  \, dv =0,\qquad  \int (v-u)^2\, (v-u)\, f(t,x,v)  \, dv = 0.$$
+We find
+\begin{eqnarray*}
+0 
+& = & \int (v-u)^2 \partial_t f(t,x,v)\, dv + \int (v-u)^2 \nabla (vf(t,x,v))\, dv\\
+& = & 
+\int \partial_t (v-u)^2 f(t,x,v) \, dv 
+-  u_t \int 2\, (v-u) f(t,x,v) \, dv  \\
+&&\qquad+ \int \nabla \left[ (v-u)^2 v\, f(t,x,v) \right] \, dv
+- \int 2 (v-u) (\nabla u) v\, f(t,x,v)\, dv\\
+& = & 
+ \partial_t(\rho(x,t)\theta(x,t))  - 0\\
+&&\qquad+ \nabla\left( \underbrace{\int (v-u)^3\, f(t,x,v)  \, dv}_{=0} + u \int (v-u)^2\, f(t,x,v) \, dv\right)\\
+&&\qquad - 2 (\nabla u) \left(
+\int  (v-u)^2 \, f(t,x,v)\, dv + u \underbrace{\int  (v-u) \, f(t,x,v)\, dv}_{=0}\right)
+\\
+& = &  \partial_t(\rho(x,t)\theta(x,t)) + \nabla\left( u \rho\theta\right)+ 2 (\nabla u) \rho\theta\\
+& = &  \partial_t(\rho(x,t)\theta(x,t)) +\rho\theta  (\nabla u) + \rho(u\,\nabla) \theta+ \theta(u\,\nabla) \rho- 2 (\nabla u) \rho\theta\\
+& = &\rho(x,t)   \partial_t \theta(x,t) - \theta(x,t) \nabla(\rho u) + \nabla\left( u \rho\theta\right) + 2 (\nabla u) \rho\theta\\
+& = &\rho(x,t)   \partial_t \theta(x,t) -\left[(\nabla u) \theta \rho +  \theta (u\,\nabla) \rho \right] +\left[
+\rho\theta  (\nabla u) 
++ \rho(u\,\nabla) \theta
++ \theta(u\,\nabla) \rho
+\right] + 2 (\nabla u) \rho\theta\\
+\Rightarrow\qquad \partial_t\theta + (u\cdot\nabla)\theta & = & -2 \theta(\nabla u).
+\end{eqnarray*}
+All in all, we find the mass conservation, the Euler equation and an equation for the transport of heat
+\begin{eqnarray*}
+ \partial_t \rho + \nabla(\rho u) & = & 0\\
+ \rho \partial_t u + \rho (u\cdot\nabla) u & = & \nabla \theta\\
+ \partial_t\theta + (u\cdot\nabla)\theta & = & -2 \theta(\nabla u)
+\end{eqnarray*}
+with $p = \theta$. 
+ These equations
+are necessary conditions non $\rho(x,t)$, $u(x,t)$ and $\theta(x,t)$. Plugging in our ansatz into the Boltzmnn equation, 
+it is straight but lengthy to check that our solution is a solution of the Boltzmann equation, indeed. 
+As the velocity distribution approximates in the long run a normal distribution, this solution also is an approximation valid for a larger class
+of initial conditions. \par
+We derived a closed system of three equations, and we cannot hope to come closer to the Navier-Stokes equations
+by this approach. However, the Navier-Stokes equation possesses a dissipative character (i.e., the Laplacian of the 
+velocities appear). If we are able to find back the Navier-Stokes equations from the Boltzmann-model, this can only be 
+derived by a close investigation of the terms appearing because of an deviation of the velocity distribution from the 
+Maxwell distribution. If we have an deviation, the term $Q(f,f)$ cannot be neglected and leads to a mixing of velocities.
+This, in consequence, leads to a dissipative character. However, in order to work out this idea a fundamental different 
+approach is necessary. This approach is the multi-scale analysis, also called
+the Chapman-Enskog expansion.
+

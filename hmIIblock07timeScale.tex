@@ -1,0 +1,519 @@
+ 
+
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+
+%===============================================================================
+\section{Zeitskalenanalyse, Chemische Reaktionen  und Enzymkinetik}
+%===============================================================================
+\zbox{{\bf Ziele}:
+\begin{itemize}
+\item Modelle chemischer Reaktionen aufstellen k"onnen
+\item Die Prinzipien der Zeitskalenanalyse erkl"aren k"onnen
+\item Michaelis-Menten Kinetik aufstellen k"onnen 
+\end{itemize}}
+%===============================================================================
+\subsection{Chemische Reaktionen - Massenwirkungsgesetz}
+
+Wir betrachten drei Stoffe, A, B, C. Die Konzentrationen dieser Stoffe sei gegeben durch $[A]$,
+$[B]$ und $[C]$. Die Stoffe $A$ und $B$ sollen zu $C$ reagieren. D.h., $[A]$ und $[B]$ wird kleiner
+und $[C]$ gr"o"ser. Wir haben die Verbrauchs- bzw.\ Bildungsgeschwindigkeit $v_A$, $v_B$, $v_C$ gegeben durch
+$$ 
+\frac d{dt}[A] = -v_A,\quad 
+\frac d{dt}[B] = -v_B,\quad 
+\frac d{dt}[C] = v_C.$$
+Wenn genau ein Molek"ul A und ein Molek"ul B zu einem Molek"ul C reagiert, 
+$$ A+B\rightarrow C$$
+so muss die Verbrauchsgeschwindigkeit von A gleich der von B, und die Verbrauchsgeschwindigkeiten von A,B gleich der
+Bildungsgeschwindigkeit von C sein,
+$$ v_A=v_B=v_C.$$
+I.a. geht man davon aus, dass die Reaktanten A und B eine Zufallsbewegung (Brownsche Bewegung) folgen, und
+manchmal zuf"allig so heftig gegeneinander prallen, dass die Aktivierungsenergie f"ur die Reaktion 
+gegeben ist, und sie dann zu C reagieren. 
+Je mehr von A vorhanden ist, desto "ofters sollten Zusammenst"o"se erfolgen. Analog, sollte die Zahl
+der Zusammenst"o"se pro Zeiteinheit ebenfalls proportional zur Konzentration von B sein. Insgesamt 
+ist die Rate der Zusammenst"o"se also proportional zum Produkt der Konzentrationen von A und B. 
+Wenn diese Annahme korrekt ist, so wird auch die Verbrauchsgeschwindigkeit 
+von A und B proportional zu dem Produkt ihrer Konzentration sein,
+$$ v_A=v_B = v_C = k [A][B]$$
+wobei $k$ die Reaktionskonstante bezeichnet. Wir erhalten also die Gleichungen
+$$ \frac d{dt}[A] = -k [A][B],\qquad \frac d{dt}[A] = -k [A][B],\qquad \frac d{dt}[C] = k [A][B].$$
+Man nennt die Modellvorstellung, die besagt dass die Reaktionsgeschwindigkeit proportional
+zu den Konzentrationen der Reaktanten ist, auch Massenwirkungsgesetz. 
+Dieses System besitzt zwei Erhaltungsgr"o"sen,
+$$ \frac d {dt} ([A]+[C])=\frac d {dt} ([B]+[C])=0.$$
+I.e., die Zahl der Molek"ule von A plus der Zahl der Molek"ule C ist zeitlich konstant (genauso wie B und C). Dies sind st"ochiometrische Erhaltungss"atze, die bei der Vereinfachung von Reaktionssystemen h"aufig 
+eine zentrale Rolle spielen.\par
+Ein anderer Fall liegt vor, wenn ein Molek"ul in zwei Molek"ule spontan zerf"allt 
+(das ist bei Komplexen h"aufiger 
+der Fall). Dieser Vorgang "ahnelt dem radioaktiven Zerfall,
+$$ C \rightarrow A+B$$
+wird dann beschrieben durch 
+$$ \frac d{dt}[A] = k [C],\qquad \frac d{dt}[A] = k [C],\qquad \frac d{dt}[C] = -k [C].$$
+Wenn  mehre chemische Reaktionen gleichzeitig aktiv sind, so addiert man die entsprechenden Terme auf der rechten Seite der gew"ohnlichen Differentialgleichung. So wird aus 
+\begin{eqnarray*}
+A + B    & \mathop{\rightleftharpoons}\limits_{k_{-1}}^{k_1}  C  
+\end{eqnarray*}
+das System
+\begin{center}
+\begin{tabular}{cl|c|c}
+ && $A+B\rightarrow C$ & $C\rightarrow A+B$\\
+\hline
+$\frac d {dt}$[A] &=& $- k_1\,[A]\,[B]$&$+k_2\,[C]$\\
+$\frac d {dt}$[B] &=& $- k_1\,[A]\,[B]$&$+k_2\,[C]$\\
+$\frac d {dt}$[C] &=& $\,\, k_1\,[A]\,[B]$&$-k_2\,[C]$
+\end{tabular}
+\end{center}
+Oder aus 
+\begin{eqnarray*}
+S + E    & \mathop{\rightleftharpoons}\limits_{k_{-1}}^{k_1}  C  \mathop{\rightarrow}\limits^{k_2} P
+\end{eqnarray*}
+wird untere Annahme des Massenwirkungsgesetzes
+\begin{eqnarray*}
+\quad [S]' & = & -k_1 [S][E]+ k_{-1} [C]\\
+ \quad[E]' & = &  -k_1 [S][E]+ k_{-1} [C]\\
+\quad [C]' & = &  \quad k_1 [S][E]- k_{-1} [C] - k_2 [C]\\
+\quad [P]' & = & \qquad\qquad\qquad\qquad\qquad k_2 [C].
+\end{eqnarray*}
+Bei gr"o"seren Reaktions-Systemen treten verschiedene Probleme auf: Die Reaktionen sind nicht alle bekannt,
+die Reaktionsratenkonstanten sind nicht bekannt, verschiedene Reaktionen laufen auf v"ollig verschiedene
+Zeitskalen ab -- manche sind sehr schnell, andere sehr langsam. 
+Um mit der letzten Eigenschaft umgehen zu k"onnen, ben"otigt man die Methoden der Zeitskalenanalyse.
+%===============================================================================
+\subsection{Zeitskalen}
+Man stelle sich vor, dass man "uber 3 Monate hinweg ein Feld wachsender 
+Sonnenblumen alle 30 Minuten photographiert, und dann daraus einen Film
+erstellt. Wenn man den Film langsam ablaufen l"asst, so kann man sehen, wie 
+die Sonnenblumen (solange sie noch nicht bl"uhen) ihre K"opfe jeden Tag mit der 
+Sonne drehen. Man wird dabei aber kaum ein Wachstum bemerken. Man kann 
+den Film aber auch schnell ablaufen lassen - jetzt verschwimmt die Bewegung der K"opfe,
+aber man kann gut verfolgen wie die Sonnenblumen gr"o"ser werden.
+
+Wir haben also zwei Prozesse (Drehen der K"opfe und Wachsen), und durch die
+Geschwindigkeit des Abspielens des Films k"onnen wir entscheiden, welchen der beiden
+Prozesse wir studieren wollen. Das ist die Grundidee der Zeitskalenanalyse. 
+
+\fpbox{{\bf Strukur.}
+Gegeben sei eine Differentialgleichung des Typs 
+\begin{eqnarray*}
+\frac d {dt}x &=& \epsilon f(x,y)\\
+ \frac d{dt}y &=&  g(x,y)
+\end{eqnarray*}
+$\varepsilon$ sei klein. Dann ist $\varepsilon f(x,y)$ 
+klein, d.h. $x$ "andert sich nur langsam. Daher hei"st $x$ 
+die langsame Variable oder langsame Prozess. In Bezug auf $x$ "andert sich
+$y$ schnell, hei"st also schnelle Variable bzw. schneller Prozess. 
+}
+\par\medskip
+Um die Idee von oben, die richtige Zeitskala f"ur die Analyse des jeweiligen Prozesses
+auszunutzen, m"ussen wir wissen, wie wir die Zeitskala wechseln (den Film schneller/langsamer ablaufen lassen).
+Wir k"onnen die Zeit umskalieren: sei $\tau$ gegeben durch
+$$\tau = \varepsilon\, t.$$
+D.h., wenn $t$ die Zeit in Stunden misst, so misst $\tau$ die Zeit in $\varepsilon$ Stunden,
+wobei $\varepsilon$ klein sein muss (typischerweise wenigstens 0.01), d.h. $\tau$ misst die Zeit
+in Sekunden. Der Prozess auf der langsamen Zeitskala ist dann 
+$$
+\tilde x(\tau) = \tilde x(\varepsilon t) = x(t) = x(\tau/\varepsilon),
+\qquad
+\tilde y(\tau) = \tilde y(\varepsilon t) = y(t) = y(\tau/\varepsilon).$$
+Wir erhalten als Differentialgleichung f"ur $\tilde x$
+$$ \frac d{d\tau}\tilde x(\tau) 
+= \frac d{d\tau}x(\tau/\varepsilon)
+= \frac d{d}x(t)\big|_{t=\tau/\varepsilon}\,\,\,\frac d {d\tau}\left(\tau/\varepsilon\right)
+= \varepsilon f(x(t), y(t))\big|_{t=\tau/\varepsilon}\,\,\,\frac 1 \varepsilon
+= f(x(\tau/\varepsilon),y(\tau/\varepsilon))
+= f(\tilde x(\tau),\tilde y(\tau)).
+$$
+bzw.\ f"ur $\tilde y$
+$$ \frac d{d\tau}\tilde y(\tau) 
+= \frac d{d\tau}y(\tau/\varepsilon)
+= \frac d{d}y(t)\big|_{t=\tau/\varepsilon}\,\,\,\frac d {d\tau}\left(\tau/\varepsilon\right)
+= g(x(t), y(t))\big|_{t=\tau/\varepsilon}\,\,\,\frac 1 \varepsilon
+= g(x(\tau/\varepsilon),y(\tau/\varepsilon)) \frac 1 \varepsilon
+= \frac 1 \varepsilon\,\,g(\tilde x(\tau),\tilde y(\tau)).
+$$
+
+Zusammenfassung:\\
+\fpbox{
+\begin{eqnarray*}
+\frac d {d\tau}\tilde x &=&  f(\tilde x,\tilde y)\\
+\epsilon\,\frac d{d\tau}\tilde y &=& g(\tilde x,\tilde y)
+\end{eqnarray*}}
+Wir haben also zwei verschiedene Zeitskalen zur Verf"ugung:\\
+$\bullet$ die schnelle Zeitskala $t$, die f"ur den schnellen Prozess $y$ nat"urlich ist\\
+$\bullet$ die langsame Zeitskala $\tau$, die f"ur den langsamen Prozess $x$ nat"urlich ist.\\
+Entsprechend hei"st das System mit $t$ als Zeit das schnelle System, das mit $\tau$ als Zeit das langsame System.
+
+Nun k"onnen wir die Zeitskalen auf die Spitze treiben, und (formal) $\varepsilon$ gegen Null laufen lassen - siehe
+Tabelle \ref{epsnulltabelleeins}.
+\begin{table}[h]
+\caption{\label{epsnulltabelleeins} Zur Unterscheidung zwischen schnellem und langsamen System.}
+\begin{center}
+\begin{tabular}{ccl|ccl}
+\multicolumn{3}{c|}{Langsames System}&
+\multicolumn{3}{c}{Schnelles System}\\
+\hline
+$\quad$& & $\quad$ & & \\
+$\frac d {d\tau} \tilde x(\tau)$ & =  & $f(\tilde x,\tilde y)$ $\qquad$&$\qquad$
+   $ \frac d {d t}  x(t)$ & = & $\epsilon f(x,y)$\\
+$\epsilon \frac d {d\tau} \tilde y(\tau)$ & = & $ g(\tilde x, \tilde y)$&$\qquad$
+        $ \frac d {d t}y $ & =  & $g(x,y)$\\
+\multicolumn{6}{c}{$\lim \epsilon\rightarrow 0$} \\
+$\quad$& & $\quad$ & & \\
+$\frac d {d \tau} \tilde x(t)$ & =  & $f(\tilde x,\tilde y)$ $\qquad$&$\qquad$
+   $ \frac d {d t} x$ & = & $0$\\
+$ 0$ & = & $ g(\tilde x,\tilde y)$&$\qquad$
+        $ \frac d {dt} y $ & =  & $g(x, y)$
+\end{tabular}
+\end{center}
+\end{table}
+Nun sehen wir uns hintereinander das schnelle und dann das langsame System an.
+
+\paragraph{\bf (a) Schnelles System.} Hier "andert sich die langsame Variable $x$ 
+nicht mehr ($dx/dt=0$). Wir haben ein Differentialgleichung in $y(t)$ alleine, 
+in der $x$ die Rolle eines festen Parameters spielt. Wir nehmen an
+(und das ist auch h"aufig so), dass $y(t)$ sich langfristig auf einen station"aren 
+Zustand setzt,
+$$ \lim_{t\rightarrow\infty} y(t) = y_0.$$
+Dann ist $y_0$ ein station"arer Punkt, d.h.\ erf"ullt $f(x,y_0)=0$. Wir sehen, 
+dass in der Regel 
+der Wert $y_0$ von $x$ abh"angen wird; wir erhalten 
+eine Funktion $\Phi$ von $x$, 
+die aus station"aren Punkten gebildet wird,
+$$ y_0 = \Phi(x), \qquad g(x,\Phi(x))=0.$$
+In der schnellen Zeitskala wird also $x$ sich nicht ver"andern, 
+aber $y(t)$ wird (schnell) zu $\Phi(x)$ streben.
+Danach ist das schnelle System im Gleichgewicht, d.h.\ es passiert hier nichts mehr. Man nennt
+die Menge $\{(x,\Phi(x))\}$ auch ``langsame Mannigfaltigkeit'' (mathematisch) bzw.\ Quasi-Gleichgewicht
+(in den Anwendungen).
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=10cm]{../figures/hmIIblock7zeitskala.pdf}
+   \caption{Zeitskalenanalyse. Das schnelle System setzt sich auf die langsame Mannigfaltigkeit.
+Hier kann die Dynamik durch das langsame, reduzierte System beschrieben werden.}
+   \label{rk:mm:sing}
+\end{figure}
+%===============================================================================
+\paragraph{\bf (b) Langsames System.} Nachdem das schnelle System im Gleichgewicht 
+ist, "ubernimmt die langsame Zeitskala. D.h., wir wissen schon, dass 
+$\tilde y=\Phi(\tilde x)$ (man beachte, dass die Tilde nur die Zeitskalen
+andeutet, und die sind in station"aren Punkten egal). Also ist die Forderung des 
+langsamen Systems
+$$ 0=g(\tilde x,\tilde y)$$
+schon erf"ullt. Wir finden eine Differentialgleichung, diesmal f"ur $\tilde x$ alleine,
+$$ \frac d {d\tau}\tilde x = f(\tilde x, \tilde y) = f(\tilde x, \Phi(\tilde x)).$$
+Das ist das langsame, reduzierte System.
+H"aufig interessiert man sich nicht f"ur das schnelle System -- das ist so schnell im Gleichgewicht,
+dass es oft schwer zu beobachten ist -- sondern nur f"ur das langsame System.
+
+%===============================================================================
+\subsection{ Michaelis-Menten Kinetik - Zeitskalenargumente}
+
+Wir betrachten eine enzymatische Reaktion: ein Enzym bildet mit einem
+\index{Michaelis-Menten-Kinetik}
+Substrat einen Komplex. Dieser Komplex kann entweder wieder zerfallen, oder aber
+das Substrat wird in ein Produkt verwandelt, und danach spaltet sich das Enzym wieder ab.
+Zustand des Systems:\\
+$s(t)$ Substrat (zur Zeit $t$)\\
+$e(t)$ Substrat (zur Zeit $t$)\\
+$c(t)$ Komplex aus Enzym und Substrat (zur Zeit $t$)\\
+$p(t)$ Substrat (zur Zeit $t$)\\
+%===============================================================================
+{\bf Dynamik / Differentialgleichung.} Wir betrachten die chemischen Reaktionen
+\begin{eqnarray*}
+S + E    & \mathop{\rightleftharpoons}\limits_{k_{-1}}^{k_1} & [SE]\\
+ {[SE]}  &  \mathop{\rightarrow}\limits^{k_2} & P+E
+\end{eqnarray*}
+Unter Annahme des Massenwirkungsgesetztes knnen wir die Reaktionen sofort umsetzten in 
+ gew"ohnliche Differentialgleichungen:
+\begin{eqnarray*}
+\dot s & = & -k_1 s e + k_{-1} c\\
+\dot e & = & -k_1 s e + k_{-1} c + k_2 c\\
+\dot c & = & k_1 s e - k_{-1} c - k_2 c\\
+\dot p & = & k_2 c
+\end{eqnarray*}
+mit Anfangsbedingungen $s(0) = s_0$, $e(0) = e_0$, $c(0) = 0$ und $p(0) = 0$.
+Um die Dimension des Gleichungssystems (die Zahl der Gleichungen) zu erniedrigen
+nutzen wir den Massenerhalt: die Masse von freiem Enzym und Enzym das  an das
+Substrat gebunden ist, bleibt konstant,
+$$ \frac d {dt} (e+c) = 0.$$
+d.h.\ $ e+ c = e_0$. Also,
+\begin{eqnarray*}
+\dot s & = & -k_1 s (e_0-c) + k_{-1} c
+        =  -k_1 s e_0 + (k_1 s + k_{-1}) c,\qquad\qquad\qquad s(0) = s_0\\
+\dot c & = & k_1 s (e_0-c) - k_{-1} c - k_2 c
+        =  k_1 s e_0 - (k_1 s + k_{-1} + k_2) c,\quad\qquad c(0) = 0.\\
+\end{eqnarray*}
+Nun f"uhren wir Zeitskalen ein. Wir nehmen an, dass die Komplexbildung sehr viel schneller
+vonstatten geht als die Reaktion (die G"ultigkeit der Annahme kann man formal beweisen, wenn
+die Menge des Enzyms wesentlich keiner ist als die des Substrates, siehe Kapitel~\ref{mmRescal}).
+Also schreiben wir $\varepsilon$ vor die Ableitung von $c$, 
+\begin{eqnarray*}
+\dot s & = & -k_1 s (e_0-c) + k_{-1} c
+        =  -k_1 s e_0 + (k_1 s + k_{-1}) c,\qquad\qquad\qquad s(0) = s_0\\
+\varepsilon \dot c & = & k_1 s (e_0-c) - k_{-1} c - k_2 c
+        =  k_1 s e_0 - (k_1 s + k_{-1} + k_2) c,\quad\qquad c(0) = 0.\\
+\end{eqnarray*}
+\underline{Strategie:} \\
+Wir haben uns vorher "uberlegt, dass wir so ein System am besten verstehen, 
+wenn wir zun"achst auf die schnelle Zeitskala gehen, und untersuchen, wie
+das System auf der schnellen Zeitskala in ein (Quasi)-Gleichgewicht l"auft. Anschlie"send wechseln wir auf die langsame Zeitskala, und berechnen dann, wie
+sich dann das (Quasi)-Gleichgewicht ver"andert.\par\medskip
+\underline{Schnelles System:} \\
+Wir m"ussen die zeit umskalieren (das System ist oben gegeben in der langsamen Zeitskala). Wir erhalten in der schnellen Skala
+\begin{eqnarray*}
+s' & = & \varepsilon(k_1 s (e_0-c) + k_{-1} c)
+        =  \varepsilon(-k_1 s e_0 + (k_1 s + k_{-1}) c),\qquad\qquad\qquad s(0) = s_0\\
+c' & = & k_1 s (e_0-c) - k_{-1} c - k_2 c
+        =  k_1 s e_0 - (k_1 s + k_{-1} + k_2) c,\quad\qquad c(0) = 0.\\
+\end{eqnarray*}
+Mit $\varepsilon\rightarrow 0$ folgt, dass $s'=0$, i.e.\ $s$ konstant ist. 
+F"ur $c$ haben wir also eine lineare Differentialgleichung,
+$$
+c'  =  k_1 s (e_0-c) - k_{-1} c - k_2 c
+        =  k_1 s e_0 - (k_1 s + k_{-1} + k_2) c,\quad\qquad c(0) = 0.\\
+$$
+f"ur die wir die L"osung ausrechnen k"onnen (siehe die Lehreinheit "uber lineare Differentialgleichungen)
+$$ c(t) = e^{-(k_1 s + k_{-1} + k_2) t} c_0 
++ (1-e^{-(k_1 s + k_{-1} + k_2)t}) \,\, 
+\frac{s k_1e_0}{ k_1s + (k_{-1} + k_2)} .$$
+Wir finden also
+$$ \lim_{t\rightarrow\infty}c(t) = \frac{s k_1 e_0}{ s + (k_{-1} + k_2)}  =
+\frac{s e_0}{ s + (k_{-1} + k_2)/k_1} .$$
+Man definiert die Michaelis-Menten Konstante 
+$K_m = (k_{-1} + k_2)/k_1$, 
+(eigentlich: Briggs-Haldene-Konstante, 
+da Michaelis und Menten eine spezielle Situation, n"amlich $k_{-1}\ll k_2$ betrachtet haben,
+und folgerichtig $K_m=k_2/k_1$ approximiert haben)
+so k"onnen wir schreiben
+$$ c(t)\rightarrow C(s) = \frac{s e_0}{ s + K_m}.$$
+\underline{Langsames System:} \\
+Lassen wir jetzt $\varepsilon\rightarrow 0$ in der langsamen Zeitskala, 
+so finden wir 
+\begin{eqnarray*}
+\dot s & = & -k_1 s (e_0-c) + k_{-1} c
+        =  -k_1 s e_0 + (k_1 s + k_{-1}) c,\qquad\qquad\qquad s(0) = s_0\\
+0 & = & k_1 s (e_0-c) - k_{-1} c - k_2 c
+        =  k_1 s e_0 - (k_1 s + k_{-1} + k_2) c.
+\end{eqnarray*}
+Insbesondere setzen wir also das Quasi-Gleichgewicht 
+f"ur $c$ voraus, $c=C(s)$.
+Wenn wir damit in die Gleichung f"ur $s'$ gehen (um das langsame System im 
+quasi-station"aren Zustand zu studieren), so finden wir
+\begin{eqnarray*} \dot s 
+&= &
+  -k_1 s e_0 + (k_1 s + k_{-1}) C(s)
+ =          -k_1 s e_0 + (k_1 s + k_{-1}) \frac{s e_0}{ s + K_m}\\
+&= &\frac{-k_1 s e_0(s + K_m)+ (k_1 s + k_{-1})s e_0}{s + K_m}
+= \frac{(k_1-k_{-1}K_m)s e_0}{s + K_m}
+= \frac{(k_{-1}-k_{1}K_m)s e_0}{s + K_m}\\
+&=& \frac{(k_{-1}-(k_{-1} + k_2))s e_0}{s + K_m}
+= \frac{- k_2 s e_0}{s + K_m}
+\end{eqnarray*}
+Das ist die ber"uhmte Michaelis-Menten Kinetik: Wenn viel Substrat vorhanden ist 
+($s\gg K_m$), so wird mit einer ann"ahernd konstanten Geschwindigkeit $\approx k_2$ 
+das Substrat abgebaut; das Enzym arbeitet in S"attigung. 
+
+Wenn allerdings das Substrat wenig wird ($s\ll K_m$), so ist die Abbaugeschwindigkeit 
+ann"ahernd proportional zu der Enzym-Menge, $\approx (k_2/K_m) s$. Die H"alfte
+der maximalen Abbaugeschwindigkeit wird genau bei $s=K_m$ erreicht.
+
+Wenn wir annehmen, dass wir wenige Enzym im System haben, muss die Bildungsgeschwindigkeit der Produkts
+der Abbaugeschwindigkeit des Substrates einigermassen gleichen, d.h.
+$$ \frac d {dt} s = -\frac{k_2 e_0 s}{K_m+s},\qquad \frac d {dt} p = \frac{k_2 e_0 s}{K_m+s}.$$
+Wir haben also die urspr"unglich vier Gleichungen (f"ur S, E, [ES], P) auf zwei Gleichungen gedr"uckt.
+
+%===============================================================================
+ \subsubsection{Michaelis-Menten-Plot und Lineweaver-Burks-Plot}
+
+Um die Parameter der Michaelis-Menten-Kinetik aus Daten zu 
+gewinnen, wurden zahlreiche graphische Methoden entwickelt. Wir sehen uns hier zwei 
+Methoden an.
+
+\noindent{\bf Michaelis-Menten-Plot.} 
+Es ist m"oglich die Abbaugeschwindigkeit $V$ f"ur verschiedene Substrat-Konzentrationen 
+zu messen. Wenn wir $V$ "uber $s$ auftragen, so erhalten wir 
+$$ V = \frac{V_{max} s}{s+K_m}$$
+(wobei wir $k_2$ in $V_{max}$ umgetauft haben, den Gepflogenheiten der Enzymchemie folgend)
+und den Michaelis-Menten-Plot.\\
+Wir m"ussen dann versuchen, die Asymptotik von $V$ 
+f"ur $s\rightarrow\infty$ zu sch"atzen; 
+das ergibt die maximale Abbaugeschwindigkeit $V_{max}$. Dann k"onnen
+wir $K_m$ durch $V(K_m)=V_{max}$ ablesen.
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=17cm]{../figures/hmIIblock7mm.pdf}
+   \caption{Michaelis-Menten-Plot und Lineweaver-Burks-Plot.}
+   \label{rk:mm:sing}
+\end{figure}
+%===============================================================================
+Der Michaelis-Menten-Plot ist sozusagen der Funktionsgraph; der Lineweaver-Burks-Plot
+linearisiert durch eine Koordinatentransformation den Funktionsgraphen und erm"oglicht
+durch die Linearisierung die Anwendung der linearen Regression zur Bestimmung
+der Parameter $K_m$ und $V_{max}$.
+%===============================================================================
+
+\noindent{\bf Lineweaver-Burks-Plot.} Wenn wir den Kehrwert der Gleichung
+$$ V = \frac{V_{max} s}{s+K_m}$$
+nehmen, erhalten wir
+$$ \frac 1 V = \frac{s+K_m}{V_{max} s} = \frac 1 {V_{max}} + \frac{K_m}{V_{max}}\,\, \frac 1 s.$$
+D.h., $1/V$ und $1/s$ erf"ullen eine lineare Beziehung; tragen wir Daten f"ur $1/V$ gegen $1/s$ auf, so sollten
+diese Datenpunkte ann"ahernd auf einer Geraden liegen. Das ist der 
+ Lineweaver-Burks-Plot. 
+Lineare Regression erlaubt Achsenabschnitt und
+Steigung zu sch"atzen. Der Kehrwert des Achsenabschnitts ist dann gerade $V_{max}$. Multipliziert man die Steigung
+mit $V_{max}$, so erh"alt man $K_m$.
+
+%===============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\cha\label{block7A1}
+\input{../../Aufgabensammlung/hm708.tex}
+\end{auf}
+
+\begin{auf}\che\label{block7A2}
+\input{../../Aufgabensammlung/hm709.tex}
+\end{auf}
+
+
+%===============================================================================
+
+
+
+
+\subsection{Appendix: Zeitskalen in Michaelis-Menten II} 
+\label{mmRescal}
+{\it Um\footnote{Dieser Abschnitt wird in der Vorlesung nicht behandelt} zu verstehen, dass die unterschiedlichen Zeitskalen eine Konsequenz der unterschiedlichen 
+Konzentrationen von Enzym und Substrat sind, m"ussen wir reskalieren. Die Idee hierbei ist,
+dass wir die Einheiten der Gr"o"sen w"ahlen k"onnen. Wir m"ussen die Zeit nicht
+in Sekunden messen, sondern k"onnen eine Zeiteinheit auch auf einen anderen Wert festlegen
+(z.B. $1.245 $ h). Genauso m"ussen die Dichten der Substanzen nicht in Mol angegeben werden,
+ sondern k"onnen auch in Einheiten von $2.45 \mu$ Mol o."a.\ beschrieben werden.\par
+ Dieses Umskalieren liefert Freiheitsgrade (zus"atzliche Konstanten, die wir einschmuggeln).
+ Diese Konstanten k"onnen geschickt gew"ahlt werden, sodass das resultierende System 
+ einfacher wird. Wir w"ahlen folgende Einheiten/Reskalierungen
+\begin{eqnarray*}
+u(\tau) = \beta s(\alpha\tau),\qquad 
+v(\tau) = \gamma c(\alpha \tau).
+\end{eqnarray*}
+Die Konstanten $\alpha$, $\beta$ und $\gamma$ werden wir sp"ater so w"ahlen, dass das System m"oglichst einfach wird.
+Wir erhalten
+\begin{eqnarray*}
+\frac d {d\tau}u(\tau) & = & \alpha \beta s'(\alpha\tau)\\
+& = & \alpha\beta [ -k_1 e_0 s(\alpha\tau) + (k_1 s(\alpha\tau)+k_{-1}) c(\alpha\tau) ]\\
+& = & [ -\alpha k_1 e_0 \beta s(\alpha\tau) + (k_1 \beta s(\alpha\tau)+k_{-1}\beta ) \frac{\alpha}{\gamma} \gamma c(\alpha\tau) ]\\
+& = & -\alpha k_1 e_0 u(\tau) + (k_1 u(\tau)+k_{-1}\beta ) \frac{\alpha}{\gamma} v(\tau) \\
+& = &  -\alpha k_1 e_0 u(\tau) + (k_1 u(\tau)+k_{-1}\beta ) \frac{\alpha}{\gamma} v(\tau) \\
+& = &  -\alpha k_1 e_0 u(\tau) + (u(\tau)+\frac{k_{-1}\beta}{k_1} ) \frac{k_1 \alpha}{\gamma} v(\tau) 
+\end{eqnarray*}
+Aus Gr"unden, die gleich klar werden, betrachten wir die mit $e_0/s_0$ multiplizierte Ableitung von $v(\tau)$:
+\begin{eqnarray*}
+\frac{e_0}{s_0}\frac d {d\tau}v(\tau) & = & \frac{e_0}{s_0}\alpha \gamma c'(\alpha\tau)\\
+& = &\frac{e_0}{s_0} (\alpha \gamma k_1  e_0  \frac {\beta}{\beta}s(\alpha\tau) - (k_1 \frac {\beta}{\beta}s(\alpha\tau) + k_{-1} + k_2) \alpha \gamma c(\alpha\tau) )\\
+& = &\frac{e_0}{s_0} ( \frac {\alpha \gamma k_1  e_0 }{\beta}u(\tau) - (\frac {k_1}{\beta}u(\tau) + k_{-1} + k_2) \alpha v(\tau) )\\
+& = & \frac{e_0}{s_0}( \frac {\alpha \gamma k_1  e_0 }{\beta}u(\tau) - (u(\tau) + \frac{(k_{-1} + k_2)\beta}{k_1}) \alpha v(\tau) )\\
+& = & \frac {\alpha \gamma k_1  e_0^2 }{s_0\beta}u(\tau) - \left(u(\tau) + \frac{(k_{-1} + k_2)\beta}{k_1}\right) \frac{k_1\, e_0}{s_0\beta}\alpha v(\tau) \\
+\end{eqnarray*}
+Nun setzen wir
+\begin{eqnarray*}
+\alpha = 1/(k_1 e_0),\qquad \beta = 1/s_0,\qquad \gamma = 1/e_0,\\
+\lambda = \frac{k_2}{k_1 s_0},\qquad
+K = \frac{k_{-1}+k_2}{k_1 s_0} =: \frac{K_m}{s_0},\qquad
+\epsilon = \frac{e_0}{s_0}.
+\end{eqnarray*}
+Damit erhalten wir
+\begin{eqnarray*}
+         \dot u & = & -u + (u+K-\lambda) v,\qquad u(0) = 1\\
+\epsilon \dot v & = & u - (u+K) v,\qquad\qquad\quad v(0) = 0.
+\end{eqnarray*}
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=6cm]{../figures/rk_mm_sing.pdf}
+   \caption{Michalis-Menten: Langsame und schnelle Dynamik.}
+   \label{rk:mm:sing}
+\end{figure}
+%===============================================================================
+Die Hauptannahmen nun ist, dass es wenig Enzym im Verh"altnis zum Substrat
+gibt, d.h.
+$$ \epsilon = e_0/s_0\ll 1.$$
+Nun sind wir in der Lage, die Analyse von eben nochmals durchzuf"uhren (das ist tats"achlich die \underline{gleich} Analyse wie oben). Wir haben  einen schnellen Prozess ($u$) und einen langsamen Prozess~($v$).\par\medskip
+Wir k"onnen nun aber noch einmal die Zeit reskalieren, um uns auf die Zeitskala (Zeiteinheit) des schnellen Prozesses zu setzten. Definieren wir
+$$\tau = \epsilon \sigma$$
+und 
+$\tilde u(\sigma) = u(\sigma\,\epsilon)$, $\tilde v(\sigma) = v(\sigma\,\epsilon)$, so erhalten wir
+\begin{eqnarray*}
+         \tilde u' & = & \epsilon (-\tilde u + (\tilde u+K-\lambda) \tilde v),\qquad u(0) = 1\\
+\tilde v' & = & \tilde u - (\tilde u+K) \tilde v,\qquad\qquad\quad v(0) = 0.
+\end{eqnarray*}
+\index{Zeitskalen}
+In dieser Zeitskala ist also die Ableitung von $\tilde u$ klein, w"ahrend die von $\tilde v$ sich
+im ``normalen'' Ramen bewegt. In beiden Zeitskalierungen bleibt der Schluss, dass $u$
+sich langsamer ver"andert als~$v$.\par
+Es ist also nat"urlich, im $\tau$-System ($u$, $v$) den Prozess $u$ anzusehen, w"ahrend das
+$\sigma$-System ($\tilde u$, $\tilde v$) f"ur den $v$-Prozess zust"andig ist.
+Um dies zu bewerkstelligen, lassen wir $\epsilon$ in den jeweiligen Systemen 
+gegen Null gehen - siehe Tabelle \ref{epsnulltabelle}.
+\begin{table}[h]
+\begin{center}
+\caption{\label{epsnulltabelle} Zur Unterscheidung zwischen schnellem und langsamen
+System bei der Zeitskalenanalyse der Michaelis-Menten-Kinetik (zweiter Teil).}
+\begin{tabular}{ccl|ccl}
+\multicolumn{3}{c|}{Langsames System}&
+\multicolumn{3}{c}{Schnelles System}\\
+\hline
+$\quad$& & $\quad$ & & \\
+$\frac d {d\tau} u(\tau)$ & =  & $-u + (u+K-\lambda) v$ $\qquad$&$\qquad$
+   $ \frac d {d\sigma} \tilde u(\sigma)$ & = & $\epsilon(-\tilde u + (\tilde u+K-\lambda) \tilde v)$\\
+$\epsilon \frac d {d\tau} v(\tau)$ & = & $ u-(u+K) v$&$\qquad$
+        $ \frac d {d\sigma}\tilde v $ & =  & $\tilde u-(\tilde u+K) \tilde v$\\
+\multicolumn{6}{c}{$\lim \epsilon\rightarrow 0$} \\
+$\quad$& & $\quad$ & & \\
+$\frac d {d\tau} u(\tau)$ & =  & $-u + (u+K-\lambda) v$ $\qquad$&$\qquad$
+   $ \frac d {d\sigma} \tilde u$ & = & $0$\\
+$ 0$ & = & $  u-( u+K) v$&$\qquad$
+        $ \frac d {d\sigma}\tilde v $ & =  & $\tilde u-(\tilde u+K) \tilde v$
+\end{tabular}
+\end{center}
+\end{table}
+
+\paragraph{\bf (A) Schnelles System.} $\tilde u$ "andert sich nicht (Ableitung ist 
+Null). F"ur $v$ finden wir die lineare Differentialgleichung
+$$\frac d {d\sigma}\tilde v =   \tilde u-(\tilde u+K) \tilde v, \qquad v(0) = v_0.$$
+Diese lineare Differentialgleichung kann man l"osen und findet
+$$ \tilde v(\sigma) = v_0 e^{-(\tilde u + K)\sigma} + \frac{\tilde u} {\tilde u + K} (1-e^{-(\tilde u + K)\sigma})
+$$
+F"ur $\sigma\rightarrow\infty$ gilt also
+$$
+\tilde v(\sigma)\rightarrow 
+\frac{\tilde u} {\tilde u + K}
+$$
+Das $\tilde u$-System setzt sich also (schnell) auf die Kurve
+$$
+\tilde v = 
+\frac{\tilde u} {\tilde u + K}
+$$
+Die Interpretation ist, dass die Komplexbildung von Enzym und Substrat schnell in sein
+Gleichgewicht geht (ohne viel an der Masse des Substrates zu ver"andern, i.e.\ ohne 
+(in dieser kurzen Zeit bis das Gleichgewicht sich einstellt) viel Produkt zu bilden.
+Danach bestimmt das langsame System die Dynamik.
+
+\paragraph{\bf (B)Langsames System (Quasi-Gleichgewicht).} Nun nehmen wir an, dass 
+das schnelle System im Gleichgewicht ist, d.h.
+$$ 
+ u-(u+K) v =0\qquad 
+\Leftrightarrow\qquad
+v = \frac{u}{u+K}\qquad
+$$
+Dann ist die Gleichung f"ur $v$ erf"ullt. Wir erhalten die Differentialgleichung f"ur $u$
+$$ \dot u 
+= -u + (u+K-\lambda)\frac{u}{u+K}
+= -u + u -\frac{\lambda}{u+K} u = -\frac{\lambda u}{u+K}.
+$$
+}

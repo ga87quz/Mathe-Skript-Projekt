@@ -1,0 +1,397 @@
+ 
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+
+
+%===============================================================================
+\section{Populationsmodelle und Qualitative Theorie}
+%===============================================================================
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Einfache Modelle aufstellen und erkl"aren k"onnen
+\item Station"are Punkte bestimmen k"onnen
+\item Stabilit"at station"arer Punkte bestimmen k"onnen
+\item Satz von Hartmann-Grobmann kennen und anwenden k"onnen
+\end{itemize}}
+%=============================================================================== 
+\subsection{Logistisches Wachstum, Chemostat, Kompetitionsmodell}
+In diesem Kapitelchen behandeln wir die Grundlagen der Modellbildung. 
+
+\begin{sbem} Grundprinzipien bei der Modellbildung:\\
+{\rm (1) Zustand des Systems beschreiben.} Welches sind die absolut n"otigen 
+Variablen, um das System zu beschreiben (Konzentrationen, Populationsgr"o"se, 
+Ort, Geschwindigkeit, Druck,...)\\
+{\rm (2) Dynamik des Systems beschreiben.} Welche Regeln beschreiben die 
+Ver"anderung des Systems?\\
+{\rm (3)  KISS} (keep it simple and stupid). Nur die wirklich wichtigsten 
+Zustandsgr"o"sen bzw. Regeln nutzen!!!
+\end{sbem}
+
+\begin{bspX}  {\bf Exponentielles Wachstum}. Ohne Kompetition ist der Zuwachs 
+von Bakterien proportional zur Menge der Bakterien. Betrachten
+wir Bakterien in einem geschlossenen Reaktionsgef"a"s (``Batch-Culture''). \\
+{\bf Zustand:} $x(t)$  Konzentration von Bakterien zur Zeit $t$.\\
+{\bf Dynamik:} Die Bakterien teilen sich im Schnitt mit Rate $\beta$.\\
+{\bf Gleichung:} 
+$$ x' = \beta x.$$
+\end{bspX}
+{\bf Exkurs: Einheiten und Skala des Systems}\par
+Die verschiedenen Gr"o"sen tragen Einheiten. Wir finden 
+[x] = Bakterien/Liter, und \"Anderung/Zuwachs von $x$ gegeben durch 
+$[\beta x]$=Bakterien/(l s), i.e.\ $[\beta]$=1/s. Da die gleiche Einheit 
+auf beiden Seiten des Gleichheitszeichens stehen muss, sehen wir uns noch
+die Einheit auf der linken Seite an: $[x'(t)] = [x(t+h)-x(t)/(t+h-t)]$=
+Bakterien/(l s), d.h. die Ableitung selbst tr"agt auch eine Einheit (sieht man 
+am Differenzenquotienten, oder auch, da die Ableitung die Steigung, 
+d.h.\ "Anderung von $x$ pro Zeitintervall angibt). I.e., $[d/dt]$=1/s.\par
+Wir m"ussen uns auf die richtigen Skalen f"ur das System einigen. Wenn sich 
+die "Anderung der Population nach Stunden zeigt, dann m"ussen wir alle 
+Zeiteinheiten in Stunden angeben, um konsistent zu sein. Z.B. $\beta=0.2$/min,
+so
+$$ x' = \beta x = \frac{0.2}{\mbox{min}}\,\, x 
+= \frac{0.2}{h}\,\,\frac h{\mbox{min}}\,\, x
+= \frac{0.2}{h}\,\,\frac{60 \,\,\mbox{min}}{\mbox{min}}\,\, x
+= 12/h\,\,\, x.$$
+Was man macht, wenn verschiedene Prozesse des Systems verschiedene, 
+ inkompatible Zeitskalen besitzen, sehen wir uns in der n"achsten 
+Lehreinheit an.
+\par{\bf Exkurs Ende.}\par\medskip
+
+\begin{bspX}  {\bf Logistisches Wachstum}. Bei exponentiellem Wachstum mit 
+ $x(0)=x_0$, erhalten wir die L"osung $x(t) = x_0 e^{\beta t}$, d.h. 
+exponentielles Wachstum. das ist nicht m"oglich  - irgendwann sind die Ressourcen ersch"opft. 
+Man kann das so formulieren, dass
+das Wachstum sich bei gro"ser Population durch Kompetition verlangsamt.\\
+{\bf Zustand:} $x(t)$ [Bakterien/Liter] Konzentration von Bakterien zur Zeit $t$\\
+{\bf Dynamik:} Die Bakterien teilen sich im Schnitt mit Rate $\beta\, (1-x/K)$ [1/s].\\
+ $K$ [Bakterien/Liter] ist die Kapazit"at des Systems.\\
+{\bf Gleichung:} 
+$$ x' = \beta\, (1-x/K) x.$$
+\end{bspX}
+
+\begin{bspX}  {\bf Kompetitions-Modell}. Nun sehen  wir uns zwei Bakterien-Arten an, die beide einem logistischen Wachstum folgen. Weiter fressen sie sich gegenseitig die Nahrung weg. Dieses ``weg-fressen'' formulieren wir wieder in 
+einer verminderten Reproduktionsrate, analog zum logistischen Wachstum.\\
+{\bf Zustand:} $x(t)$, $y(t)$ [Bakterien/Liter] Konzentration von Bakterien der Art $x$ bzw. $y$.\\
+{\bf Dynamik:} Die Bakterien der Art $x$ teilen sich im Schnitt mit Rate $\beta_1\, (1-x/K_1-a y)$ [1/s], 
+die der Art $y$ mir Rate  $\beta_2\, (1-y/K_2-b x)$ [1/s].\\
+{\bf Gleichung:} 
+\begin{eqnarray*}
+x' & = & \beta_1 x (1-x/K_1-a y)\\
+y' & = & \beta_2 y (1-y/K_2-b x)\\
+\end{eqnarray*}
+\end{bspX}
+
+\begin{bspX}  {\bf Chemostat}. Der Chemostat ist ein Ger"at zur Durchf"uhrung 
+biologischer Experimente. Er findet auch als industrielle Produktionsanlage zur 
+Gewinnung von Chemikalien durch Bakterien Anwendung. Im einfachsten Fall besteht 
+ein Chemostat aus einem Reaktionsgef"a"s, 
+einem Zu- und einem Abfluss. Im Zufluss 
+wird N"ahrstoff zugeleitet, das Fl"ussigkeitsvolumen im Reaktionsgef"a"s 
+wird dadurch 
+konstant gehalten, dass im Abfluss mit der gleichen Rate, mit der 
+ Fl"ussigkeit/N"ahrstoff 
+eingeleitet wird, auch Medium wieder entnommen wird. Das Medium im Reaktionsger"at 
+wird gut ger"uhrt (Sauerstoffversorgung, gleichm"a"sige Verteilung), und es leben 
+Bakterien im Reaktionsgef"a"s, die N"ahrstoffe fressen, sich vermehren, und 
+herausgesp"ult werden.\\
+{\bf Zustand:} $s(t)$ [mol/l] Substratkonzentration, $x(t)$ [Bakterien/l]: Bakterienkonzentration, jeweils im Reaktionsgef"a"s zur Zeit $t$.\\
+{\bf Dynamik:} (a) Rate, mit der Fl"ussigkeit zugef"uhrt bzw. abgef"uhrt wird: D [l/h]. Substratkonzentration im Zufluss: $s_0$ [ml/l].\\
+(b) Nahrungsaufnahme von Bakterien  : $f(s)x$, [mol/(l s)], wobei $f(s) = \mu_{max}\,s/(K+s)$.\\
+(c) Rate, mit der sich die Bakterien vermehren: $\alpha\,f(s)x$, [Bakterien/(l s)],  $\alpha$: Umwandlungsfaktor Nahrung$\rightarrow$Biomasse.\\
+{\bf Modellgleichungen:}\\
+\begin{eqnarray*}
+x' & = & \underbrace{-D x}_{\mbox{\footnotesize Ausschwemmen von Bakterien}} 
++  \underbrace{\alpha f(s) x}_{\mbox{\footnotesize Reproduktion von Bakterien}} \\
+s'& =& 
+ \underbrace{D s_0}_{\mbox{\footnotesize Einschwemmen von Nahrung}} 
+-
+\underbrace{D s}_{\mbox{\footnotesize Ausschwemmen von Nahrung}} 
+-
+ \underbrace{f(s) x}_{\mbox{\footnotesize Aufnahme von Nahrung durch Bakterien}} \\
+\end{eqnarray*}
+\end{bspX}
+
+%===============================================================================
+\subsection{Vektorfeld und Isoklinen}
+
+Die Modelle, die wir oben eingef"uhrt haben, sind alle nicht-lineare 
+Differentialgleichungen, entweder eindimensional,
+$$ x' = f(x)$$
+oder zweidimensional
+\begin{eqnarray*}
+x' & = & f(x,y)\\
+y' &=& g(x,y)
+\end{eqnarray*}
+Interessiert ist man immer am langfristigen Verhalten. F"ur eine eindimensionale 
+Differentialgleichung ist das einfach.
+\begin{figure}
+\begin{center}
+\includegraphics[width=9cm]{../figures/mono.pdf}
+\includegraphics[width=5cm]{../figures/hmI27Vector.pdf}
+\end{center}
+\caption{Links: Die L"osungen $x(t)$ von skalaren Differentialgleichungen erster Ordnung $x'=f(x)$ 
+wachsen entweder monoton, oder sie fallen monoton, solange, bis sie auf einen Fixpunkt treffen (oder nach $\pm\infty$ davonlaufen). 
+Rechts: Ein Vektorfeld $(f(x,y), g(x,y))$ wei"st jeden Punkt einen Vektor zu. D.h., wir k"onnen an jeden Punkt $(x,y)$ den entsprechenden Vektor heften. Die L"osungskurve $(x(t),y(t))$ der Differentialgleichung $x'=f(x,y)$, 
+$y'=g(x,y)$ besitzt genau diese Vektoren als Tangentenvektoren.}\label{odeMono}
+\end{figure}
+
+\fpbox{Die L"osung $x(t)$ einer eindimensionalen, autonomen Differentialgleichung $x'=f(x)$ 
+ist immer monoton (fallend oder wachsend, 
+Abb.~\ref{odeMono}, links). Sei $f(x)$ differenzierbar. 
+Das langfristige Verhalten ist 
+gegeben durch den Limes
+$$ \lim_{t\rightarrow\infty} x(t).$$
+F"ur die L"osung einer eindimensionalen, autonomen Differentialgleichung 
+divergiert der Limes entweder (``geht gegen $\pm\infty$'') oder existiert 
+und geht gegen einen konstanten Wert $x_0 =  \lim_{t\rightarrow\infty} x(t).$
+In diesem Fall ist $f(x_0)=0$, d.h. die Konstante $x_0$ ist selbst schon 
+L"osung der Differentialgleichung.
+}
+
+Wenn wir zwei oder mehr Dimensionen haben, ist die Analyse wesentlich schwieriger. 
+Hier ben"otigen wir einige Begriffe und Werkzeuge. 
+
+\begin{sdefi} (a) Ein Vektorfeld ist eine Abbildung 
+$F:\R^2\rightarrow\R^2$, $(x,y)\mapsto(f(x,y), g(x,y))$  
+(oder allgemeiner, $F:\R^n\rightarrow\R^n$). Ein Vektorfeld definiert eine
+Differentialgleichung $x' = F(x)$ (Abb.~\ref{odeMono}, rechts). \\
+(b) Die $x$-Isokline (oder $x$-Nullisokline) eines Vektorfelds $(f(x,y), g(x,y))$ 
+ist definiert als
+$$\{(x,y)\,|\, f(x,y)=0\}$$
+die Menge der Punkte, in denen die $x$-Komponente des Vektorfelds Null ist. 
+Analog ist die $y$-Isokline durch $g(x,y)=0$ definiert.\\
+{\bf Bemerkung:}  Station"are Punkte eines Vektorfelds, gegeben durch $F(x)=0$, 
+ sind das genau die  Schnittpunkte der Isoklinen.
+\end{sdefi}
+
+Oft kann man aus der Lage der Isoklinen schon sehr viel ablesen. 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=10cm]{../figures/hmIIblock06Chemostat}
+\end{center}
+\caption{Isoklinen, Vektorfeld und station"are Punkte 
+des Chemostats im Fall dass 
+$s_0$ gr"o"ser als die L"osung von $f(s)=D/\alpha$ ist.}
+\label{chemostat}
+\end{figure}
+%===============================================================================
+\begin{bspX} Station"are Punkte des Chemostats\\
+\begin{eqnarray*}
+x' & = & -Dx+\alpha f(s) x\\
+s' & = & Ds_0 - Ds - f(s) x
+\end{eqnarray*}
+$$ x'=0\quad\Rightarrow x=0 \mbox{ oder } f(s)=D/\alpha.$$
+Fall 1: $x=0$. $y'=0$ f"uhrt auf $(x,s)=(0,s_0)$ als station"aren Punkt (triviale L"osung, keine Bakterien vorhanden).\\
+Fall 2: $x\not=0$; dann suche $s^*$, sodass $f(s^*)=D/\alpha$. Aus $s'=0$ 
+folgt dann $x=x^*=D(S_0-s^*)/f(s^*).$\par
+Damit der nicht-triviale station"are Punkt $(x,s)=(x^*,s^*)$ existiert 
+und $x^*>0$, muss $s^*<s_0$ sein.\par
+Isokline des Chemostats
+\underline{x-Isokline:} $x'=0$, i.e.
+$$ 0 = -Dx+\alpha f(s) x
+= x[\alpha f(s)-D].$$
+Also sind die $x$-Isoklinen gegeben durch $x=0$ und $f(s) = D/\alpha$.\\
+\underline{y-Isokline} (besser: $s$-Isokline): $s'=0$, i.e.
+$$ 0 = Ds_0 - Ds - f(s) x.$$
+Also ist die $y$-Isokline gegeben durch $x = D(s_0-s)/f(s)$.\\
+Wir lesen sofort ab: es gibt einen station"aren Punkt mit $x>0$ genau dann, wenn 
+die Gleichung $f(s)=D/\alpha$ eine L"osung $s\in(0,s_0)$ besitzt.\par\medskip
+\noindent
+\underline{Interpretation:} Wenn $\alpha f(s)=D$, dann balanciert sich das 
+Ausschemmen der Mikroorganismen (Rate $D$) und das Wachstum der Mikroorganismen 
+(Rate $\alpha f(s)$). Die Populationsgr"o"se 
+der Mikroorganismen $x$ pendelt sich 
+genau auf diesen Wert ein. Ist $s_0$ zu klein, so kann das Wachstum -- selbst 
+bei kleinen Populationsgr"o"se $x$ -- das Auswaschen nicht kompensieren, und die 
+Population stirbt aus. Es gibt nur den station"aren Punkt $x=0$, $s=s_0$. 
+\par\medskip
+\noindent
+\underline{Langfristiges Verhalten:} 
+Wir k"onnen noch mehr ablesen: wir kennen dir Richtung des Vektorfelds auf den 
+Isoklinen, und k"onnen daher auch die Richtung des Vektorfelds in den Fl"achen
+zwischen den Isoklinen qualitativ angeben (sowas wie ``x w"achst, s f"allt''). 
+Damit ist es oft schon m"oglich, sich einen groben "uberblick "uber das langfristige 
+Verhalten zu verschaffen. In unserem Fall k"onnen
+wir erraten, dass die L"osungen gegen den station"aren Punkt mit $x>0$ 
+laufen werden (Fig.~\ref{chemostat}).
+\end{bspX}
+
+\begin{auf}\chd\label{block6A1}
+\input{../../Aufgabensammlung/hm702.tex}
+\end{auf}
+
+%===============================================================================
+\subsection{Station"are Punkte, Satz von Hartman-Grobman und Stabilit"at}
+Station"are Punkte spielen also eine wichtige Rolle; einerseits sind sie
+gute Kandidaten f"ur das langfristige Verhalten einer L"osung, andererseits
+ strukturieren sie die Dynamik. Und, man kann station"are Punkte 
+in der Regel noch recht 
+gut ausrechnen. Um die Dynamik in der N"ahe der station"aren Punkte besser
+zu verstehen, macht man folgende, formale Rechnung.
+
+{\bf  Dynamik in der N"ahe der station"aren Punkte.} Gegeben sei die  
+\begin{eqnarray*}
+x' = f(x,y)\\
+y' = g(x,y)
+\end{eqnarray*}
+und
+$$ f(x_0,y_0)=g(x_0,y_0)=0.$$
+Um die L"osung nahe des station"aren Punktes zu untersuchen, nutzen wir diesen als 
+Bezugspunkt, und r"ucken ihn in den Nullpunkt des Koordinatensystems. Wir definieren 
+neue Koordinaten $u$, $v$ durch:
+$$ x=x_0+u,\qquad y = y_0+v.$$
+Dann finden wir via Taylor-Entwicklung 
+$$ u' = (x_0+u)' = x' = f(x,y) = f(x_0+u,y_0+v)
+= f(x_0,y_0)+a u+ bv + \mbox{ quadratische Terme}
+$$
+wobei 
+$$ a=\frac{\partial f(x_0,y_0)}{\partial x},\quad b=\frac{\partial f(x_0,y_0)}{\partial y}.$$
+Nun ist $f(x_0,y_0)=0$ (da $(x_0,y_0)$ station"arer Punkt), und die quadratischen 
+Terme sind f"ur $u$, $v$ klein vernachl"assigbar. D.h., wir haben
+approximativ
+$$ u' \approx \frac{\partial f(x_0,y_0)}{\partial x}\, u+
+\frac{\partial f(x_0,y_0)}{\partial y} v.$$
+Analog erhalten wir approximativ
+$$ v' \approx \frac{\partial g(x_0,y_0)}{\partial x}\, u+
+\frac{\partial g(x_0,y_0)}{\partial y} v.$$
+D.h.,
+$$\left(\begin{array}{c}
+u\\v
+\end{array}
+\right)'
+= A \left(\begin{array}{c}
+u\\v
+\end{array}
+\right)$$
+wobei
+$$ A = 
+\left(\begin{array}{cc}
+ \frac{\partial f(x_0,y_0)}{\partial x}\,&
+\frac{\partial f(x_0,y_0)}{\partial y}\\
+\frac{\partial g(x_0,y_0)}{\partial x}\, &
+\frac{\partial g(x_0,y_0)}{\partial y} 
+\end{array}
+\right) =: \frac{\partial f}{\partial (x,y)}$$
+die \emph{Jacobi-Matrix} bedeutet. D.h., nahe des station"aren Punktes kann man das 
+nichtlineare Vektorfeld sehr gut durch ein lineares Vektorfeld ersetzen. 
+Die L"osungen linearer Vektorfelder sind uns sehr gut durch den ``Zoo'' bekannt. 
+
+%===============================================================================
+\begin{satz} \label{hartGrob}(Hartman-Grobman) Gegeben sei in nicht-lineares Vektorfeld 
+$F:\R^n\rightarrow \R^n$, und ein station"arer Punkt $x_0\in\R^n$, $F(x_0)=0$. 
+Sei $A$ die Jacobi-Matrix an $x_0$, d.h.
+$$ ((A))_{i,j} = \frac{\partial (F)_i}{\partial x_j}(x_0).$$
+Gelte weiter, dass alle Eigenwerte von $A$ einen Realteil ungleich Null besitzen. 
+Dann sehen sich die L"osungen des nichtlinearen Systems nahe $x_0$ 
+denen des linearen Systems $y'=Ay$ bei $y=0$ "ahnlich.
+\end{satz}
+
+Insbesondere gilt die wichtige Folgerung aus dem Satz.
+\begin{satz} Seien die Voraussetzungen wie im Satz von Hartman-Grobman. 
+Falls der Realteil aller Eigenwerte der Jacobi-Matrix strikt kleiner Null
+sind, so ist der Limes von L"osungen, die nahe genug bei dem station"aren Punkt 
+starten, der station"are Punkt selbst.
+\end{satz}
+Dies ist eine direkt Folgerung aus der Tatsache, dass die L"osung von $x'=Ax$
+gegen Null geht wenn die Realteile aller Eigenwerte von $A$ kleiner Null sind. 
+Diese Eigenschaft gibt Anlass zu der folgenden Definition.
+
+\begin{sdefi} Sei $x'=F(x)$ gegeben, $F(x_0)=0$ ein station"arer Punkt. Dieser
+Punkt hei"st lokal asymptotisch stabil, falls aus $x(t_0)-x_0$ klein genug folgt,
+dass
+$$ \lim_{t\rightarrow\infty} x(t) = x_0.$$
+Sonst hei"st der Punkt instabil.\\
+Der Punkt hei"st linear stabil, falls die Jacobi-Matrix nur Eigenwerte mit 
+negativen Realteilen besitzt.  
+\end{sdefi}
+Also folgt aus ``linear stabil'', dass ein Punkt lokal asymptotisch stabil ist. 
+
+%===============================================================================
+\begin{bspX} 
+Falls $s_0$ gro"s genug ist, finden wir 
+zwei station"are Punkte im Modell des Chemostats. Wir sehen uns die Stabilit"at der station"aren Punktes an. 
+
+\noindent{\bf Jacobi-Matrix.} Wir leiten erst $f(x,s) = -Dx+\alpha f(s) x$ 
+nach $x$, dann nach $s$ ab, um die erste Zeile der Jacobi-Matrix zu bestimmen. 
+Dann leiten wir $g(x,y) = Ds_0-Ds-f(s)x$ wieder erst nach $x$ dann nach $s$ ab, 
+um die zweite Zeile der Jacobi-Matrix zu bestimmen. Wir erhalten
+$$ A(x,s) = \left(\begin{array}{cc}
+-D+\alpha f(s) & \alpha f'(s)x\\
+-f(s) & -D-f'(s)x
+\end{array}\right)$$
+
+\noindent{\bf Erster station"arer Punkt.} Jetzt setzen wir  
+$(x,s)=(0,s_0)$ in die Jacobi-Matrix ein: 
+$$A(0,s_0) = 
+\left(\begin{array}{cc}
+-D+\alpha f(s_0) & 0\\
+-f(s_0) & -D
+\end{array}\right)
+$$
+Das ist eine Dreiecksmatrix. Wir wissen, dass wir die Eigenwerte in diesem Fall 
+direkt von der Diagonalen ablesen k"onnen. D.h., wir finden die Eigenwerte
+$$ \lambda_1 = -D<0,\quad \lambda_2 = -D+\alpha f(s_0).$$
+Da wir momentan voraussetzen, dass ein station"arer Punkt mit der Eigenschaft
+$f(s^*)=D/\alpha$, $s^*<s_0$ existiert, und $f(s)$ monoton steigt, 
+folgern wir $\lambda_2>0$. Also ist dieser station"are Punkt instabil. 
+Wenn wir wenige Mikroorganismen in den Chemostat einbringen, 
+werden sich die Mikroorganismen ausbreiten. 
+
+\noindent{\bf Zweiter station"arer Punkt.}
+Jetzt setzen wir $(x,s)=(x^*,s^*)$ ein, wobei $f(s^*)=D/\alpha$ und $x^*
+>0$.
+$$ A(x^*,s^*) = \left(\begin{array}{cc}
+-D+\alpha f(s^*) & \alpha f'(s^*)x^*\\
+-f(s^*) & -D-f'(s^*)x^*
+\end{array}\right)
+=
+\left(\begin{array}{cc}
+0 & \alpha f'(s^*)x^*\\
+-f(s^*) & -D-f'(s^*)x^*
+\end{array}\right).
+$$
+Wir finden
+$$ \mbox{sp}(A)=-D-f'(s^*)x^*<0,\qquad
+\mbox{det}(A) = -f(s^*) \alpha f'(s^*)x^*<0.$$
+Daher (siehe Kapitel 2.3.2) besitzen alle Eigenwerte negativen Realteil, und
+ die nicht-triviale station"are L"osung ist lokal asymptotisch stabil.
+\end{bspX}
+Wir haben also unsere Vermutung von oben, dass sich das System langfristig auf 
+den station"aren Punkt einspielt, best"arkt. Wir wissen zumindest, dass wir -- 
+wenn wir in der N"ahe des station"aren Punktes starten -- uns auf den station"aren 
+Punkt wieder setzen werden. Wir k"onnen nicht ausschlie"sen (das kann man beweisen, 
+aber man ben"otigt daf"ur weitere Hilfsmittel), 
+dass jeder Anfangswert mit $x(0)>0$ 
+und $s(0)\geq 0$ sich auf diesen station"aren Zustand einspielt. 
+%===============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\chc\label{block6A2}
+\input{../../Aufgabensammlung/hm703.tex}
+\end{auf}
+
+\begin{auf}\chc\label{block6A3}
+\input{../../Aufgabensammlung/hm704.tex}
+\end{auf}
+
+\begin{auf}\chc\label{block6A4}
+\input{../../Aufgabensammlung/hm705.tex}
+\end{auf}
+
+\begin{auf}\chd\label{block6A5}
+\input{../../Aufgabensammlung/hm706.tex}
+\end{auf}
+
+\begin{auf}\chc\label{block6A6}
+\input{../../Aufgabensammlung/hm707.tex}
+\end{auf}
+
+\begin{auf}\chb\label{block6A7}
+\input{../../Aufgabensammlung/hm745.tex}
+\end{auf}
+

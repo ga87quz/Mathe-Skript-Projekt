@@ -1,0 +1,654 @@
+
+
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+%===============================================================================
+\section{Anwendung: Elektronische Netzwerke}
+%===============================================================================
+Elektronische Schaltungen k"onnen (weitgehend) mit unserer Theorie verstanden
+werden. Man unterscheidet passive (Widerstand, Kondensator, Spule) und 
+aktive (Transistor, Diode, Operationsverst"arker) Bauelemente. Passive 
+Bauelemente fallen in unseren Framework. Aktive Bauelement werden h"aufig in
+begrenzeten Gebieten durch Modellgleichungen approximiert, die dann ebenfalls 
+eine
+Beschreibung durch linearen Differentialgleichungen zul"a"st.
+%===============================================================================
+\subsection{Modellgleichungen}
+
+{\bf (A) Bauteile und Zustandsgr"o"sen}
+\par\medskip
+Wir fokussieren auf ein Netzwerk mit passiven Bauelementen: Widerstand, Kondensator,
+Spule und Spannungsquelle. Jedes Element im Netzwerk (und damit auch das gesamte 
+Netzwerk) wird beschrieben durch die Spannung, die an den Anschlussdr"ahten des 
+Bauteils
+anliegen, und den Strom, der durch das Bauteil flie"st. \par
+Bei $n$ Bauteilen, erhalten wir also $2 n$ Zustandsgr"o"sen, die zu bestimmen sind.
+\par\medskip
+{\bf (B)  Beschreibung der Bauteile}\par\medskip
+Jedes Bauteil schafft seine eigene Beziehung zwischen der Spannung an seinen 
+Anschlussdr"ahten und den
+Strom, der durch es fliesst. Man sollte sich die Konsequenzen klarmachen: ein 
+Bauteil muss nicht
+das gesamte Netzwerk kennen, um seine Wirkung zu entfalten, man muss dem Bauteil 
+nur sagen: 
+``Die Spannung an Deinen Dr"ahten ist 5 Volt'',  dann antwortet das Bauteil sofort: 
+``Dann ist der Strom 3 mAmp\`ere''.
+Ganz so einfach ist es nat"urlich nicht, die Antwort des Bauteils kann auch von 
+der zeitlichen Ableitung von
+Strom oder Spannung abh"angen. Die Modelle zu begr"unden und herzuleiten liegt 
+ausserhalb des M"oglichkeiten dieser
+Vorlesung. Wir geben die Modelle nur an, nichts weiter. Im Einzelnen:
+
+
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=8cm]{../figures/bauteile.pdf} 
+   \caption{Symbole von Spannungsquelle, Widerstand, Kondensator und Spule, und ihre Modelle.
+   }
+   \label{ele1}
+\end{figure}
+
+
+%===============================================================================
+{\it Spannunsquelle:}\par
+Die idealisierte Sannungsquelle bestimmt exakt die Spannung (eventuell eine feste
+Spannung, oder aber auch so etwas wie ein Rechtecksignal oder Sinusschwingung). 
+Dabei ist der Strom egal. Das geht nat"urlich nur f"ur einen gewissen Bereich der 
+Stromst"arke: schliesst man eine
+Batterie kurz, so kann diese ihre Spannung nicht halten, sondern die Spannung 
+bricht zusammen und die Batterie wird warm
+und entl"adt sich. Nur wenn ein Lastwiderstand angeschlossen ist, so ist dieses
+Modell gut geeignet.f"ur unsere Zwecke gen"ugt aber dieses Modell, d.h.
+$$ U = U_0(t), \qquad \mbox{Keine Information "uber den Strom} I. $$
+%===============================================================================
+{\it Widerstand:}\par
+Spannung ist einfach proportional zum Strom,
+$$ U = RI$$
+(das ber"uhmte ``Uri'').\par
+%===============================================================================
+{\it Kondensator/Kapazit"at:}\par
+Hier bekommen wir das erste mal eine Ableitung 'rein:
+$$ C \dot U = I.$$
+Wir haben hier eine Ableitung. Um damit vern"unftig umgehen zu k"onnen, ben"otigen 
+wir noch
+eine Anfangsbedingung. Das ist Teil der Modellierung. Da beim Einschalten einer 
+Schaltung
+sich etwas schlagartig "andert (entweder $U$ oder $I$ oder beides, $U$ aber 
+abgeleitet wird,
+darf $U$ keinen Sprung besitzen. Daher verlangen wir 
+$$U(0)=0$$
+ (um Stetigkeit von $U(t)$ bei $t=0$ zu garantieren).
+
+%===============================================================================
+{\it Spule/Induktivit"at:}\par
+Nun m"ussen wir den Strom ableiten. Das Modell lautet
+$$ U = L\,\dot I.$$
+Aus "ahnlichem Grunde, warum wir beim Kondensator die Anfangsbedingung fuer die 
+Spannung auf Null
+gesetzt haben, w"ahlen wir hier
+$$ I(0) = 0.$$
+\fpbox{
+Bemerkung: man findet auch $U = -L\dot I$ (vor allem in Schul-Literatur). Hier 
+ist die Idee, die Selbstinduktion
+durch das Minuszeichen auszudr"ucken (eher eine p"adagogische Idee). Wenn wir in 
+Netzwerken arbeiten, 
+so m"ussen wir das positive Vorzeichen nehmen, um das richtige Ergebnis zu erhalten.}
+%===============================================================================
+\par\medskip
+\newpage
+{\bf (C) Netzwerkeigenschaften}
+\par\medskip
+Wir haben bei $n$ Bauteilen also auch $n$ Gleichungen f"ur die Zustandsgr"o"sen. Da 
+wir aber $2n$
+Zustandsgr"o"sen finden m"ussen, fehlen uns $n$ Gleichungen. Diese Gleichungen beschreiben letztlich
+das Netzwerk: wie ist welches Bauteil mit welchem Bauteil verl"otet? Das sind die Kirchoff-Gesetzte.
+
+%===============================================================================
+{\it 1. Kirchhoffsche Gesetzt}\par
+Finde irgendein geschlossenen Kreis im Netzwerk. Addiere die Spannungen "uber den Bauteilen 
+in diesem Kreis auf. Die Summe der SPannungen ist immer Null.
+
+{\it 2. Kirchhoffsche Gesetzt}\par
+Gehe zu irgendeinem Knoten (``L"otpunkt'') im Netzwerk betrachte alle Bauteile, die an diesen
+Knoten h"angen. Die Summe der Str"ome durch dieser Bauteile ist Null (es geht genausoviel
+Strom in den L"otpunkt 'rein, wie wieder 'raus geht).\par\bigskip
+
+Das gibt nun genauso viel Gleichungen, wie wir ben"otigen. Die Behauptung m"usste man i.a.\ zeigen, 
+das tun wir aber nicht. Stattdessen sehen wir uns ein paar Beispiele an.
+%===============================================================================
+\subsection{Beispiele}
+
+\subsubsection{RC-Glied}
+
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=8cm]{../figures/electroRC.pdf} 
+   \caption{Schaltung des RC-Gliedes.
+   }
+   \label{ele3}
+\end{figure}
+
+%===============================================================================
+Die Schaltung des RC-Gliedes kann Abb.~\ref{ele3} entnommen werden. Wir haben 6 Zustandsvariablen: 
+$U_0(t)$, $U_1(t)$, $U_2(t)$, $I_0(t)$, $I_1(t)$ und $I_2(t)$. Starten wir mit den Gleichungen, die durch die
+Mathematischen Modelle der Bauteile gegeben sind.\par
+$\bullet$ Spannungsquelle:
+Die Spannung $U_0$ 
+$$U_1 = - U_0(t)$$
+ist eine gegeben Funktion. "Uber $I_0$ sagt uns diese Modell nichts.\par
+$\bullet$ Widerstand:
+$$U_2 = R I_2. $$
+$\bullet$ Kondensator:
+$$ C \dot U_3 = I_3,\qquad U_3(0) = 0.$$
+Dies sind nun drei der sechs Gleichungen, die wir ben"otigen, die anderen drei
+Gleichungen verr"at uns Herr Kirchhoff. 
+
+1. Kirchhoffsches Gesetz:\par
+Es gibt nur eine geschossene Kurve, d.h.
+$$ U_1(t) +U_2+U_3 = 0\qquad\Rightarrow\qquad  U_2 + U_3 = -U_1 = U_0.$$
+Jetzt wird auch klar, warum wir das Vorzeichen von $U_0$ so gew"ahlt haben.\par\medskip
+2. Kirchhoffsches Gesetz:\par
+Wir k"onnen drei Knoten (``L"otpunkte'') im Netzwerk identifizieren, A; B, und C (siehe Abbildung). 
+Die ein- und ausgehenden Str"ome (Vorzeichenbehaftet, je nach Richtung!) summieren sich zu Null aus.
+Also:\par
+Knoten A:  $I_1 - I_2 = 0$.\par
+Knoten B:  $I_2- I_3 = 0$.\par
+Knoten C:  $I_3 - I_1 = 0$.
+Tats"achlich bringt uns die letzte Gleichung nichts Neues, da die Summe der ersten beiden Gleichungen (A, B)
+gerade die dritte Gleichung (C) ergibt. 
+%===============================================================================
+Alles in Allem haben wir nun tats"achlich 6 Gleichungen (und eine Anfangsbedingung) zusammen.
+\begin{eqnarray*}
+U_1 & = & - U_0(t)\\
+U_2 & = & R I_2\\
+\dot U_3 & = & \frac 1 C I_3,\qquad U_3(0) = 0\\
+U_2+U_3 & = & U_0\\
+I_1 & = & I_2 = I_3
+\end{eqnarray*}
+Dies ist ein Gemisch aus algebraischen Gleichungen und Differentialgleichungen. Tats"achlich gibt es (numerische)
+Methoden solche Differentialgleichungen mit algebraischen Nebenbedingungen direkt zu l"osen (tats"achlich stark motiviert
+durch Anwendungen in der Elektronik). Wir wollen aber direkt damit umgehen, und das System auf eine reine Differentialgleichung
+reduzieren. Zun"achst definieren wir $I(t) =I_1=I_2=I_3$, und finden durch Ableiten der vierten Gleichung
+$$ \dot U_2 + \dot U_3 = \dot U_0.$$
+Die Funktion $U_0(t)$ ist fest vorgegeben (Eingangssignal der Schaltung oder Batteriespeisung o."a.), $U_2'$ und $U_3'$ k"onnen
+wir durch $I$ und $I'$ ausdr"ucken,
+$$ R I' + \frac 1 C I = U'_0$$
+bzw.
+$$  I'  = -  \frac 1{R C} I + \frac 1 R U'_0. $$
+Wissen wir etwas "uber den Anfanswert $I(0)$? Nun, wir wissen (wie zu allen Zeiten) $U_2(0)+U_3(0) = U_0(0)$.
+Weiter wissen wir, dass $U_2(0) = RI(0)$, und $U_3(0) = 0$. Daher
+$$ RI(0) = U_0(0),\qquad I(0) = U_0(0)/R.$$
+
+%===============================================================================
+\underline{{\it Fall 1: Konstante Stromquelle}}\par
+Wir betrachten also zun"achst eine - sagen wir - Batterie, die zum Zeitpunkt $t=0$ angeschlossen wird. Daher ist
+$U_0'=0$, und
+$$  I'  =  - \frac 1{R C} I, \qquad I(0) = U_0/R. $$
+Die L"osung finden wir sofort zu
+$$ I(t) = (U_0/R)\, e^{-t/(RC)}.$$
+Die Spannungen haben wir dann aus $U_1=RI_1$, d.h.
+$$ U_2(t) = U_0 e^{-t/(RC)}$$
+und $U_3 = U_0-U_2$
+$$ U_3(t) = U_0 \left(1-e^{-t/(RC)}\right)$$
+Wir haben hier den Ladevorgang eines Kondensators: im gleichen Ma"s,
+wie der Kondensator sich l"adt, wird die Strom"anderung (und damit die Spannung) "uber dem Kondensator kleiner.
+Zu Beginn ist alle Spannung "uber dem Widerstand, sp"ater - als keine Ladung mehr fliesst - 
+alle Spannung "uber dem Kondensator.
+
+%===============================================================================
+
+\underline{{\it Fall 2: Sinussignal}}\par
+Nun f"uttern wir den Schaltkreis mit einer Kosinus-Schwingung,
+$$ U_0(t) = \Re(\hat U_0 e^{i\omega t}).$$
+Es ist bequemer (und daher auch "ublich) direkt mit komplexen Funktionen zu rechnen,
+und mit 
+$$ U_0(t) = U_0 e^{i\omega t}.$$
+zu starten. Wir wissen, dass wir bei allen auftretenden Funktionen einfach den Realteil 
+nehmen m"ussen, um zu einer reellen L"osung zu kommen. Wir haben also
+$$  I'  = -  \frac 1{R C} I + \frac { \iii \omega} R \hat U_0 e^{\iii\omega t}, \qquad I(0) = \hat U_0/R. $$
+Die Variation-der-Konstanten-Formel liefert
+\begin{eqnarray*} 
+I(t) & = & 
+e^{-t/(RC)}\hat U_0/R + \frac { \iii \omega}R \hat U_0 \int_0^t e^{-(t-\tau)/(RC)}  e^{\iii\omega \tau}\, d\tau\\
+& = & 
+e^{-t/(RC)}\hat U_0/R + \frac { \iii \omega}R \hat U_0  e^{ t/(RC)}  \int_0^t e^{\tau(1/(RC)+\iii\omega)} \, d\tau\\
+& = & 
+e^{-t/(RC)}\hat U_0/R + \frac { \iii \omega C}{1+\iii\omega RC} \hat U_0  e^{- t/(RC)}  \left(e^{(1/(RC)+\iii\omega)t} -1\right)\\
+& = & 
+\left( \frac 1 R +  \frac { \iii \omega C}{1+\iii\omega RC}\right) \hat U_0  e^{- t/(RC)} 
++ \frac { \iii \omega C}{1+\iii\omega RC} \hat U_0 e^{\iii\omega t}
+\end{eqnarray*}
+Der erste Term repr"asentiert das Anschalten der Spannung - nicht wirklich interessant. Viel
+interessanter ist das langfristige Verhalten. Das ist gegeben durch
+$$ I(t) =  \frac { \iii \omega C}{1+\iii\omega RC} \hat U_0 e^{\iii\omega t}. $$
+Wir k"onnen wieder $U_2(t)$ und $U_3(t)$ ausrechnen, $U_1(t) = R I(t)$, d.h.
+$$ U_2(t) 
+= \frac { \iii \omega CR}{1+\iii\omega RC} \hat U_0 e^{\iii\omega t}
+= \frac { \iii \omega CR}{1+\iii\omega RC} U_0(t)
+. $$
+Die andere Spannung bestimmen wir uns wieder "uber $U_2(t) = U_0(t)-U_1(t)$, d.h.
+$$ U_3(t) 
+= U_0(t)-U_2(t) = U_0(t)\left(1 - \frac { \iii \omega CR}{1+\iii\omega RC}\right)
+ =  \frac { 1}{1+\iii\omega RC}\,\,\,U_0(t).
+$$
+Wenn wir die Spannung "uber dem Kondensator $U_3$ als Ausgangsspannung, $U_0(t)$ als Eingangsspannung
+interpretieren. Die Abschw"achung des Signals $U_3/U_0$ ist gegeben durch
+$$ |1/(1+\iii\omega RC)| = \sqrt{\frac{1}{1+\omega^2 R^2C^2}}$$
+Das Ergebnis ist ein Tiefpassfilter (siehe Abb.~\ref{ele4}). Aber das Eingangssignal wird nicht nur abgeschw"acht. 
+Ein weiterer Effekt ist eine Phasenschiebung des Ausgangssignals im Verh"altnis zum Eingangssignals.
+Wir finden 
+$$ U_3(t) =  
+ \sqrt{\frac{1}{1+\omega^2 R^2C^2}} e^{\iii \phi(\omega)} U_0(t)
+$$
+wobei
+$$ \tan(\phi(\omega)) = \frac{\Im(.)}{\Re(.)} = \frac{\omega RC} 1.
+$$
+Damit gibt es keinen Phasenshift f"ur kleine Frequenzen, aber bei hohen Frequenzen geht der
+Phasenshift gegen $\pi/2$. 
+
+%===============================================================================
+
+\begin{figure}[t] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=8cm]{../figures/elekrtoRComega.pdf} 
+      \includegraphics[width=8cm]{../figures/elekrtoRCphase.pdf} 
+   \caption{Abschw"achung des Eingangssignals (links) und Phasenshift (rechts).  Parameter: $RC=0.1/sec$. 
+   }
+   \label{ele4}
+\end{figure}
+
+%===============================================================================
+Bemerkung:\par
+(a) Wir k"onnen nun Filter hintereinanderschalten, indem wir die Ausgangsspannung "uber dem
+Kondensator als Eingangsspannung in das n"achste RC-Glied nehmen. Die Abschw"achung wird dann 
+(bei gleichen Werten f"ur Widerstand und Kondensator) quadriert, d.h. im Duchlassbereich passiert
+kaum etwas (wir quadrieren eine Zahl nahe bei eins), aber im Sperrberecih wird die D"ampfung schneller abfallen.
+Man spricht auch von einem Filter zweiter Ordnung. Entspechend kann man durch $n$ RC-Glieder ein Filter
+$n$'ter Ordnung erzeugen. \\
+(b) Da sich die Spannungen "uber dem Kondensator und dem Widerstand zur Eingangsspannung aufaddieren,
+k"onnen wir die gleiche Schaltung als Hochpass nutzen, wenn wir als ``Ausgangsspannung'' die Spannung "uber
+dem Widerstand abgreifen. 
+
+\par\bigskip\bigskip\bigskip
+
+
+%===============================================================================
+\subsubsection{LC-Schwingkreis}
+
+\begin{figure}[t] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=8cm]{../figures/electroLC.pdf} 
+   \caption{Schaltung des LC-Gliedes.
+   }
+   \label{eleLCX}
+\end{figure}
+
+
+Der Schwingkeis ist noch ein bisschen komplizierter als das RC-Glied. Wieder haben wir zwei verschiedene
+Quellen von Gleichungen: die intrinsischen Gesetze der Bauteile, und die Kirchhoffschen Gesetze. Wir k"onnen fast w"ortlich wie beim RC-Glied vorgehen, um die Gleichungen zu bestimmen. 
+
+
+%===============================================================================
+$\bullet$ Spannungsquelle:
+Die Spannung $U_1$ 
+$$U_1 = - U_0(t)$$
+ist eine gegeben Funktion. "uber $I_1$ sagt uns das Modell der Spannungsquelle nichts.\par
+$\bullet$ Widerstand:
+$$U_2 = R I_2. $$
+$\bullet$ Kondensator:
+$$ C \dot U_3 = I_3,\qquad U_3(0) = 0.$$
+$\bullet$ Spule:
+$$ U_4 = L \dot I_4,\qquad I_4(0) = 0.$$
+
+1. Kirchhoffsches Gesetz:\par
+Es gibt nur eine geschossene Kurve, d.h.
+$$ U_1 +U_2+U_3+U_4 = 0\qquad\Rightarrow\qquad  U_2 + U_3 + U_4= -U_1=U_0.$$
+
+2. Kirchhoffsches Gesetz:\par
+Wir k"onnen vier Knoten (``L"otpunkte'') im Netzwerk identifizieren, A; B, C und D (Abbildung~\ref{eleLCX}). 
+Die ein- und ausgehenden Str"ome (Vorzeichenbehaftet, je nach Richtung!) summieren sich zu Null aus.
+Also:\par
+Knoten A:  $I_1 - I_2 = 0$.\par
+Knoten B:  $I_2- I_23= 0$.\par
+Knoten C:  $I_3- I_4 = 0$.\par
+Knoten D:  $I_4 - I_1  = 0$.
+Tats"achlich bringt uns die letzte Gleichung nichts Neues, da die Summe der ersten drei Gleichungen (A, B, C)
+gerade die vierte Gleichung (D) ergibt. 
+
+Alles in Allem haben wir nun 8 Gleichungen (und eine Anfangsbedingung) zusammen.
+\begin{eqnarray*}
+U_1 & = & - U_0(t)\\
+U_2 & = & R I_2\\
+\dot U_3 & = & \frac 1 C I_3,\qquad U_3(0) = 0\\
+ \dot I_4 & = & \frac 1 L U_4,\qquad I_4(0) = 0\\
+U_2+U_3+U_4 & = & U_0\\
+I_1 & = & I_2 = I_3 = I_4.
+\end{eqnarray*}
+Wegen der letzten Gleichung definieren wir wieder $I=I_0=I_1=I_2=I_3$. Wir leiten die Gleichung 
+$U_2+U_3+U_4=U_0$ ein mal nach der Zeit ab, und erhalten
+\begin{eqnarray*}
+\dot U_0 & = & \dot U_2+\dot U_3+\dot U_4\\
+& = & R \dot I + \frac 1 C  I + L \ddot I\\ 
+\end{eqnarray*}
+f"ur die Anfangsbedingungen haben wir
+$$ I(0) = 0$$
+und $U_3(0)=0$. Da $U_3(0)=0$ finden wir $U_0(0)=U_2(0)+U_4(0)$. Da $I(0)=0$ und $U_2(0)=RI(0)=0$, ist
+$U_4(0)=U_0(0)$. Mit $\dot I(0) = U_4(0)/L$ finden wir schliesslich
+$$ \dot I(0) = U_0(0)/L.$$
+Wirt haben also eine Gleichung zweiter Ordnung erhalten. Das deutet schon auf die M"oglichkeit
+von Schwingungen (komplex konjugierte Nullstellen des charakteristischen Polynoms!) hin.
+Wir werden wiederum zwei verschiedene F"alle betrachten: $U_0(t)$ h"angt in Wirklichkeit garnicht von
+der Zeit ab, oder aber $U_0(t)$ ist ein Sinus-Eingangssignal.
+\par\medskip
+%===============================================================================
+\underline{{\it Fall 1: Konstante Stromquelle}}\par
+
+Der Fall f"uhrt auf eine homogene Gleichung zweiter Ordnung. Das charakteristische Polynom lautet
+$$ L \lambda^2 + R\lambda + \frac 1 C =0$$
+d.h.
+$$ \lambda_\pm = \frac 1 {2L}\left(
+- R \pm\sqrt{R^2 - 4 L/C}
+\right)
+=
+-\frac R{2L}\pm\sqrt{\frac R{4L^2} - \frac 1 {LC}}
+=
+-\frac R{2L}\pm\iii \sqrt{\frac 1 {LC} - \frac R{4L^2}}
+.$$
+
+Insbesondere f"ur $R=0$ (idealer Schwingkreis) haben wir
+$$ \lambda_\pm = \iii\frac{1}{\sqrt{L C}},$$
+d.h.\ eine unged"ampfte Schwingung: die L"osung (das Fundamentalsystem) lautet
+$$ \sin(t/\sqrt{LC}),\qquad \cos(t/\sqrt{LC})$$
+d.h. eine Periode ist gegeben durch $T/\sqrt{LC}=2\pi$, bzw.
+$$ T = 2\pi\sqrt{LC}$$
+bzw. die Frequenz
+$$ f = \frac 1 T = \frac 1 {2\pi\sqrt{LC}}.$$
+Haben wir einen realen Schwingkreis, so ist $R$ nie gleich Null. 
+Dabei wird f"ur gro"sen Widerstand die Eigenwerte reell (und negativ), d.h. wir haben einfach
+("ahnlich wie beim RC-Glied) ein exponentielles Abklingen des Stromes.\par
+Falls die Eigenwerte imagin"ar sind, so ist ihr Realteil negativ - wir haben immer eine ged"ampfte Schwingung.
+Die Frequenz wird dabei durch den Widerstand verringert. Wir k"onnten nun nat"urlich die L"osung explizit ausrechnen, nehmen aber doch davon Abstand (es sind doch L"angliche Rechnungen).
+
+
+%===============================================================================
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=4cm]{../figures/gedaempft.pdf} 
+   \caption{Simulation der Schaltung - Spannungsverlauf "uber dem Kondensator (L=50 mH, C = 5$\mu$F, R=0.001$\Omega$)
+   }
+   \label{ele3}
+\end{figure}
+
+
+%===============================================================================
+\underline{{\it Fall 2: Schwingungen}}\par
+
+Nun f"uttern wir eine Schwingung 
+$$U_0(t) = \hat U_0 e^{\iii\omega t}$$
+ein (oder dessen Realteil - wie "ublich k"onnen wir komplex rechnen, und die
+gesuchte L"osung immer im Realteil finden). Wenn wir nicht den idealen
+Schwingkreis ($R=0$) sondern einen realen Schwingkreis ($R>0$) betrachten, so ist immer $\omega\not = \lambda_\pm$, und wir k"onnen
+eine partikul"are L"osung finden, indem wir den Ansatz  $I(t) = A e^{\iii\omega t}$ einsetzen.
+Aus 
+$$
+\dot U_0 =  R \dot I + \frac 1 C  I + L \ddot I 
+$$
+wird dann
+\begin{eqnarray*}
+\iii\omega U_0 e^{\iii\omega t} & = & \iii R A  \omega e^{\iii\omega t} +\frac A C e^{\iii\omega t} - L \omega^2e^{\iii\omega t}\\
+A & = & \frac{\iii\omega U_0}{1/C - \iii R\omega - L\omega^2}
+\end{eqnarray*}
+Da die homogene L"osung auf jeden Fall einer ged"ampften Schwingung entspricht, und also abklingt ist diese 
+partikul"are L"osung wirklich genau diejenige, die "ubrig bleibt. 
+Die Amplitude ist also
+$$ |A| = \frac{\omega U_0}{\sqrt{(1/C-L\omega)^2+ R^2 \omega^2)}}$$
+f"ur $R=0$ sehen wir, dass bei der Resonanzfrequenz die Amplitude eine Singularit"at enth"alt (``Resonanzkatastrophe''); f"ur den realistischen Fall $R>0$ wird diese Katastrophe verhindert. Aber nat"urlich
+kann bei kleinem Widerstand die Amplitude immer noch einen starken Peak enthalten.
+
+Auch diese Schaltung kann nat"urlich wie das RC-Glied als Filter genutzt werden. Wir k"onnten wieder 
+mit unseren Methoden problemlos Spannungen und Phasen bestimmen, aber diese Etude "uberlassen wir 
+lieber den entsprechenden spezielleren Vorlesungen.
+
+
+\kommentar{
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=9cm]{../figures/diode.pdf} 
+   \caption{Kennline einer Diode und einer Tunneldiode (letztere mit linearer Approximation im Bereich des
+   negativen differentiellen Widerstandes). 
+   }
+   \label{kennline}
+\end{figure}
+%===============================================================================
+\subsubsection{Nichtlineare Elemente: Entd"ampfter LC-Schwingkreis}
+
+Wir bauen nun ein nichtlineartes Element ein: eine Tunneldiode. Eine Diode ist eigentlich so
+eine Art Ventil: ist die Spannung richtig gepolt, so verh"alt sie sich "ahnlich wie ein Widerstand (mit niedrigem Wert),
+ist die Polarit"at falsch, so sperrt die Diode, und der Widerstand wird fast unendlich gross (tats"achlich l"asst
+due Diode nicht bei richtiger Polarit"at den Strom durch, sondern sie ben"otigt eine minimale Spannung, die
+Durchbruchsspannung). Man erh"alt also eine Beziehung zwischen Strom und Spannung (siehe Abb.~\ref{kennline})
+$$ I = f(U) = \left\{\begin{array}{ccc}
+0 & \mbox{ falls} & U < \hat U\\
+(U-\hat U)/R & \mbox{ falls} & U >\hat U
+\end{array}\right.$$
+(eine realistische Kennline einer Diode ist allerdings nicht st"uckweise linear, sondern eine Kurve die+immer steiler wird).
+Dabei ist $\hat U$ die Durchbruchsspannung.
+Die Tunneldiode hat nun nicht eine lineare Beziehung
+zwischen Strom und Spannung (f"ur $U>\hat U$), hat nicht mal eine monotone Abh"angigkeit, sondern in einem
+bestimmten Bereich {\it f"allt } der Strom, wenn die Spannung steigt. Wieder k"onnen wir eine Funktion $f(U)$ finden, sodass der Strom
+bei gegebener Spannung durch
+$$ I = f(U)$$
+berechnet werden kann.  In dem Bereich, in der der Strom f"allt, wenn die Spannung steigt,  kann man die Kennline mit einer Geraden negativer Steigung approximieren (``negativer differentieller Widerstand''),
+$$ I = \tilde U - \frac 1 {\hat R} U$$
+(wobei $\tilde U$ und $1/\hat R$ Konstanten sind).
+Wir nutzen dieses linearisierte Modell, welches - wohlgemerkt - nur in einem klar charakterisierten, beschr"ankten
+Spannungsbereich G"ultigkeit besitzt.
+
+Nun setzen wir wieder, wie oben, die Schaltung in Abb.~\ref{tunnelschwing} in Gleichungen um, und finden
+\begin{eqnarray*}
+U_1 & = & - U_0(t)\\
+U_2 & = & R I_2\\
+\dot U_3 & = & \frac 1 C I_3,\qquad U_3(0) = 0\\
+ \dot I_4 & = & \frac 1 L U_4,\qquad I_4(0) = 0\\
+I_5 & = & \tilde U-\frac 1 {\hat R} U_5\\
+U_2+U_3+U_4+ U_5 & = & -U_1 = U_0\\
+I_1 & = & I_2 = I_3 = I_4 = I_5.
+\end{eqnarray*}
+%===============================================================================
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=8cm]{../figures/electroLCD.pdf} 
+   \caption{Schaltung des LC-Schwingkreises mit Tunneldiode.
+   }
+   \label{tunnelschwing}
+\end{figure}
+
+
+Wir nehmen $U_0(t)$ als konstant an. Wieder leiten wir die Gleichung f"ur die Summe der Spannungen
+ab, und finden
+$$ 
+0 = 
+R \dot I 
++ \frac 1 C I + L \ddot I - \hat R \dot I
+=
+(R-\hat R)  \dot I + \frac 1 C I + L \ddot I 
+.$$
+wir haben also eigentlich den gleichen Fall wie im RL-Schwingkreis, allerdings k"onnen wir pl"otzlich einen
+negative (!) Wiederstand erhalten. Nun, das kann den Realteil der Eigenwerte in's Positive treiben, und wir erhalten
+eine sich aufschaukelnde Schwingung (exponentiell wachsend). Diese Schwingung w"achst im G"ultigkeitsbereich
+der linearen Approximation der Kennlinie einer Tunneldiode, um an den ``Knickstellen'' dann an Hindernisse zu st"oren. Nichtlineare Effekte bremsen das Amplitudenwachstum, bis wir eine stabile Schwingung finden. Die Frequenz kann sich dabei von der durch die lineare Approximation vorhergesagten nat"urlich unterscheiden, in der
+Praxis allerdings ist dieser Effekt minimal.\par
+
+%===============================================================================
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=4cm]{../figures/entgedaempft.pdf} 
+   \caption{Simulation der Schaltung - Spannungsverlauf "uber dem Kondensator  
+   (L=50 mH, C = 5$\mu$F, R=0.001$\Omega$, Negativer Widerstand = - 0.01$\Omega$)
+   }
+   \label{ele3}
+\end{figure}
+
+
+%===============================================================================
+
+Wir verstehen und k"onnen das lineare Netzwerk rechnen; aber eigentlich w"urden wir gerne das volle, nichtlineare
+Netz simulieren. Sehen wir uns die Gleichungen nochmals an; die Gleichungen  bestehen aus einem rein 
+algebraischen Teil, und einem Differentialgleichungs-Teil. Da wir f"ur die Tunneldiode 
+$I=f(U)$ geschlossen darstellen k"onnen (der Strom ist eine Funktion der Spannung; wenn wir nur die Spannung wissen,
+so gibt es u.U. mehrere M"oglichkeiten f"ur den Strom, siehe Abbildung), so nehmen wir als Modell f"ur die Diode
+das volle Modell
+$$ I_4 = f(U_4)$$
+wobei f"ur $f(.)$ ein Polynom dritter Ordnung f"ur positive Werte von $f(U)$, und Null f"ur negative Werte 
+gew"ahlt werden kann, $f(U) = \max\{0, a+bU^2 + cU^3\}$ (dabei m"ussen nat"urlich die Parameter $a$, $b$, $c$ passend gew"ahlt werden!).
+Wir haben also das volle Modell
+\begin{eqnarray*}
+0 & = & - U_1- U_0(t)\\
+0   & = & -U_2 +R I_2\\
+0 & = &-I_5+ f(U_5)\\
+0 & = & U_2+U_3+U_4+ U_5  + U_1\\
+0 & = & -I_1 +I_2\\
+0 & = & -I_2+I_3\\
+0 & = &  -I_3+I_4\\
+0 & = &  = -I_4+I_5\\
+\dot U_3 & = & \frac 1 C I_3,\qquad U_3(0) = 0\\
+ \dot I_4 & = & \frac 1 L U_4,\qquad I_4(0) = 0. 
+\end{eqnarray*}
+
+%===============================================================================
+Der algebraische Teil kann geschrieben werden als Matrix mal Zustandsvektor ist Null plus Nichtlinearit"at plus Inhomogenit"at ($U_0(t)$). Definiere den Vektor
+$$
+x  :=  \left(
+\begin{array}{c}
+U_1\\
+U_2\\
+U_3\\
+U_4\\
+U_5\\
+I_1\\
+I_2\\
+I_3\\
+I_4\\
+I_5\\
+\end{array}
+\right)
+$$
+die Matrix
+\begin{eqnarray*}
+B & := & \left(
+\begin{array}{ccccc|ccccc}
+-1 & 0 & 0 & 0 & 0 &    0 & 0 & 0 & 0 & 0\\
+0 & -1 & 0 & 0 & 0 &    0 & R & 0 & 0 & 0\\
+0 &  0 & 0 & 0 & 0 &    0 & 0 & 0 & 0 & -1\\
+1 &  1 & 1 & 1 & 1 &    0 & 0 & 0 & 0 & 0\\
+0 &  0 & 0 & 0 & 0 &    -1 & 1 & 0 & 0 & 0\\
+0 &  0 & 0 & 0 & 0 &    0 & -1 & 1 & 0 & 0\\
+0 &  0 & 0 & 0 & 0 &    0 & 0 & -1 & 1 & 0\\
+0 &  0 & 0 & 0 & 0 &    0 & 0 & 0 & -1 & 1\\
+\end{array}
+\right)
+\end{eqnarray*}
+den Vektor der Inhomogenit"aten
+$$ 
+b  := -U_0(t) \left(
+\begin{array}{c}
+1\\
+0\\
+0\\
+0\\
+0\\
+0\\
+0\\
+0
+\end{array}
+\right)
+$$
+und den Vektor der Nichtlinearit"aten
+$$ 
+F(x)  := \left(
+\begin{array}{c}
+0\\
+0\\
+f(U_5)\\
+0\\
+0\\
+0\\
+0\\
+0
+\end{array}
+\right).
+$$
+Den rein algebraischen Teil k"onnen wir damit schreiben als
+$$ 0 = Bx+b+F(x).$$
+Die Differentialgleichung kann geschrieben werden als
+$$ \frac d {dt}
+\left(
+\begin{array}{c}
+U_3\\
+I_4
+\end{array}
+\right)
+=
+D x,\qquad 
+\left(
+\begin{array}{c}
+U_3(0)\\
+I_4(0)
+\end{array}
+\right) 
+= 
+\left(
+\begin{array}{c}
+0\\0\\
+\end{array}
+\right)
+$$
+mit
+$$ 
+D = 
+\left(
+\begin{array}{cccccccccc}
+0 & 0 & 0 & 0 & 0   & 0 & 0 & 1/C & 0 & 0\\
+0 & 0 & 0 & 1/L & 0   & 0 & 0 & 0 & 0 & 0
+\end{array}
+\right)
+$$
+K"onnen wir noch etwas raffinierter schreiben: Definieren wir die Matrix
+$$ A = 
+\left(
+\begin{array}{cccccccccc}
+0 & 0 & 1 & 0 & 0   & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0   & 0 & 0 & 0 & 1 & 0
+\end{array}
+\right)
+$$
+so ist
+$$ A x = \left(
+\begin{array}{c}
+U_3(0)\\
+I_4(0)
+\end{array}
+\right) 
+$$
+d.h. $A \dot x = D x$.
+
+Also haben wir alles in Allem ein System von algebraischen Gleichungen und 
+Differentialgleichungen,
+$$ 0 = Bx+b+F(x),\qquad A\dot x = D x,\qquad A x(0) = x_0.$$
+
+Nun haben wir die Gleichungen sch"on zusammengepackt; aber wir ben"otigen noch 
+eine Methode, die Gleichungen zu simulieren. Wie machen wir das? Man ben"otigt 
+spezialisierte, numerische Verfahren die solche Differential-algebraische 
+Probleme l"osen k"onnen. Das f"uhrt hier (leider) zu weit. 
+}
+%===============================================================================
+ 

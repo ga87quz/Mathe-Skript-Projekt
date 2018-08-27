@@ -1,0 +1,371 @@
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+
+%===============================================================================
+\section{Nichtlineare Differentialgleichungen}
+%===============================================================================
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Differentialgleichungen mit getrennten Variablen l"osen k"onnen
+\item nichtlineare, homogene Differentialgleichungen l"osen k"onnen
+\item Eulerverfahren mit der Hand rechnen k"onnen
+\end{itemize}}
+%===============================================================================
+%%%%% \subsection{Nicht-lineare gew"ohnlicher Differentialgleichungen}
+%===============================================================================
+\par\medskip
+Die meisten Beispiele in der Physik -- Schwingungsgleichungen, Elektrotechnik -- sind lineare Gleichungen. Modelle aus Biologie und Chemie hingegen
+ bestehen aus nicht-linearen Differentialgleichungen. 
+Beispiele sind:
+
+\begin{bspX}
+Homogene, nicht-lineare Differentialgleichung erster Ordnung
+$ x' = 5x(1-x)$.
+\end{bspX}
+%===============================================================================
+\begin{bspX}
+Inhomogene, nicht-lineare Differentialgleichung zweiter Ordnung
+$ x'' - x'x + 5x = \sin(t)$.
+\end{bspX}
+%===============================================================================
+Solche Differentialgleichungen sind in der Regel recht schwierig zu l"osen. In
+der Praxis wird man einfache Differentialgleichungen handhaben k"onnen 
+(z.B. die Typen, die wir unten behandeln), f"ur schwierigere Differentialgleichungen 
+spezialisierte Literatur oder/und  Computer-Algebra-Programme zu Rate ziehen, und 
+am aller h"aufigsten numerische Verfahren (siehe unten) anwenden.
+%===============================================================================
+\subsection{Einige Typen von  Differentialgleichungen und L"osungsverfahren}
+%===============================================================================
+\subsubsection{Differentialgleichungen mit getrennten Variablen}
+%===============================================================================
+\begin{sdefi} Eine Differentialgleichung der Form
+$$ x' = f(t) g(x)$$
+hei\""{}t Differentialgleichungen mit getrennten Variablen.
+\end{sdefi}
+Hier wendet man die Methode der Trennung der Variablen an, und rechnet
+$$ \frac {d x}{dt} = f(t) g(x),\quad x(t_0) = x_0$$
+aufl"osen nach $x$ ({\it formal} trennen wir auch $dx$ und $dt$)
+$$ \frac {1}{g(x)}\, dx = f(t) dt$$
+und nun integrieren wir,
+$$ \int_{x_0}^x\frac {1}{g(y)}\, dy = \int_{t_0}^tf(\tau) d\tau.$$
+Wenn $G(y)$ die Stammfunktion von $1/g(y)$ und $F(t)$ die Stammfunktion von $f(t)$ ist,
+so finden wir
+$$ G(x)-G(x_0) = F(t)-F(t_0).$$
+Diese Gleichung m"ussen wir nach $x$ aufl"osen, und wir haben die L"osung.
+%===============================================================================
+\begin{bspX}
+Logistische Differentialgleichung.
+$$ x' = x(1-x),\qquad x(0) = x_0.$$
+Dann rechnen wir
+\begin{eqnarray*}
+\frac {dx}{dt} & = & x (1-x)\\
+\frac {1}{x(1-x)}dx & = & dt\\
+\int_{x_0}^x  \frac {1}{y(1-y)}dy & = & \int_0^td\tau\\
+\int_{x_0}^x  \left(\frac {1}{1-y} +\frac{1}{y}\right) dy & = & \int_0^td\tau\\
+\log(\frac{y}{1-y})\bigg|_{x_0}^x   & = & t
+\qquad\Rightarrow\qquad
+\frac{x(1-x_0)}{x_0(1-x)} = e^t\\
+x(1-x_0) &=& x_0(1-x)e^t = x_0 e^t- x_0\,\, x\,\, e^t\\
+x\left(1-x_0+x_0\,\, e^t\right) &=& x_0 e^t
+\\
+x(t)
+ &=& \frac{x_0 e^t}{1-x_0+x_0e^t} 
+ = \frac{x_0 e^t}{1+x_0(e^t-1)} 
+\end{eqnarray*}
+\end{bspX}
+%===============================================================================
+\begin{auf}\chc\label{block5A1}
+\input{../../Aufgabensammlung/hm697.tex}
+\end{auf}
+%===============================================================================
+\subsubsection{Homogene Differentialgleichung}
+%===============================================================================
+\begin{sdefi} Eine Differentialgleichung der Form
+$$ x' = f(x/t)$$
+hei\ss{}t homogene Differentialgleichung.
+\end{sdefi}
+
+\fpbox{{\bf Achtung!} Wir haben nun zwei verschiedene Bedeutungen von ``homogene Differentialgleichung''.
+Aufpassen!}\par\medskip
+
+Wir transformieren, indem wir die Funktion
+$$ u(t) = y(t)/t$$
+einf"uhren. Dann finden wir $x(t) = t\,u(t)$ und
+$$ x'(t) = u(t) + t u'(t)$$
+Da $x'(t) = f(x(t)/t) = f(u(t)$, so haben wir
+$$ u'(t) = (f(u(t))-u(t))\,\,\frac 1 t$$
+eine Differentialgleichung mit getrennten Variablen. Die k"onnen wir mit den Methoden des
+vorherigen Kapitels behandeln.
+\begin{bspX}
+$$x' = \sqrt{\frac x t},\qquad x(1)=2$$
+Transformation
+$$ $$
+
+\begin{eqnarray*}
+u=x/t,\quad u'&=&\sqrt{u}/t-u/t,\quad u(1)=x(1)/1=2\\
+\Rightarrow\quad \int_{2}^u \frac 1 {\tilde u^{1/2}-\tilde u}\,d\tilde u 
+& = & \int_1^t\,\tilde t^{-1} d\tilde t\\
+\end{eqnarray*}
+Wir finden
+\begin{eqnarray*}
+\int_{2}^u \frac 1 {\tilde u^{1/2}-\tilde u}\,d\tilde u 
+& = & \int_{2}^u \frac 1 {\sqrt{\tilde u}(1-\sqrt{\tilde u})}\,d\tilde u 
+ =  \int_{2}^u \left(
+  \frac 1 {\sqrt{\tilde u}}
++ \frac 1 {1-\sqrt{\tilde u}}\right)
+\,d\tilde u \\
+& = & 2\sqrt{\tilde u}\bigg|_2^u -2\sqrt{\tilde u}
+                -2\ln(\sqrt{\tilde u}-1)\bigg|_2^u
+= -2\ln(\sqrt{\tilde u}-1)\bigg|_2^u
+= -2\ln(\sqrt{u}-1)+2\ln(\sqrt{2}-1)
+\end{eqnarray*}
+Damit, und mit $\int_1^t \tilde t^{-1}\,d\tilde t = \ln(t)$, erhalten wir
+\begin{eqnarray*}
+-2\ln(\sqrt{u}-1)+2\ln(\sqrt{2}-1)& = & \ln(t)\\
+\ln(\sqrt{u}-1)-\ln(\sqrt{2}-1)& = & -\ln(t)/2 = \ln(1/\sqrt{t})\\
+\ln(\sqrt{u}-1) & = & 
+\ln(1/\sqrt{t})+ \ln(\sqrt{2}-1) )= \ln((\sqrt{2}-1)/\sqrt{t})\\
+\sqrt{u}- 1 & = & \frac{(\sqrt{2}-1)}{\sqrt{t}}\qquad \Rightarrow\qquad
+u(t)  = \left(1+\frac{(\sqrt{2}-1)}{\sqrt{t}}\right)^2
+\end{eqnarray*}
+Mit $x=u\, t$ folgt
+$$ x(t) = t\,\, \left(1+\frac{(\sqrt{2}-1)}{\sqrt{t}}\right)^2.$$
+\end{bspX}
+%===============================================================================
+\subsection{Numerische Verfahren}
+Wir sehen uns hier an, wie wir eine Differentialgleichung des Typs 
+$$  x'=f(x,t), \qquad x(0) = x_0$$ 
+numerisch l"osen k"onnen (Anfangswertproblem). D.h., wir w"ahlen Zeitpunkte 
+$t_i$, und suchen Werte $x_i$, die $x(t_i)$  approximieren. Gesucht wird 
+nun ein Algorithmus bzw.\ eine Funktion $F(.)$, sodass
+$$ x_{i+1}=F(x_i)\quad\mbox{ und }\quad  x_i\approx x(t_i).$$
+Wir n"ahern uns der numerischen Approximation der L"osung 
+"uber zwei (letztlich gleichwertige) Ans"atze: eher intuitiv, "uber die Interpretation einer Differentialgleichung, und eher formal, 
+mittels Taylor-Entwicklung.
+%===============================================================================
+\subsubsection{Explizites Euler-Verfahren}
+
+%===============================================================================
+\fpbox{
+{\bf Weg "uber die Definition der Ableitung.} Letztlich ist die Interpretation 
+der Differentialgleichung, dass wir einen Zustand $x(t)$ haben, und 
+f"ur diesen die Zustands\"anderungsrate $x'(t)$ als Funktion des Zustandes (und eventuell der Zeit) 
+auffassen, d.h. $x'(t) = f(x(t),t)$.
+
+Die Ableitung ist der Limes des Differenzenquotienten. Ersetzen wir wieder
+die Ableitung durch einen Differenzenquotienten in einem kleinen, aber
+positiven Zeitintervall $\Delta t$ zur"uckgehen, erhalten wir
+$$ x' = f(x,t) 
+\qquad \rightarrow \qquad
+\frac{x(t+\Delta t)-x(t)}{\Delta t} \approx f(x(t),t) 
+\qquad \rightarrow \qquad
+x(t+\Delta t) \approx x(t) + \Delta t \,\, f(x(t), t).$$
+Da wir uns also nur f"ur die Zeitpunkte $t_i = i\Delta t$ interessieren, so bekommen wir eine Rekursionsformel f"ur $y_i := x(t_i)$:
+$$ y_0 = x_0 \mbox{ gegeben, }\quad
+y_{i+1} = y_i + \Delta t f(y_i, t_i).$$
+Diese Rekursionsformel kann leicht implementiert werden, und so die L"osung berechnet werden.
+Fragen der Numerik sind dann: wie gro\ss{} ist der Fehler (Abweichung dieser approximativen L"osung von der ``echten'' L"osung
+an den Stellen $t_i$? Optimierung des Verfahrens, i.e. funde Verfahren die einen m"oglichst kleinen Fehler haben, und
+trotzdem nicht rechen-aufwendig sind.
+Dies ist das {\bf Euler-Verfahren}. \index{Euler-Verfahren}
+}
+%===============================================================================
+
+%===============================================================================
+\fpbox{{\bf Weg "uber Taylorentwicklung.} Nun sehen wir uns das Problem aus einem 
+leicht anderen Blickwinkel an: Wir entwickeln die L"osung von $x'=f(x,t)$ nach der Zeit in eine Taylor-Reihe,
+$$ x(t+\Delta t) = x(t) + \Delta t x'(t) + \Delta^2 x''(t)+\cdots.$$
+Wir wissen wohl, dass 
+$$ x'(t) = f(x(t),t)$$
+d.h.
+$$ x(t+\Delta t) = x(t) + \Delta t f(x(t), t) +  \Delta t^2 x''(t)+\cdots.$$
+Vernachl"assigen wir Terme zweiter Ordnung ($\Delta t^2$), so erhalten wir exakt das gleiche Verfahren wie vorhin. 
+}
+%===============================================================================
+\begin{bspX}
+Betrachte die Differentialgleichung 
+$$ x' = a\, x,\qquad x(0)=x_0$$
+i.e.\ $x' = f(x,t)$ mit $f(x,t)= a x.$
+Die analytische L"osung kennen wir, $x(t)=e^{at}\, x_0$. 
+Die N"aherungsL"osung des expliziten Euler--Verfahrens zu den Zeitpunkten $n\,\Delta t$ nennen wir
+ $x_n$,
+$$ x_{n+1} = x_n + \Delta t \,\,(a\, x_n) = (1+a\Delta t) x_n.$$
+Nun halten wir einen Zeitpunkt $t$ fest, erh"ohen $n$ und verkleinern dabei
+gleichzeitig $\Delta t$, sodass immer  $t=n\Delta t$  wahr ist. Dann folgt
+$$ x_n =(1+a\Delta t)^n x_0 
+= (1+at/n)^{n}\, x(0).$$
+Erinnerung: Eine M"oglichkeit, $e^x$ zu definieren, lautete
+$$ e^x = \lim_{n\rightarrow\infty} (1+x/n)^n.$$
+Wenn wir diese beiden Formeln vergleichen, so finden wir
+$$ \lim_{n\rightarrow n} x_n = x_0e^{at}.$$
+D.h., wenn wir $t$ festhalten, $\Delta t$ immer kleiner machen, 
+so approximiert
+die N"aherungsL"osung tats"achlich die analytische L"osung.
+\end{bspX}
+%===============================================================================
+\subsubsection{Stabilit"at und Positivit"atserhalung 
+des numerischen Verfahrens}\par
+\index{Stabilit"at numerischer Verfahren}
+Es hat sich herausgestellt, dass man die Qualit"at eines numerischen Verfahrens
+u.a.\ daran beurteilen kann, ob es gewisse Testgleichungen richtig 
+l"osen kann, wenn die Zeit $t$ gegen unendlich geht; das ist nat"urlich schwierig, weil man da unendlich viele Approximationsschritte machen muss, und
+sich der Fehler Aufschaukeln kann. Die einfachste Testgleichung ist
+$$ x' = -\lambda x,\qquad x(0)=x_0,\qquad\mbox{ mit } \lambda>0.$$
+Dann wissen wir, dass $x(t)\rightarrow 0$ f"ur $t\rightarrow\infty$. 
+%===============================================================================
+\begin{sdefi}
+Sei $\lambda\in\R$, $\lambda\geq 0$. 
+Das Stabilit"atsgebiet zu $\lambda$ 
+eines numerischen Verfahrens ist die Menge aller 
+$\Delta t\in\C$,  sodass die Approximation von 
+$$ x' = -\lambda x,\qquad x(0)=x_0,\qquad\mbox{ mit } \lambda>0.$$
+gegen Null geht, wenn die Zahl der Schritte gegen unendlich geht.
+\end{sdefi}
+%===============================================================================
+\begin{bspX}
+Wie gro\ss{} ist der Stabilit"atsgebiet des expliziten Euler-Verfahrens?\\
+Da  $x_n =(1+a\Delta t)^n x_0$ und $a=-\lambda$ muss
+$$ |1-\lambda\Delta t |<1$$
+gelten, d.h.  $\lambda\Delta t$ liegen im Kreis mit Radius eins und Mittelpunkt 1.
+D.h., wenn $\lambda$ gro\ss{} ist, muss man die Zeitschrittweite 
+sehr klein machen.
+\end{bspX}
+%===============================================================================
+Eine weitere, wichtige Eigenschaft (insbesondere f"ur die Simulation von Modellen 
+in der Biochemie) ist die Positivit"at.
+%===============================================================================
+\begin{sdefi}
+Der positivit"atserhaltende Bereich (Positivi"atsbereich) 
+eines numerischen Verfahrens ist die Menge aller 
+$\Delta t\in\R$,  sodass die Approximation von 
+$$ x' = -\lambda x,\qquad x(0)=x_0,\qquad\mbox{ mit } \lambda>0.$$
+positiv bleibt, wenn $x_0$ positiv ist.
+\end{sdefi}
+%===============================================================================
+\begin{bspX}
+Wie gro\ss{} ist der positivit"atserhaltende Bereich des expliziten Euler--Verfahrens?\\
+Da  $x_n =(1+a\Delta t)^n x_0$ und $a=-\lambda$ muss
+$$ 1-\lambda\Delta t >0$$
+gelten, d.h.  
+$$\Delta t < 1/\lambda.$$
+D.h., wenn $\lambda$ gro\ss{} ist, muss man die Zeitschrittweite 
+sehr klein machen.
+\end{bspX}
+Kombinieren wir den positiven Bereich mit den stabilen Bereich, so finden wir 
+$$ 0<\Delta t < 1/\lambda.$$
+D.h., wenn $\lambda$ gro\ss{} ist, m"ussen wir $\Delta t$ sehr klein machen. 
+Das ist schlecht, da wir viele Schritte ben"otigen, bis wir zu einem gegebenen 
+Zeitpunkt $t$ kommen.\par\medskip
+%===============================================================================
+\fpbox{
+Bemerkung: Wenn man mit numerischen Paketen wie MATLAB arbeitet, so sollte man 
+unbedingt die Schrittweitenkontrolle entsprechend einstellen, falls man auf 
+Positivit"atserhaltung wert legt!  L"asst man MATLAB die Schrittweite automatisch 
+w"ahlen, so wird i.d.R. die Positivit"at gebrochen!}
+\par\medskip
+Wir sehen uns zwei M"oglichkeiten an, die es erlauben, 
+gr"o\ss{}ere Zeitschrittweiten 
+zu w"ahlen: implizite Euler--Verfahren und Verfahren h"oherer Ordnung. 
+%===============================================================================
+\subsubsection{Implizites Euler--Verfahren }
+\fpbox{Das explizite Euler--Verfahren haben wir letztlich aus 
+$$ x' = f(x,t) 
+\qquad \rightarrow \qquad
+\frac{x(t+\Delta t)-x(t)}{\Delta t} \approx f(x(t),t) 
+\qquad \rightarrow \qquad
+x(t+\Delta t) = x(t) + \Delta t \,\, f(x(t), t)$$
+gewonnen. Wir k"onnen aber genauso gut sagen, dass 
+$$ \frac{x(t+\Delta t)-x(t)}{\Delta t} \approx f(x(t+\Delta t),t+\Delta t)$$
+ und somit 
+$$ x(t+\Delta t) \approx  x(t)+ \Delta t\,\, f(x(t+\Delta t),t+\Delta t).$$
+Setzen wir wie vorher $x_n=x(n\Delta t)$,und $t_n =  n\Delta t$ so haben wir
+$$ x_{n+1} = x_n + \Delta t\,\, f(x_{n+1},t_{n+1}).$$
+Dies ist eine implizite Gleichung f"ur $x_{b+1}$ (d.h. die Gleichung muss erst ach $x_{n+1}$ aufgel"ost werden.
+Das Verfahren hei\ss{}t daher {\bf Implizites Euler--Verfahren}.}
+%===============================================================================
+\begin{bspX} Wir nehmen uns wieder unsere Testgleichung her
+$$ x' = -\lambda x,\quad x(0) = x_0$$
+und leiten eine Formel f"ur das implizite Euler--Verfahren her:
+$$ x_{n+1} = x_n-\Delta t \lambda x_{n+1}
+\quad \Rightarrow\quad
+x_{n+1}+ \Delta t \lambda x_{n+1} = x_n
+\quad \Rightarrow\quad
+x_{n+1} = \frac 1 {1+\lambda\, \Delta t} x_n.$$
+\end{bspX}
+%===============================================================================
+
+\begin{bspX} Stabilit"atsbereich und Positivit"atsbereich f"ur das implizite Eulerverfahren.\par
+\begin{itemize}
+\item Der Stabilit"atsbereich ist gegeben durch 
+alle komplexen $\Delta t$ mit (wir setzen $a=-\lambda$)
+$$ 
+\left |\frac 1 {1+\lambda \Delta t}\right| <1
+\quad \Leftrightarrow\quad
+\left |1+\lambda \Delta t\right| >1.
+$$
+D.h. der Stabilit"atsbereich besteht aus der komplexen Ebene {\rm ohne} den Kreis 
+mit Radius $1/\lambda$ um -1.
+\item Der Positivit"atsbereich ist gegeben durch alle reellen $\Delta t$ mit
+$$ \frac 1 {1+\lambda \Delta t}>0
+\quad \Leftrightarrow\quad
+\Delta t > -1/\lambda.
+$$
+\end{itemize}
+\end{bspX}
+Kombinieren wir wieder den Stabilit"ats- und Positivit"atsbereich, so sehen, wir 
+dass wir im Prinzip alle nicht-negativen Schrittweiten $\Delta t$ zulassen d"urfen. 
+D.h., jede positive Schrittweite $\Delta t$ wird bei positiver Anfangsbedingung 
+eine positive L"osung generieren, die f"ur $n\rightarrow\infty$ gegen Null geht. 
+Damit erf"ullt sie zwei wichtige Forderungen. Damit die Approximation aber genau wird, d"urfen wir dennoch die Schrittweite nicht zu gro\ss{} w"ahlen. Typischerweise w"ahlt man $\Delta t \approx 0.01$. 
+%===============================================================================
+\subsubsection{Verfahren h"oherer Ordnung }
+Ausgehend von der Taylorformel, kann man auch Verfahren herleiten, die einen 
+kleineren Fehler haben. Wir k"onnen z. B. in der Taylorentwicklung
+$$ x(t+\Delta t) = x(t) + \Delta t x'(t) + \Delta^2 x''(t)+ \Delta^3\cdots.$$
+nicht nur $x'$ durch $f(x,t)$ ersetzen, sondern auch $x''$ einsetzen, geben durch
+$$ x''(t) = \frac d {dt} f(x,t) = f_x x'+f_t = f_x(x,t) f(x,t)+f_t(x,t)$$
+d.h.
+$$ x(t+\Delta t) = x(t) + \Delta t f(x(t),t) + \Delta^2 [f_x(x,t) f(x,t)+f_t(x,t)]+ \Delta^3\cdots.$$
+W"ahrend der (lokale) Fehler-Term in dem Euler-Verfahren mit einem Quadrat in der 
+Zeit-Schrittweite $\Delta t$
+startet, startet der Fehlerterm in dem Verfahren
+$$ x_{i+1} = x_i + \Delta t f(x_i,t_i) + \Delta t^2 [f_x(x_i,t_i) f(x_i,t_i)+f_t(x_i,t_i)]$$
+mit $\Delta t^3$. Da $\Delta t$ klein ist, sollte der Fehler wesentlich kleiner 
+sein. Man kann die Ordnung des Fehlers
+definieren, und Verfahren mit gegebener Ordnung suchen und z.B.\ dabei einen
+m"oglichst gro\ss{}en Stabilit"atsbereich garantieren. Die Theorie der Numerik 
+gew"ohnlicher Differentialgleichungen hat auf diese Weise sehr raffinierte 
+Verfahren entwickelt.
+\par\medskip
+\fpbox{\underline{Worauf kommt es an?}\par
+(1) Wir m"ussen die Schrittweite aus dem Stabilit"atsbereich w"ahlen.\\
+(2) Wir m"ussen die Schrittweite klein genug w"ahlen, um den Fehler klein zu halten.\\
+(3) Falls wir Positivit"atserhaltung ben"otigen, sollten wir  ein implizites
+Verfahren w"ahlen.}
+%===============================================================================
+\subsection*{Aufgaben}
+\begin{auf}\chc\label{block5A2}
+\input{../../Aufgabensammlung/hm695.tex}
+\end{auf}
+\begin{auf}\chc\label{block5A3}
+\input{../../Aufgabensammlung/hm744.tex}
+\end{auf}
+\begin{auf}\chc\label{block5A4}
+\input{../../Aufgabensammlung/hm693.tex}
+\end{auf}
+\begin{auf}\chb\label{block5A5}
+\input{../../Aufgabensammlung/hm696.tex}
+\end{auf}
+\begin{auf}\cha\label{block5A6}
+\input{../../Aufgabensammlung/hm261.tex}
+\end{auf}
+%===============================================================================
+
+
+
+
+

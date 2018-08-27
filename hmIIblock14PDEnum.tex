@@ -1,0 +1,501 @@
+
+
+
+%% ! T E X  root=hmIIneu.tex
+% !TEX root=MA9603.WZW.tex
+% !TEX program = pdflatex
+% !TEX spellcheck = de_DE
+%\setcounter{section}{10}\setcounter{page}{112}
+\section{Numerik Partieller Differentialgleichungen}
+
+
+
+\zbox{
+{\bf Ziele}:
+\begin{itemize}
+\item Finite Differenzenmethode f"ur elliptische PDE's kennen
+\item Linienmethode f"ur parabolische PDE's kennen
+\item Finite Differenzenmethode f"ur parabolische PDE's kennen
+\item Spektralmethoden f"ur elliptische und parabolische PDE's kennen
+\end{itemize}}
+  
+
+\bigskip
+\bigskip
+Wie gew"ohnliche Differentialgleichungen, so k"onnen auch 
+partielle Differentialgleichungen (abgek"urzt: PDE's) 
+h"aufig nicht mehr
+analytisch behandelt werden. Es wurden eine Vielzahl von 
+Methoden entwickelt, um L"osungen numerisch zu approximieren. 
+Wir sehen uns in dieser Lehreinheit einige dieser Methoden an. 
+Letzlich k"onnen Computer nur mit endlich vielen Zahlen umgehen. 
+Daher m"ussen wir die L"osung durch endlich viele Zahlen 
+codieren, oder zumindest approximativ codieren. 
+
+\bigskip
+
+\fpbox{
+Wir haben zwei prinzipielle Wege um eine Funktion 
+$u(x,y)$ durch endlich viele Zahlen darzustellen: (1) Wir sehen uns
+die Funktion an endlich vielen Punkten $(x_i,y_i)$ im Raum 
+an, und erhalten
+eine Liste von Eintr"agen
+$$u(x_1,y_1), u(x_2,y_2), \cdots, u(x_N,y_N).$$
+(2) Wir approximieren den Funktionenraum, d.h. wir w"ahlen endlich viele 
+Basisfunktionen $\varphi_i(x,y)$ und codieren $u(x,y)$ 
+approximativ durch eine Liste von Zahlen
+$$ c_1,\cdots, c_N$$
+dar, wobei wir aus den $c_i$ die Funktion (oder deren Approximation) $u(x,y)$  durch
+$$ u(x,y) = \sum_{i=1}^N c_i \varphi_i(x,y)$$
+rekonstruieren. \\
+Der erste Ansatz f"uhr auf finite Differenzen-Verfahren, der zweite Ansatz auf Spektralmethoden.
+}
+
+%===============================================================================
+
+\begin{figure}[htbp]
+ \centering
+ \rotatebox{180}{
+   \includegraphics[width=10cm]{../figures/pdeNumerikKerze}
+   }
+   \caption{Aufbau des Testproblems.}
+   \label{numPDEtest}
+\end{figure}
+
+
+%===============================================================================
+
+\subsection{Testproblem}
+Wir betrachten eine Kerze unter einem Stab der L"ange $L$, 
+dessen beiden Enden in 
+Eiswasser stecken (Abb.\ref{numPDEtest}). Wir m"ochten die Temperaturverteilung berechnen.
+Sei $u(t,x)$ die Temperatur am Ort $x$ zur Zeit $L$, so finden wir
+$$ u_t(t,x) = \underbrace{u_{xx}(t,x)}_{Diffusion} + \underbrace{f(x)}_{W"armequelle}$$
+(Diffusionskonstante $D$ ist auf 1 gesetzt)
+wobei $f(x)$ die W"armezufuhr der Kerze repr"asentiert. Da diese bei $x=L/2$ stehen soll, w"ahlen wir
+$$ f(x) = 1\quad\mbox{ falls } x\in (L-0.05, L+0.05)\quad\mbox{und } f(x)=0\quad\mbox{sonst}.$$
+Die beiden Enden des Stabes stehen in Eiswasser, also
+kennen wir dort die Temperatur,
+$$ u(t,0)=0, \quad u(t,L)=0.$$
+Wir starten mit einer gegebenen Anfangstemperatur $u_0(x)$,
+$$ u(0,x) = u_0(x) = 0.$$
+z.B. $u_0(x)=0$.\par\medskip
+
+Falls wir noch die W"armeabstrahlung des Stabes integrieren m"ochten, so
+"andert sich die Gleichung leicht
+$$ u_t(t,x) = u_{xx}(t,x)\underbrace{-\mu u(t,x)}_{Abstrahlung} + f(x), \quad u(t,0)=u(t,L)=0,\quad u(0,x)=u_0(x).$$
+\par\medskip
+
+Wenn wir keine Stab, sondern eine Platte der Form $\Omega$ 
+erhitzen (deren R"ander wir ebenfalls k"uhlen), so erhalten wir 
+$$ u_t(t,x) = \Delta u(t,x)-\mu u(t,x) + f(x), \quad u|_{\partial\Omega} = 0,\quad u(0,x)=u_0(x)$$
+(Erinnerung: $\partial\Omega$ bezeichnet den Rand eines Gebietes).
+\par\medskip
+
+Wir werden damit starten, nicht das zeitabh"angige Problem zu betrachten, sondern studieren zun"achst intensiv das station"are Problem. Hier ist 
+$u_t=0$, und wir erhalten die elliptische Gleichung
+$$ 0 = u''(x)-\mu u(x)+f(x), \quad u(0)=u(L)=0$$
+bzw.
+$$  u''(x) -\mu u(x) = -f(x), \quad u(0)=u(L)=0$$
+Diese Gleichung hei\ss{}t (Poisson-Gleichung).\index{Poisson-Gleichung}
+In der zweidimensionalen Situation lautet diese
+$$  \Delta u(x) -\mu u(x) = -f(x), \quad u|_{\partial \Omega}=0.$$
+
+
+
+\subsection{Finite Differenzenmethode f"ur elliptische Differentialgleichungen}
+\index{Differenzenmethode!elliptische Differentialgleichungen}
+
+\subsubsection{Eindimensionale Situation}
+Um zu verstehen, wie wir mit dem Problem umgehen k"onnen, 
+sehen wir uns erst mal den eindimensionalen Fall an:
+$$u''(x) = f(x),\quad u(0)=g_0,\quad u(L)=g_1.$$
+Nat"urlich k"onne wir in diesem Fall die analytische L"osung 
+sofort angeben, wir m"ussen nur zwei mal integrieren:
+$$ 
+u(x) = c_1+c_2\, x - \int_0^x\int_0^{x'} f(x'')\, dx''\, dx'$$
+wobei $c_1$ und $c_2$ durch die Randbedingungen bestimmt sind. 
+Allerdings ist das nicht der Weg, den wir gehen wollen, da diese
+Idee nicht leicht auf h"ohere Dimensionen verallgemeinerbar ist. 
+Wir gehen den Weg, den wir auch zur Herleitung des Euler-Verfahrens 
+f"ur gew"ohnliche Differentialgleichungen gegangen sind: 
+Wir approximieren die Ableitung (Differentialquotient) durch einen
+Differenzenquotient. 
+
+%===============================================================================
+
+\begin{figure}[htbp]
+ \centering
+   \includegraphics[width=10cm]{../figures/secondDeriv.pdf}
+   \caption{Approximation der zweiten Ableitung durch einen Differenzenquotienten.}
+   \label{numPDEdiff}
+\end{figure}
+
+%===============================================================================
+
+\fpbox{
+Um $u''(x)$ zu approximieren, bemerken wir, dass
+$$ u''(x) \approx \frac{u'(x+h/2)-u'(x-h/2)}{h}$$
+und 
+$$  u'(x-h/2) \approx \frac{u(x)-u(x-h)}{h},\qquad
+ u'(x+h/2) \approx \frac{u(x+h)-u(x)}{h}.$$
+Setzen wir dies ineinander ein, so finden wir (siehe auch 
+Abb.~\ref{numPDEdiff})
+$$ u''(x) \approx \frac{u(x-h)-2\, u(x)+u(x+h)}{h^2}.$$
+}
+\bigskip
+
+Nun kehren wir zur"uck zur Gleichung $u''(x) = f(x)$, $u(0)=u(L)=0$. Wir diskretisieren das Intervall $[0,L]$ mit der Schrittweite 
+$h=L/N$, $N\in\N$. Sei $x_i= i\, h$, sodass $x_0=0$, $x_N=L$ 
+und $u^i=u(x_i)$. 
+Dann k"onnen wir $u''(x) = f(x)$ durch
+$$ - f(x_i) = u''(x_i) 
+ \approx \frac{u(x_i-h)-2\, u(x_i)+u(x_i+h)}{h^2}
+= \frac{u^{i-1}-2\, u^i+u^{i+1}}{h^2} \qquad\mbox{f"ur } 
+i=1,\cdots N-1
+$$
+approximieren. Die Punkte $u^0=u(0)=0$ 
+und $u^N=u(L)=0$ sind besonders, da
+deren Werte durch die Randbedingungen schon gegeben sind. Wir stellen 
+also f"ur $i=1$ und $i=N-1$ die Gleichungen um,
+\begin{eqnarray*}
+\frac{u^{0}-2\, u^1+u^{2}}{h^2} = -f(x_1) &\Leftrightarrow & 
+\frac{-2\, u^1+u^{2}}{h^2} = -f(x_1)\\
+\frac{u^{N-2}-2\, u^{N-1}+u^{N}}{h^2} = -f(x^{N-1}) &\Leftrightarrow & 
+\frac{u^{N-2}-2\, u^{N-1}}{h^2} = -f(x_{N-1}). 
+\end{eqnarray*}
+Wir erhalten also ein system linearer Gleichungen f"ur die Unbekannten
+$u^1,\cdots,u^{N-1}$. In Matrix-Schreibweise haben wir 
+$$ A\vec{u} = \vec{F}$$
+mit
+$$ 
+\vec{u} = \left(\begin{array}{c}u^1\\\vdots\\u^{N-1}\end{array}\right),
+\quad
+\vec{F} = \left(\begin{array}{l}-f(x_1)\\-f(x_2)\\\vdots\\-f(x_{N-2})\\-f(x_{N-1})\end{array}\right),\quad 
+A = h^{-2}\,\left(
+\begin{array}{ccccccc}
+-2 & 1 & 0 & 0 &\cdots & 0 & 0\\
+ 1 &-2 & 1 & 0 &\cdots & 0 & 0\\
+ 0 & 1 &-2 & 1 &\cdots & 0 & 0\\
+   &   &   &   &\ldots &   &  \\
+ 0 & 0 & 0 & 0 &\cdots & 1 & -2
+ \end{array}\right). 
+$$
+Diese Approximation nennt man die Finite-Differnzen-methode zur L"osung
+von PDE's. \index{Finite Differenzen}
+\fpbox{
+Dieses lineare Gleichungssystem m"ussen wir l"osen. 
+Wir haben eine Methode gut trainiert: das Gau\ss{}-Verfahren. Aber
+auch die Singul"arwert-Zerlegung k"onnen wir dazu nutzen. Haben
+wir $A$ erst einmal als
+$$A = V \Sigma U$$
+dargestellt, wobei $U,V$ orthogonale Matrizen sind, und $\Sigma$ eine
+Diagonalmatrix ist, so  nutzen wir, dass $U^TU=V^TV=I$ und die Inverse
+einer Diagonalmatrix $\Sigma$ leicht zu berechnen ist (einfach die inversen der Diagonalelemente in die Diagonale schrieben). Wir erhalten
+$$ A\vec u = \vec F
+\quad\Leftrightarrow\quad
+U\Sigma V \vec u = \vec F
+\quad\Leftrightarrow\quad
+\vec u = V^T \Sigma^{-1} U^T \vec F.$$
+F"ur gr"o\ss{}e Matrizen ist (geschickt implementiert) der 
+Weg "uber die Singul"arwertzerlegung (oder anderer, "ahnliche 
+ Zerlegungen) 
+oft effizienter als das Gau\ss-Verfahren. 
+}
+\par\bigskip
+
+Nun wissen wir, wie wir die Gleichung ohne Abstrahlung diskretisieren. 
+Was passiert, wenn wir Abstrahlung noch mit einbeziehen? Der Differentialoperator und die rechte Seite wird exakt genausi wie vorher disretisiert; auf der linkten Seite erscheint allerdings noch ein zus"atzlicher Term.
+\begin{eqnarray*}
+u''(x) - \mu u(x) &=& f(x)\\
+      &\downarrow&\\
+ A \vec u - \mu\vec u &=& \vec F
+\end{eqnarray*}
+Wir haben wirder ein LGS in $\vec u$, das wir mit den uns zur Verf"ugung stehenden Methoden l"osen k"onnen.
+
+\begin{bspX}
+Wir w"ahlen nun $L=1$. 
+Wir sehen uns verschiedene Diskretisierungen an (Abb.~ \ref{numPDEFinDiffExpl}) und finden
+eine gute Konvergenz ab 50 bis 100 Punkte.\\
+Analog f"ur die Gleichung 
+$$ - u''(x) = -\mu u(x) +f(x)$$
+wobei wir $\mu =100$ w"ahlen. Auch hier konvergiert das Verfahren
+gut f"ur $N\approx 50$ oder $N\approx 100$.
+\end{bspX}
+
+%===============================================================================
+
+\begin{figure}[htbp]
+ \centering
+   \includegraphics[width=10cm]{../figures/diffFinElem.pdf}
+   \caption{Approximation der L"osung con $u''(x) = -f(x)$ (links)
+   und $u''(x) = \mu u(x)-f(x)$ (rechts).}
+   \label{numPDEFinDiffExpl}
+\end{figure}
+
+%===============================================================================
+
+\subsection*{Aufgaben}
+\begin{auf}\chb\label{bloc11XA1}
+\input{../../Aufgabensammlung/hmIIpde01.tex}
+\end{auf}
+
+\begin{auf}\chc\label{bloc11XA2}
+\input{../../Aufgabensammlung/hmIIpde02.tex}
+\end{auf}
+
+%===============================================================================
+
+
+\subsubsection{Zweidimensionales Gebiet}
+
+Der Weg f"ur en zweidimensionales Gebiet ist der Gleiche wir f"ur das eindimensionale Gebiet. Nur m"ussen wir diesmal $\Delta u = u_{xx}+u_{yy}$ approximieren. 
+
+\fpbox{
+Um $\Delta u = u_{xx}+u_{yy}$ zu approximieren, diskretisieren wir zun"acht
+den zweidimensionalen Raum, $(x,y) = (i\, h, j\, h)$ f"ur $i,j\in\Z$. 
+Sei weiter $u^{i,j}\approx u(i\, h,j\, h)$, die Approximation 
+der Funktion $u$ am Punkt $(x,y) = (i\, h, j\, h)$. \\
+Aus den "Uberlegungen von oben entnehmen wir
+$$ u_{xx}(i\, h, j\, h) = h^{-2}(u^{i-1,j}-2u^{i,j}+u^{i+1,j})$$
+und 
+$$ u_{yy}(i\, h, j\, h) = h^{-2}(u^{i,j-1}-2u^{i,j}+u^{i,j+1}).$$
+Daher:
+$$ \Delta u =  h^{-2}(u^{i-1,j}+u^{i,j-1}-4u^{i,j}+u^{i+1,j}+u^{i,j+1})
+.$$
+Das ist die Stern-Approximation des Laplace-Operators, da die Punkte "uber und unter und rechts und links von dem Bezugspunkt ben"otigt werden (Abb.~\ref{pdeNumstern}).
+}
+
+
+%===============================================================================
+
+\begin{figure}[htbp]
+ \centering
+   \includegraphics[width=5cm]{../figures/pdeNumStertn.pdf}
+   \caption{Approximation des Laplace-Operators durch den Vier-Punkte-Stern (die Gewichte der Formel sind an den Kreisen annotiert). }
+   \label{pdeNumstern}
+\end{figure}
+
+%===============================================================================
+
+Damit k"onnen wir analog wie oben die Partielle Differentialgleichung
+durch ein lineares Gleichungssystem approximieren, das wir mit unseren Methoden l"osen k"onnen.
+
+
+\subsection{Spektralmethode f"ur Elliptische Gleichungen}\index{Spektralmethode}
+Die Differenzenmethode zielt auf die Approximation des Raumes durch
+diskrete Punkte. Die Spektralmethode geht einen v"ollig anderen Weg: diese zielt auf die Approximation von Funktionen durch eine dem Problem besonders
+angemessene Funktionenfamilie. Die Wahl dieser Ansatzfunktionen ist eine 
+Kunst und bestimmt wesentlich die Qualit"at des Verfahrens. 
+Um einen Einblick in die Idee dieser Methode zu erhalten
+ betrachten wir wieder das eindimensionale Problem
+ $$ u''(x) = -f(x),\qquad u(0)=u(L)=0. $$
+Wir wollen Ansatzfunktionen $\varphi_i(x)$ finden, f"ur das dieses
+Problem einfach zu handhaben ist. Dazu stellen wir folgende "Uberlegung an: Die zweite Ableitung ist ein Operator. Wir k"onnen 
+auch definieren
+$$ A u = u''\qquad \mbox{ f"ur Funktionen, f"ur die gilt } u(0)=u(L)=0.$$
+$Au$ sieht aus wie das Produkt einer Matrix $A$ mit einem Vektor $u$. 
+Und tats"achlich geht die Analogie weit (so sind Matrizen und unser Operator $A$ lineare Abbildungen). Insbesondere haben wir gesehen, 
+dass Eigenvektoren f"ur Matrizen besonders wichtig sind. 
+Das f"uhrt auf das Problem, f"ur unseren Operator $A$ Eigenfunktionen zu finden
+
+\begin{sdefi} Eine Funktion $\varphi(x)\not = 0$, f"ur die gilt 
+$$ A\varphi(x)  = \lambda \varphi(x)$$
+und
+$$ \varphi(0)=\varphi(L)=0$$
+hei"ss{}t Eigenfunktion des Operators $A$
+zum Eigenwert $\lambda$. 
+\end{sdefi}
+
+
+ Wir bestimmen die Eigenfunktionen zu $A$:\par\medskip
+\fpbox{ Die reellen Eigenfunktionen/Eigenwerte von $A$ lauten
+ $$ \varphi_n(x) = \sqrt{2}\, \sin(n\,\pi x/L), \quad
+\quad\lambda_n =  \frac{- n^2\pi^2}{L^2}.$$
+}
+\par\medskip
+{\bf Beweis:}
+Zun"achst ist $\varphi''(x)=\lambda\varphi(x)$ f"ur gegebenes $\lambda$
+eine lineare Differentialgleichung. Wir wissen
+$$ \varphi(x) = C_1 e^{\sqrt{\lambda}\, x}+ C_2e^{-\sqrt{\lambda}\, x}.$$
+wobei $C_1$, $C_2$ Konstanten sind, um $\varphi(0)=\varphi(L)=0$ zu erf"ullen.\\
+$\bullet$ {\it Fall 1:} Falls $\lambda>0$, so haben wir f"ur $x=0$
+$$ 0=\varphi(0)= C_1+C_2=0,$$
+d.h. $C_2=-C_1$. Bei $x=L$ finden wir daher
+$$ 0 = \varphi(L) = C_1 (e^{\sqrt{\lambda}\, L}-e^{-\sqrt{\lambda}\, L})$$
+und da f"ur $L>0$, $\lambda>0$ folgt, dass
+$e^{\sqrt{\lambda}\, L}-e^{-\sqrt{\lambda}\, L}\not = 0$, so haben wir
+sofort $C_1=C_2=0$. Da eine Eigenfunktion (wie ein Eigenvektor) nicht
+gleich Null sein darf, finden wir keinen Eigenfunktionen f"ur $\lambda>0$. \\
+$\bullet$ {\it Fall 2:} $\lambda =0$. Dann ist $\varphi(x) = C_1+C_2 x $, und
+die Randbedingungen ergeben wieder dass $\varphi(x) = 0$.\\
+$\bullet$ {\it Fall 3:} $\lambda<0$. Wir schreiben $\lambda = - \omega^2$, und
+nutzen das reelle Fundamentalsystem
+$$ \varphi(x) = C_1 \sin(\omega x) + C_2 \cos(\omega x).$$
+Wegen $\varphi(0) = 0$ finden wir sofort 
+$$ 0 = C_1\, 0 + C_2\quad\Rightarrow C_2 = 0.$$
+ Nun m"ussen wir noch $\varphi(L)=0$ erf"ullen, d.h. $C_1\sin(\omega L)=0$. Da $C_1$ nicht gleich Null sein darf (sonst w"are $\varphi(x)=0$), muss gelten
+ $$ \sin(\omega L) = 0 \quad\Rightarrow \omega =\omega_n= \frac{n\pi}{L},\quad n=1,2,3,\cdots.$$
+ Wir haben also ein System von Eigenfunktionen $\tilde \varphi_n(x) = 
+ \sin(n\,\pi x/L)$. Aus Gr"unden, die erst sp"ater klar werden, normieren wir diese Funktionen, und w"ahlen als Ansatzfunktionen
+ $$ \varphi_n(x) = \sqrt{2/L}\, \sin(n\,\pi x/L), \quad
+ \omega_n = \frac{n\pi}{L}, \quad\lambda_n =  \frac{- n^2\pi^2}{L^2}.$$
+
+
+\begin{sbem}
+Man kann zeigen, dass auch in $\C\setminus\R$ keine Eigenwerte liegen. 
+\"Ahnlich wie bei einer Matrix, haben wir also spezielle Werte erhalten,
+die Eigenwerte sind. Bei einer $\R^{n\times n}$-Matrix bekommen wir h"ohstens $n$ Eigenwerte; da der Raum der Funktionen unendlichdimensional ist, erhalten wir hier unendlich viele Eigenwerte.
+\end{sbem}
+
+Definiere auf dem Raum der quadratintegrierbaren Funktionen 
+das Skalarprodukt
+$$ <f(x),g(x)> = \int_0^L f(x)\, g(x)\, dx.$$
+Die Funktionen $\varphi_n(x)$ sind orthonormal, d.h. 
+f"ur $n\not = m$ gilt
+$$\int_0^L \varphi_n(x)\, \varphi_n(x)\, dx = 1,\quad
+\int_0^L \varphi_n(x)\, \varphi_m(x)\, dx = 0.$$
+Das ist nur elementares Integrieren, das zeigen wir hier nicht.\\
+{\it Bem.: Man kann sogar zeigen, dass i einem geeigneten Sinne diese Funktionen eine Orthonormalbasis des Funktionenraums bilden, d.h. jede Funktion $g(x)$ sich durch 
+$$ \sum_{i=0}^\infty c_n \varphi:n(x) = g(x)$$
+f"ur geeignete $c_i\in\R$ darstellen l"asst.
+}\par\bigskip
+
+
+Nun m"ochten wir 
+$$A u(x) = f(x)$$
+approximativ/numerisch l"osen. Wir setzen an
+$$ u(x) = \sum_{n=1}^\infty c_n \varphi_n(x).$$
+Dann k"onnen wir $Au$ sofort ausrechnen (die $\varphi_n$ sind
+ja Eigenfunktionen von $A$),
+$$A u(x) 
+=  A \sum_{n=1}^\infty c_n \varphi_n(x)
+=   \sum_{n=1}^\infty c_n A\varphi_n(x)
+=   \sum_{n=1}^\infty c_n  \frac{- n^2\pi^2}{L^2}\, \varphi_n(x)
+$$
+Also wird aus $Au(x) = f(x)$ die Gleichung
+$$ \sum_{n=1}^\infty c_n  \frac{- n^2\pi^2}{L^2}\, \varphi_n(x) = f(x).$$
+\fpbox{
+Wie k"onnen wir dieses Gleichungssystem l"osen? Um $c_{i_0}$
+zu erhalten multiplizieren wir die Gleichung mit $\varphi_{i_0}(x)$
+und integrieren zwischen $0$ und $L$, 
+$$  \sum_{n=1}^\infty c_n  \frac{- n^2\pi^2}{L^2}\, <\varphi_{i_0}(x)\, \varphi_n(x)> = <\varphi_{i_0}(x)\,,f(x)>.$$
+Da nun $<\varphi_{i_0}(x)\, \varphi_n(x)>=0$ f"ur $n\not = i_0$ und 
+$<\varphi_{i_0}(x)\, \varphi_n(x)> = 1$ f"ur $n=i_0$, reduziert sich die Gleichung auf
+$$ c_{i_0}  \frac{- {i_0}^2\pi^2}{L^2}\,  = <\varphi_{i_0}(x)\,,f(x)>
+$$
+und also
+$$ c_{i_0} =  \frac{-\,L^2\,\, <\varphi_{i_0}(x)\,,f(x)>}{{i_0}^2\pi^2}
+.$$
+Wir haben also auf der rechten Seite einfach ein Intregral auszuwerten,
+bei dem der Integrand aus dem Produkt zweier bekannter Funktionen besteht. Das Problem ist viel einfacher zuu l"osen als eine PDE. \\
+Eine numerische Approximation nutzt nun nur eine endliche Zahl von
+Basisfunktionen (auch: ''Moden'' genannt\index{Moden}),
+$$u(x)\approx \sum_{i=1}^N c_i \varphi_i(x).$$
+}
+
+
+
+
+\begin{bspX}
+Wie bei den finiten Elementen w"ahlen wir
+ $L=1$ und 
+  $f(x) = 1$ falls $x\in (L/2-0.05, L/2+0.05)$, Null sonst. 
+Wir sehen uns verschiedene Diskretisierungen an (Abb.~ \ref{numPDESpekExpl}) und finden ohne Abstrahlung ($\mu=0$) 
+schon eine gute Konvergenz bei 4-8 Moden; mit Abstrahlung ($\mu=100$) 
+ben"otigen wir wesentlich mehr Moden ($\approx 40)$. 
+
+\end{bspX}
+
+%===============================================================================
+
+\begin{figure}[htbp]
+ \centering
+   \includegraphics[width=10cm]{../figures/diffFNumSpektral.pdf}
+   \caption{Approximation der L"osung von $u''(x) = -f(x)$ (links)
+   und $u''(x) = \mu u(x)-f(x)$ (rechts) durch die Spektralmethode. 
+   Typisch ist die recht schnelle Konvergenz, aber auch die Neigung 
+   zu r"aumlichen Schwingungen.}
+   \label{numPDESpekExpl}
+\end{figure}
+
+
+%===============================================================================
+
+\subsection*{Aufgaben}
+\begin{auf}\chc\label{bloc11XA3}
+\input{../../Aufgabensammlung/hmIIpde03.tex}
+\end{auf}
+
+\begin{auf}\chd\label{bloc11XA4}
+\input{../../Aufgabensammlung/hmIIpde04.tex}
+\end{auf}
+
+%===============================================================================
+
+
+\subsection{W"armeleitungsgleichung}
+
+Nun wenden wir uns der W"armeleitungsgleichung 
+$$ u_t(t,x) = u_{xx}(t,x)$$
+zu.Dabei ist $t\in\R$, $t\geq 0$, die Zeit, und $x\in[0, L]$ der Raum.
+Die Funktion ist zur Zeit $t=0$ durch $u_0(x)$ gegeben. Weiter seien die
+Randbedingungen 
+$$ u(t,0)=0,\qquad u(t,L)=0$$
+vorgeschrieben. 
+  Wir sehen uns drei numerische Methoden an.
+
+\subsubsection{Linienmethode}
+
+Die rechte Seite sit einfach ein Laplace-Operator. Wir k"onnen 
+also den Raum $[0,L]$ wieder wie oben diskretisieren, 
+$x_i = i\, h$, und auch die rechte Seite (die zweite Ableitung)
+durch einen Differenzenquotient ausdr"ucken.
+Sei
+$$ u^i(t) = u(t,x_i)$$
+so gilt 
+$$ \frac{\partial}{\partial t}u(t,x) \approx h^{-2} (u(t,x-h)-2\, u(t,x)+ u(t,x+h))$$
+Das k"onnen wir aber als 
+System von gew"ohnlicher Differentialgleichungen schrieben
+$$ \frac d {dt} u^i(t) = h^{-2} (u^{i-1}(t) - 2 u^i(t) + u^{i+1}(t)).$$
+Dieses System von gew"ohnlicher Differentialgleichungen
+(wie sehen die Differentialgleichungen f"ur $i=1$ und $i=N-1$ aus?
+Hinweis: Randwerte!) 
+kann man mit Hilfe z.B. des expliziten oder auch impliziten Euler-Verfahrens numerisch l"osen.
+
+\subsubsection{Finite Differenzen}
+Gehen wir weiter und nutzen das explizite Euler-Verfahren um die 
+Gew"ohnlichen Differentialgleichungen, die wir eben erhalten haben
+auch in der Zeit zu diskretisieren, so finden wir bei einer Zeit-Schrittweite von $\delta$
+$$ u^i(t+\delta) = u^i(t)+ \frac{\delta}{h^2}(u^{i-1}(t) - 2 u^i(t) + u^{i+1}(t)).$$
+Definieren wir $u^i_n = u^i(n\delta)$, so erhalten wir 
+$$ u^i_{n+1} = u^i_n + 
+\frac{\delta}{h^2}(u^{i-1}_n - 2 u^i_n + u^{i+1}_n)
+.$$
+Das ist die finite Differenzenmethode f"ur die W"armeleitungsgleichung.
+
+
+\subsubsection{Spektralmethode}
+
+Nun erinnern wir uns, dass wir oben Funktionen gefunden haben, f"ur 
+die 
+$$ A\varphi_n(x) = \varphi_n''(x) =\lambda_n \varphi(x)$$
+gilt. Wenn wir definieren
+$$\psi_n(t,x) = e^{\lambda_n t}\,\varphi_n(x) $$
+so best"atigen wir leicht, dass 
+$$ (\psi_n)_t(t,x) = (\psi_n)_{xx}(t,x)$$
+d.h., dass diese Funktionen L"osungen der W"armeleitungsgleichung sind, die auch
+die Randbedingungen $\psi(t,0)=0=\psi_n(t,L)$ erf"ullen. 
+Wenn wir Konstanten $c_i$ finden, sodass
+$$  \sum_{n=0}^\infty c_n \psi_n(0,x) = u_0(x)$$
+(Erinnerung: $u(0,x)=u_0(x)$), so ist die L"osung
+$$ u(t,x) = \sum_{n=0}^\infty c_n \psi_n(t,x)$$
+bestimmt. Das Problem, die Koeffizienten $c_n$ zu bestimmen
+haben wir aber schon oben, als wir die elliptische PDE
+betrachteten, gel"ost -- wenn wir $\psi_n(t,x) = e^{\lambda_n t}\,\varphi_n(x) $nutzen, so lautet das Problem n"amlich
+$$  \sum_{n=0}^\infty c_n \varphi_n(x) = u_0(x)$$
+und also 
+$$ c_{i_0} =  \frac{-\,L^2\,\, <\varphi_{i_0}(x)\,,u_0(x)>}{{i_0}^2\pi^2}
+.$$
+
+
